@@ -1,0 +1,101 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20-Mar-2017, 15:14:30
+    Author     : LEBAHDESA
+*/
+body{
+    background: linear-gradient(to bottom,rgb(6, 78, 158) 0,rgb(53, 102, 156) 38%,rgb(26, 92, 167) 75%) #214C7B;
+    background-repeat: repeat-x;
+    background-size: 100px 1500px;
+}
+.panel{
+    width: 33%;
+    margin-top: 100px;
+    background: #000;
+    border-radius: 0px;
+    background: #f4f4f4;
+    margin-left: 33%;
+}
+.form-group{
+    padding-bottom: 45px;
+}
+.panel-body {
+    padding-bottom: 0px;
+}
+.panel > .panel-heading{
+    background-color:#FFF;
+    margin: 0px;
+    padding:0px;
+    padding-bottom: 10px;
+}
+.panel-footer{
+    padding:0px;
+}
+.panel-footer img{
+    width: 100%;
+    height: 110px;
+    opacity: 50%;
+}
+.form-control{
+    border-radius: 0px;
+    border: 1px solid #EC6F24;
+}
+.logo-rs img{
+    width: 100%;
+}
+.keterangan{
+    padding: 0px;
+    margin: 0px;
+    padding-top: 5px;
+    color:#EC6F24;
+}
+.app{
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+hr{
+    margin: 0px;
+    border:1px solid #245d9d;
+    width: 93%;
+}
+.control-label{
+    color:#101010;
+    
+}
+.btn-gue, .btn-login{
+    background-image: linear-gradient(to bottom,rgba(254,239,107,1) 0,rgb(255, 227, 1) 47%,rgba(255,255,21,1) 100%);
+    border:1px solid #1BCD00;
+    color:#222;
+    font-size: 14px;
+}
+
+@media (max-width: 767px) {
+    .panel{
+    width: 95%;
+    margin-top: 10px;
+    background: #000;
+    border-radius: 0px;
+    background: #f4f4f4;
+    margin-left: 3%;
+}
+
+.form-group{
+    padding-bottom: 15px;
+    padding-top: 0px;
+}
+.logo-rs img{
+    width: 20%;
+    margin-left: 40%;
+}
+.keterangan {
+    padding: 15px;
+    margin: 15px;
+    padding-top: 0px;
+}
+
+}

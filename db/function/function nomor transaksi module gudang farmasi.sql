@@ -1,0 +1,10 @@
+DELIMITER//
+CREATE FUNCTION create_nota()
+RETURN varchar(6);
+
+BEGIN
+DECLARE nota;
+SET nota='';
+RETURN nota;
+END;//
+DELIMITER 

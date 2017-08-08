@@ -1,0 +1,1 @@
+Maaf halaman ini belum siap, kembali ke halaman <a href='<?php echo base_url()?>'>dashboard</a>
