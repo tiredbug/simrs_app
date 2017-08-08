@@ -101,6 +101,7 @@
                     <ul>
                         <li>
                             <a href="<?php echo base_url().'e-lab/kunjungan/register'?>">
+                                <i class="entypo-pencil"></i>
                                 <span class="title">Register</span>
                             </a>
                         </li>
@@ -113,18 +114,20 @@
 
                 <li class="has-sub">
                     <a href="">
-                        <i class="entypo-pencil"></i>
+                        <i class="entypo-keyboard"></i>
                         <span class="title">Proses  Data</span>
                     </a>
                     <ul>
                         <li>
                             <a href="<?php echo base_url().'e-lab/kunjungan/datakunjungan'?>">
+                                <i class="entypo-folder"></i>
                                 <span class="title">Data Kunjungan</span>
                             </a>
                         </li>
 
                         <li>
                             <a href="<?php echo base_url().'e-lab/kunjungan/histori'?>">
+                                <i class="entypo-docs"></i>
                                 <span class="title">History Layanan</span>
                             </a>
                         </li>
@@ -162,11 +165,13 @@
                     <ul>
                         <li>
                             <a href="#">
+                                <i class="entypo-tools"></i>
                                 <span class="title">Edit Profile</span>
                             </a>
                         </li>
                         <li>
                             <a href="<?php echo base_url().'e-lab/Keluar'?>" )>
+                                <i class="entypo-logout"></i>
                                 <span class="title">Keluar</span>
                             </a>
 			            </li>
@@ -188,7 +193,7 @@
                             <li class="caret"></li>
                             <li>
                                 <a href="#">
-                                    <i class="entypo-user"></i>
+                                    <i class="entypo-tools"></i>
                                     Edit Profile
                                 </a>
                             </li>
