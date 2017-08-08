@@ -95,11 +95,13 @@
                     <ul>
                         <li>
                             <a href="<?php echo base_url().'pendaftaran/pasien/register'?>">
+                                <i class="entypo-pencil"></i>
                                 <span class="title">Pasien Baru</span>
                             </a>
                         </li>
                         <li>
                             <a href="<?php echo base_url().'pendaftaran/pasien/database'?>">
+                                <i class="entypo-drive"></i>
                                 <span class="title">Database Pasien</span>
                             </a>
 			             </li>
@@ -114,6 +116,7 @@
                     <ul>
                         <li>
                             <a href="<?php echo base_url().'pendaftaran/register/rajal'?>">
+                                <i class="entypo-back"></i>
                                 <span class="title">Rawat Jalan</span>
                             </a>
                         </li>
@@ -139,6 +142,7 @@
                     <ul>
                         <li>
                             <a href="<?php echo base_url().'pendaftaran/informasi/rajal'?>">
+                                <i class="entypo-drive"></i>
                                 <span class="title">Rawat Jalan</span>
                             </a>
                         </li>
@@ -160,6 +164,7 @@
                     <ul>
                         <li>
                             <a href="<?php echo base_url().'pendaftaran/jadwaldokter/rajal'?>">
+                                <i class="entypo-calendar"></i>
                                 <span class="title">Rawat Jalan</span>
                             </a>
                         </li>
@@ -175,11 +180,13 @@
                     <ul>
                         <li>
                             <a href="#modal-profile" data-toggle="modal" >
+                                <i class="entypo-tools"></i>
                                 <span class="title">Edit Profile</span>
                             </a>
                         </li>
                         <li>
                             <a href="<?php echo base_url().'pendaftaran/Keluar'?>" )>
+                                <i class="entypo-logout"></i>
                                 <span class="title">Keluar</span>
                             </a>
 			            </li>
@@ -201,7 +208,7 @@
                             <li class="caret"></li>
                             <li>
                                 <a href="#modal-profile" data-toggle="modal" >
-                                    <i class="entypo-user"></i>
+                                    <i class="entypo-tools"></i>
                                     Edit Profile
                                 </a>
                             </li>
