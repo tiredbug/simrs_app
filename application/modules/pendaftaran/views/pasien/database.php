@@ -337,7 +337,7 @@
             },
             success:function(respon){
                 loadingw_hide();
-                $(".kab").html(respon).focus();
+                $(".kab").html(respon);
             }
         })
     })
@@ -356,7 +356,7 @@
             },
             success:function(respon){
                 loadingw_hide();
-                $(".kec").html(respon).focus();
+                $(".kec").html(respon);
             }
         })
     })
@@ -375,11 +375,14 @@
             },
             success:function(respon){
                 loadingw_hide();
-                $(".desa").html(respon).focus();
+                $(".desa").html(respon);
             }
         })
     })
 
+    $(".desa").change(function(){
+        $table3.DataTable().ajax.reload()
+    })
 
     });
     
