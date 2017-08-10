@@ -289,6 +289,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <p>
+                            <button class="btn btn-success" type="button">Registrasi kunjungan</button>
+                            <button class="btn btn-danger" type="button">Batal</button>
+                        </p>
+                    </div>
                 </div>
                 
             </div>
@@ -326,12 +332,16 @@
             var nrm=$(this).val()
             $.ajax({
                 type:"POST",
-                url:base_url+'pendaftaran/register_api/cek_nrm',
+                url:base_url+'igd/kunjungan_api/cek_pasien',
                 data:'nrm='+nrm,
                 dataType:"json",
                 error:function(xhr, desc, err)
                 {
-                    alert('Gagal periksa nomor rekam medis ke server.');
+                    swal({
+                        title:'Koneksi terputus !',
+                        text:'Periksa koneksi jaringan anda lalu coba kembali',
+                        imageUrl:base_url+'template/assets/img/diskonek.png',
+                    })
                     loading_hide();
                 },
                 success:function(json)
@@ -339,19 +349,18 @@
                     loading_hide();
                     if(json.success)
                     {
-                        $("#cb").focus();
-                        $(".nama").html(json.data.bio.nama)
-                        $(".nik").html(json.data.bio.nik)
-                        $(".as").html(json.data.bio.asu)
-                        $(".jkel").html(json.data.bio.jk)
+                        $(".nama").html(json.data.nama)
+                        $(".nik").html(json.data.nik)
+                        $(".as").html(json.data.asu)
+                        $(".jkel").html(json.data.jk)
                         $(".umur").html(json.data.umur)
-                        $(".kt").html(json.data.ht_k+' yang lalu.')
-                        $(".alamat").html(json.data.bio.alamat)
+                        $(".kt").html(json.data.kunjungan_t+' yang lalu.')
+                        $(".alamat").html(json.data.alamat)
                     }
                     else
                     {
                         
-                        toastr.error(json.pesan_err);
+                        swal(json.pesan.title,json.pesan.isi,'error')
                         $("#nrm").val('').focus();
 
                         $(".nama").html('')
@@ -363,9 +372,9 @@
                         $(".alamat").html('')
                     }
 
-                    if(json.data.stt_las_k)
+                    if(json.data.stt_k_last)
                     {
-                        sweetAlert("Kunjungan terakhir", json.data.ht_k+' yang lalu.', "success");
+                        sweetAlert("Kunjungan terakhir", json.data.kunjungan_t+' yang lalu.', "success");
                     }
 
                 }
@@ -378,11 +387,15 @@
         var cb=$(this).val();
         $.ajax({
             type:"POST",
-            url:base_url+'pendaftaran/register_api/get_klp',
+            url:base_url+'igd/kunjungan_api/get_klp',
             data:'cb='+cb,
             error:function(xhr, desc, err)
             {
-                alert('Gagal mengambil kelompok perserta dari server.')
+                swal({
+                    title:'Koneksi terputus.',
+                    text:'Koneksi keserver terputus, periksa koneksi lalu coba lagi',
+                    imageUrl:base_url+'template/assets/img/diskonek.png'
+                })
                 loading_hide()
             },
             success:function(html)
@@ -392,115 +405,7 @@
             }
         })
     })
-    $("#kelompok").change(function(){
-        $("#kelas").focus();
-    })
-    $("#kelas").change(function(){
-        $("#tgl_daftar").focus();
-    })
-    $("tgl_daftar").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#jam_daftar").focus()
-        }
-    })
-    $("#jam_daftar").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#cr").focus()
-        }
-    })
-    $("#cr").change(function(){
-        $("#asal_rujuk").focus();
-    })
-    $("#asal_rujuk").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#nomor_rujukan").focus();
-        }
-    })
-    $("#nomor_rujukan").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#tgl_rujukan").focus();
-        }
-    })
-    $("#tgl_rujukan").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#jam_rujuk").focus();
-        }
-    })
-    $("#jam_rujuk").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#ppk_rujuk").focus();
-        }
-    })
-    $("#ppk_rujuk").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#diagnosa").focus();
-        }
-    })
-    $("#diagnosa").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#nm_k").focus();
-        }
-    })
-    $("#nm_k").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#hub_k").focus();
-        }
-    })
-    $("#hub_k").change(function(e){
-        if(e.which==13){
-            $("#alamat_k").focus();
-        }
-    })
-    $("#alamat_k").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#hp_k").focus();
-        }
-    })
-    $("#hp_k").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#poli").focus();
-        }
-    })
-    $("#poli").change(function(){
-        loading_show();
-        var id=$(this).val();
-        $.ajax({
-            type:"POST",
-            url:base_url+'pendaftaran/register_api/get_drpiket',
-            data:'poli='+id,
-            dataType:'json',
-            error:function(xhr, desc, err)
-            {
-                alert('Gagal mengambil data dokter piket dari server.');
-                loading_hide();
-            },
-            success:function(json)
-            {
-                loading_hide();
-                $('#dokter').empty();
-                $.each(json.html, function(i, isi) {
-                    $('#dokter').append('<option value="' + isi.id + '">' + isi.value + '</option>');
-                })
-                $('#dokter').trigger('focus');
-
-            }
-        })
-    })
     
-    $("#dokter").change(function(){
-        $(".btn-simpan").focus();
-    })
 
     $(".btn-simpan").click(function(e){
         var respon=validasi();
