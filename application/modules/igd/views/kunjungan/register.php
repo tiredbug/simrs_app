@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="panel-body">
-        <form class="form-horizontal form-rajal">
+        <form class="form-horizontal form-igd">
         <div class="row">
             <div class="col-sm-7">
                 <h6 class="bold"><i class='entypo-sweden'></i> INFORMASI KUNJUNGAN</h6>
@@ -42,7 +42,8 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">Kelompok Peserta :</label>
                     <div class="col-sm-9">
-                        <select name="kelompok" class="form-control  " id="kelompok">
+                        <select name="kelompok" class="form-control" id="kelompok">
+                        <option value=''>-- Pilih --</option>
                         </select>
                     </div>
                 </div>
@@ -50,7 +51,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">Kelas Perawatan :</label>
                     <div class="col-sm-9">
-                        <select name="kelas" class="form-control">
+                        <select name="kelas" class="form-control" id="kelas">
                             <option value=''>-- Pilih --</option>
                             <?php 
                             foreach($kelas->result() as $kls)
@@ -166,7 +167,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">Dokter :</label>
                     <div class="col-sm-9">
-                        <select class="form-control  " name="dokter" id="dokter">
+                        <select class="form-control" name="dokter" id="dokter">
                             <option value=''>-- Pilih --</option>
 
                             <?php
@@ -291,7 +292,7 @@
                 <div class="form-group">
                     <div class="col-sm-9 col-sm-offset-3">
                         <p>
-                            <button class="btn btn-success" type="button">Registrasi kunjungan</button>
+                            <button class="btn btn-success btn-register" type="button">Registrasi kunjungan</button>
                             <button class="btn btn-danger" type="button">Batal</button>
                         </p>
                     </div>
@@ -356,6 +357,7 @@
                         $(".umur").html(json.data.umur)
                         $(".kt").html(json.data.kunjungan_t+' yang lalu.')
                         $(".alamat").html(json.data.alamat)
+                        $("#nrm").closest('div.form-group').removeClass('has-error').addClass('has-success').find('.text-danger').remove();
                     }
                     else
                     {
@@ -406,57 +408,81 @@
         })
     })
     
+    $(".btn-register").click(function(){
+        var $this=$(this);
+        var data=$(".form-igd").serialize();
+        $this.html("<i class='fa fa-spin fa-spinner'></i> Menyimpan kunjungan...");
+        loading('show');
+        $.ajax({
+            type:"POST",
+            url:base_url+'igd/kunjungan_api/register_kunjungan',
+            data:data,
+            dataType:'json',
+            error:function()
+            {
+                $this.html("Register kunjungan");
+                swal("Gagal terhubung ke server","Periksa jaringan LAN atau koneksi jaringan anda dan coba kembali","error");
+                loading('hide')
+            },
+            success:function(json)
+            {
+                
+                if(json.success)
+                {
+                    $(".form-group").removeClass('has-error')
+                                    .removeClass('has-success');
+                    $(".text-danger").remove();
+                    $this.html("Register kunjungan");
+                    loading('hide')
+                    swal("Berhasil",'Kunjungan IGD berhasil didaftarkan','success');
+                    $(".form-igd").trigger('reset')
 
-    $(".btn-simpan").click(function(e){
-        var respon=validasi();
-        if(respon.stt==true){
-            var e=confirm("Semua data sudah benar, lanjut register ?");
-            if(e){
-                var form=$(".form-rajal").serialize();
-                loading_show();
-                $.ajax({
-                    type:"POST",
-                    url:base_url+'pendaftaran/register_api/register_rajal',
-                    data:form,
-                    dataType:'json',
-                    error:function(xhr, desc, err)
+                        $("#nrm").val('').focus();
+
+                        $(".nama").html('')
+                        $(".nik").html('')
+                        $(".as").html('')
+                        $(".jkel").html('')
+                        $(".umur").html('')
+                        $(".kt").html('')
+                        $(".alamat").html('')
+
+                }
+                else
+                {
+                    $.each(json.message,function(i, val)
                     {
-                        alert('Gagal terhunung ke server.');
-                        loading_hide();
-                    },
-                    success:function(json)
+                        var elemen=$("#"+i);
+                        elemen.closest('div.form-group')
+                        .removeClass("has-error")
+                        .addClass(val.length > 0 ?'has-error':'has-success')
+                        .find('.text-danger').remove();
+                        elemen.after(val)
+                    })
+                    $this.html("Register kunjungan");
+                    loading('hide')
+                    if(json.pesan_err!='')
                     {
-                        loading_hide();
-                        if(json.success)
-                        {
-                            alert('Pendaftaran pasien rajal berhasil.')
-                            $(".form-rajal").trigger('reset');
-                        }
-                        else
-                        {
-                            toastr.error(json.pesan_err)
-                        }
+                        swal("Gagal",pesan_err,'error')
                     }
-                })
+                }
             }
+        })
+    })
+
+    function loading(ket)
+    {
+        var $this=$(".panel");
+        if(ket=='show')
+        {
+            blockUI($this);
+            $this.addClass("reloading");
         }
         else
         {
-            alert(respon.pesan)
+            unblockUI($this);
+            $this.removeClass("reloading")
         }
-    })
-
-    //fungsi validasi
-    function validasi()
-    {
-        var stt=false;
-        var pesan='';
-
-        stt=true;
-        return{
-            "stt":stt,
-            "pesan":pesan
-        }       
     }
    
 </script>

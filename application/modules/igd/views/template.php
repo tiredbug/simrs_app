@@ -86,7 +86,7 @@
                     </a>
                 </li>
                 
-                <li class="has-sub">
+                <li class="has-sub <?php echo $this->uri->segment(2)=='pasien'?'opened':''?>">
                     <a href="#">
                         <i class="entypo-users"></i>
                         <span class="title">Pasien</span>
@@ -108,7 +108,7 @@
                 </li>
 
 
-                <li class="has-sub">
+                <li class="has-sub <?php echo $this->uri->segment(2)=='kunjungan'?'opened':''?>">
                     <a href="#">
                         <i class="entypo-chart-line"></i>
                         <span class="title">Kunjungan</span>

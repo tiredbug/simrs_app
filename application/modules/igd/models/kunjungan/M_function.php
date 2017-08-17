@@ -42,4 +42,148 @@ class M_function extends ci_model{
                                 ORDER BY a.tgl_checkout DESC LIMIT 1");
     }
     //end
+
+
+
+    function get_tgllahir($norek)
+    {
+        $this->db->select('tgl_lahir');
+        $this->db->from('pendaftaran_pasien');
+        $this->db->where('nomor_rekammedis',$norek);
+        return $this->db->get();
+    }
+
+
+    function max_nomorkunjungan()
+    {
+        $this->db->select_max('nomor_kunjungan');
+        return $this->db->get('pendaftaran_kunjungan')->row_array();
+    }
+
+
+    function void_registerrajal($kunjungan,$igd)
+    {
+    	$this->db->trans_start();
+		$this->db->insert('pendaftaran_kunjungan',$kunjungan);
+		$this->db->insert('igd_kunjungan',$igd);
+		$this->db->trans_complete();
+		return $this->db->trans_status();
+    }
+
+    function __query_get_kunjungan_igd()
+    {
+    	$norek=$this->input->post('search[value]');
+    	$w_norek=" ";
+    	if($norek !='')
+    	{
+    		$w_norek=" AND pk.norekammedis ='".$norek."'";
+    	}
+    	return $query="SELECT 
+				ik.nomor_kunjungan no_kunjungan, pk.norekammedis norek, p.nama_lengkap nama,
+				p.alamat_ktp alamat, p.jenis_kelamin jk,
+				CONCAT(cb.nama_carabayar,'/',ckl.nama_kelompok) cb,
+				CONCAT(
+					dok.nama_belakang,'.',dok.nama_dokter,
+					IF(dok.gelar!='',CONCAT(', ',dok.gelar),'')
+				) dokter, pk.diagnosa, pk.penanggung_jawab pj
+				FROM igd_kunjungan ik
+				INNER JOIN pendaftaran_kunjungan pk ON pk.nomor_kunjungan=ik.nomor_kunjungan
+				LEFT JOIN pendaftaran_pasien p ON p.nomor_rekammedis=pk.norekammedis
+				LEFT JOIN admin_mastercarabayar cb ON cb.id_carabayar=pk.kode_carabayar
+				LEFT JOIN admin_mastercarabayarklp ckl ON ckl.id_kelompok=pk.kode_kelompok
+				LEFT JOIN admin_masterdokter dok ON dok.kode_dokter=ik.kode_dokter
+				WHERE pk.status_kunjungan IN('Masih dirawat')
+				AND ik.selesai_pelayanan IN('N')".$w_norek;
+    }
+    function get_data_kunjungan_igd()
+    {
+    	$query=$this->__query_get_kunjungan_igd();
+        if($this->input->post('length')!=-1)
+        {
+            $query=$this->__query_get_kunjungan_igd()." LIMIT ".$this->input->post('start').",".$this->input->post('length');
+        }
+        return $this->db->query($query);
+    }
+
+
+    function count_all_data_kunjungan_igd()
+    {
+    	return $this->db->get('igd_kunjungan')->num_rows();
+    }
+
+    function count_all_filtered_data_kunjungan_igd()
+    {
+    	$query=$this->__query_get_kunjungan_igd();
+    	return $this->db->query($query)->num_rows();
+    }
+
+    // informasi pasien untuk form informasi lengkap 
+
+    function get_informasi_pasien($id)
+    {
+        return $this->db->query("SELECT
+                                k.norekammedis norek, ps.nama_lengkap nama, ps.nomor_nik nik, ps.nomor_asuransi asu, ps.jenis_kelamin jk,
+                                ag.agama ag, DATE_FORMAT(ps.tgl_lahir,'%d-%m-%Y') tgllahir, ps.alamat_ktp alamat,
+                                prov.nama_provinsi prov,
+                                kab.nama_kota kab,
+                                kec.nama_kecamatan kec,
+                                des.nama_kelurahan des
+                                FROM pendaftaran_kunjungan k
+                                LEFT JOIN pendaftaran_pasien ps ON ps.nomor_rekammedis=k.norekammedis
+                                LEFT JOIN admin_masteragama ag ON ag.id=ps.agama
+                                LEFT JOIN admin_masterprovinsi prov ON prov.id_provinsi=ps.kode_provinsi
+                                LEFT JOIN admin_masterkabupaten kab ON kab.id_kota=ps.kode_kabupaten
+                                LEFT JOIN admin_masterkecamatan kec ON kec.id_kecamatan=ps.kode_kecamatan
+                                LEFT JOIN admin_masterdesa des ON des.id_kelurahan=ps.kode_desa
+                                WHERE k.nomor_kunjungan IN('".$id."')");
+    }
+    // end
+
+    // informasi kunjungan pada form informasi lengkap
+    function get_informasi_kunjungan($id)
+    {
+        return $this->db->query("SELECT
+                        k.nomor_kunjungan no_kunjungan, CONCAT(cb.nama_carabayar,' - ',cbk.nama_kelompok) cb, CONCAT('Kelas ',kls.nama_kelasperawatan) kls,
+                        CONCAT(DATE_FORMAT(k.tgl_daftar,'%d-%m-%Y'),' ',k.jam_daftar) tgl_d, cr.nama_cararujuk cr,
+                        k.nomor_rujukan norujuk,k.asal_rujukan asal,k.nomor_sep sep, k.diagnosa, k.jenis_pasien jp,
+                        CONCAT(dok.nama_belakang,'. ',dok.nama_dokter,IF(dok.gelar!='',CONCAT(', ',dok.gelar),'')) dokter,
+                        k.deposito,
+                        IF(k.penanggung_jawab!='',CONCAT(k.penanggung_jawab,' (',hub.hubungan,')'),'') pjawab
+
+                        FROM pendaftaran_kunjungan k
+                        LEFT JOIN admin_mastercarabayar cb ON cb.id_carabayar=k.kode_carabayar
+                        LEFT JOIN admin_mastercarabayarklp cbk ON cbk.id_kelompok=k.kode_kelompok
+                        LEFT JOIN admin_masterkelasperawatan kls ON kls.id_kelasperawatan=k.kode_kelas
+                        LEFT JOIN admin_mastercararujuk cr ON cr.id_cararujuk=k.kode_cararujuk
+                        INNER JOIN igd_kunjungan ik ON ik.nomor_kunjungan=k.nomor_kunjungan
+                        LEFT JOIN admin_masterdokter dok ON dok.kode_dokter=ik.kode_dokter
+                        LEFT JOIN admin_masterhubungankeluarga hub ON hub.id=k.hubungan_denganpasien
+                        WHERE k.nomor_kunjungan IN('".$id."')");
+
+    }
+    // end
+
+
+    function get_informasi_history_kunjungan($id)
+    {
+        return $this->db->query("SELECT
+                                k.nomor_kunjungan no_kunjungan, CONCAT(DATE_FORMAT(k.tgl_daftar,'%d-%m-%Y'),' ',k.jam_daftar) tgl_daftar,
+                                CONCAT(DATE_FORMAT(k.tgl_checkout,'%d-%m-%Y'),' ',k.jam_checkout) tgl_checkout,
+                                CASE k.jenis_kunjungan
+                                    WHEN 'Rajal' THEN 'Rawat jalan'
+                                    WHEN 'Ranap' THEN 'Rawat inap'
+                                    WHEN 'lab' THEN 'Lab langsung'
+                                    WHEN 'igd' THEN 'Rawat jalan IGD'
+                                    WHEN 'rad' THEN 'Radiologi langsung'
+                                END jenis
+                                FROM pendaftaran_kunjungan k 
+                                INNER JOIN (
+                                    SELECT 
+                                    pk.norekammedis norek
+                                    FROM 
+                                    pendaftaran_kunjungan pk
+                                    WHERE pk.nomor_kunjungan IN('".$id."')
+                                    ) j ON j.norek=k.norekammedis
+                                WHERE k.status_kunjungan='Selesai dirawat' ORDER BY k.tgl_daftar DESC");
+    }
 }

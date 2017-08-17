@@ -23,4 +23,10 @@ class Kunjungan extends ci_controller{
 		$data['cara_rujuk']		=	$this->m_master->get_cararujuk();
 		$this->template->load('template','kunjungan/register',$data);
 	}
+
+
+	function data()
+	{
+		$this->template->load('template','kunjungan/data');
+	}
 }
