@@ -330,4 +330,129 @@ class Kunjungan_api extends ci_controller{
     }
 
 
+    function tutuptransaksi()
+    {
+        if(!$this->input->is_ajax_request())
+        {
+            exit('No direct script access allowed');
+        }
+        else
+        {
+            $respon=array(
+                'success'=>false,
+                'pesan_err'=>''
+                );
+            if($this->m_function->tutuptransaksi($_POST['id']))
+            {
+                $respon['success']=true;
+            }
+            else
+            {
+                $respon['pesan_err']='gagal menutup transaksi.';
+            }
+            echo json_encode($respon);
+        }
+    }
+
+    function i_tindakan()
+    {
+        if(!$this->input->is_ajax_request())
+        {
+            exit('No direct script access allowed');
+        }
+        else
+        {
+            $respon=array(
+                'success'=>false,
+                'pesan_err'=>'',
+                'data'=>array()
+                );
+            if($this->m_function->i_tindakan()->num_rows() > 0)
+            {
+                $respon['success']=true;
+                $respon['data']=$this->m_function->i_tindakan()->row_array();
+            }
+            else
+            {
+                $respon['pesan_err']='Tindakan tidak ditemukan.';
+            }
+
+
+            echo json_encode($respon);
+        }
+    }
+
+    function insert_tindakan()
+    {
+        if(!$this->input->is_ajax_request())
+        {
+            exit('No direct script access allowed');
+        }
+        else
+        {
+            $respon=array(
+                'success'=>false,
+                'pesan_err'=>''
+                );
+
+            if($_POST['kode']!='' && $_POST['tarif']!='' && $_POST['nokunjungan']!='')
+            {
+                if($this->m_function->insert_tindakan())
+                {
+                    $respon['success']=true;
+                }
+                else
+                {
+                    $respon['pesan_err']='Gagal menyimpan tindakan.';
+                }
+            }
+            else
+            {
+                $respon['pesan_err']='Data tidak valid.';
+            }
+            echo json_encode($respon);
+        }
+    }
+
+    function load_data_tindakan()
+    {
+        if(!$this->input->is_ajax_request())
+        {
+            exit('No direct script access allowed');
+        }
+        else
+        {
+            $respon=array('success'=>true,'data'=>array(),'total'=>0);
+            $total=0;
+            foreach ($this->m_function->get_tindakan_in_igd($_POST['id'])->result() as $d) {
+                # code...
+                $row=array();
+                $row[]=$d->id;
+                $row[]=$d->kode;
+                $row[]=$d->tindakan;
+                $row[]=number_format($d->tarif,0,'.','.');
+                $row[]=$d->qty;
+                $row[]=number_format($d->total,0,'.','.');
+                $respon['data'][]=$row;
+                $total=$total+$d->total;
+                
+            }
+            $respon['total']=number_format($total,2,',','.');
+            echo json_encode($respon);
+        }
+    }
+
+
+    function delete_tindakan()
+    {
+        if(!$this->input->is_ajax_request())
+        {
+            exit('No direct script access allowed');
+        }
+        else
+        {
+            $this->db->query("DELETE FROM igd_tindakan WHERE id='".$_POST['id']."'");
+        }
+    }
+
 }

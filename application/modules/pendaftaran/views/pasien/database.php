@@ -54,7 +54,7 @@
                                 <label class="col-sm-3 control-label">Provinsi</label>
                                 <div class="col-sm-9">
                                    <select name="prov" class="form-control prov">
-                                   <option value="">Provinsi</option>
+                                   <option value="">-- Pilih  --</option>
                                     <?php 
                                         foreach ($prov->result() as $p) {
                                             # code...
@@ -138,10 +138,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button class="btn btn-block btn-primary"><i class='entypo-pencil'></i> Ubah Data</button>
-                                    <button class="btn btn-block btn-orange"><i class='entypo-print'></i> Cetak Kartu</button>
-                                    <button class="btn btn-block btn-info"><i class='entypo-cw'></i> Reload Informasi</button>
-                                    <button class="btn btn-block btn-success"><i class='entypo-cancel'></i> Tutup Form</button>
+                                    <button class="btn btn-block btn-primary btn-icon icon-left"><i class='entypo-pencil '></i> Ubah Data</button>
+                                    <button class="btn btn-block btn-orange btn-icon icon-left"><i class='entypo-print'></i> Cetak Kartu</button>
+                                    <button class="btn btn-block btn-info btn-icon icon-left"><i class='entypo-cw'></i> Reload Informasi</button>
+                                    <button class="btn btn-block btn-success btn-icon icon-left"><i class='entypo-cancel'></i> Tutup Form</button>
                                 </div>
                             </div>
                         </div>

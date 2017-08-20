@@ -49,6 +49,7 @@
 	<script src="<?php echo base_url()?>template/neon/js/neon-demo.js"></script>
     <!-- print area plugin -->
     <script src="<?php echo base_url()?>template/plugin/printarea/jquery.PrintArea.js"></script>
+    <script src="<?php echo base_url()?>template/neon/js/toastr.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>template/plugin/sweetalert/dist/sweetalert.min.js"></script>
 
         <script>

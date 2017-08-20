@@ -29,4 +29,26 @@ class Kunjungan extends ci_controller{
 	{
 		$this->template->load('template','kunjungan/data');
 	}
+
+
+	function entrytindakan()
+	{
+		if(isset($_GET['nokunjungan']))
+		{
+			if($this->m_function->cek_kunjungan_igd($_GET['nokunjungan'])->num_rows() >0)
+			{
+				$data['i']=$this->m_function->get_informasi_kunjungan_form_entry($_GET['nokunjungan'])->row_array();
+				$data['t']=$this->m_function->get_tindakan_in_igd($_GET['nokunjungan']);
+				$this->template->load('template','kunjungan/entrytindakan',$data);
+			}
+			else
+			{
+				redirect(base_url().'igd/kunjungan/data');
+			}
+		}
+		else
+		{
+			redirect(base_url().'igd/kunjungan/data');
+		}
+	}
 }

@@ -283,7 +283,7 @@
                 <div class="">
                     <p class="pull-right">
                         <button type="button" class="btn btn-info btn-simpan">Simpan Perubahan</button>
-                        <a href="<?php echo base_url().'pendaftaran/pasien/database'?>" class="btn btn-primary btn-cancel">Kembali</a>
+                        <a href="<?php echo base_url().'igd/pasien/database'?>" class="btn btn-primary btn-cancel">Kembali</a>
                     </p>
                 </div>
                                

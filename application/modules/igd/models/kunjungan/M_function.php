@@ -184,6 +184,67 @@ class M_function extends ci_model{
                                     pendaftaran_kunjungan pk
                                     WHERE pk.nomor_kunjungan IN('".$id."')
                                     ) j ON j.norek=k.norekammedis
-                                WHERE k.status_kunjungan='Selesai dirawat' ORDER BY k.tgl_daftar DESC");
+                                WHERE k.status_kunjungan='Selesai dirawat' ORDER BY k.tgl_daftar DESC, k.jam_daftar DESC");
+    }
+
+
+    function tutuptransaksi($nokunjungan)
+    {
+        $this->db->where('nomor_kunjungan',$nokunjungan);
+        return $this->db->update('igd_kunjungan',array(
+            'selesai_pelayanan'=>'Y'
+            ));
+    }
+
+    function cek_kunjungan_igd($nokunjungan)
+    {
+        return $this->db->get_where('igd_kunjungan',array(
+            'nomor_kunjungan'=>$nokunjungan,
+            'selesai_pelayanan'=>'N'
+            ));
+    }
+
+    function get_informasi_kunjungan_form_entry($nokunjungan)
+    {
+        return $this->db->query("SELECT 
+                                pk.norekammedis norek, ik.nomor_kunjungan nokunjungan, ps.nama_lengkap, ps.jenis_kelamin jk,
+                                ik.tgl_masuk tgl_daftar
+                                FROM
+                                igd_kunjungan ik
+                                INNER JOIN pendaftaran_kunjungan pk ON pk.nomor_kunjungan=ik.nomor_kunjungan
+                                LEFT JOIN pendaftaran_pasien ps ON ps.nomor_rekammedis=pk.norekammedis
+                                WHERE ik.nomor_kunjungan IN('".$nokunjungan."')");
+    }
+
+
+    function i_tindakan()
+    {
+        return $this->db->query("SELECT 
+                                ti.kode_tarif kode, ti.nama_tarif tindakan, IFNULL(dt.total_tarif,0) tarif
+                                FROM admin_tarifigd ti
+                                LEFT JOIN (SELECT * FROM admin_tarifigddetail tid WHERE tid.tgl_berlaku<='".$_POST['tgl_daftar']."' ORDER BY tid.tgl_berlaku DESC LIMIT 1) dt ON dt.kode_tarif=ti.kode_tarif
+                                WHERE ti.kode_tarif IN('".$_POST['kode']."')");
+    }
+
+
+    function insert_tindakan()
+    {
+        return $this->db->insert('igd_tindakan',array(
+            'nokunjungan'=>$_POST['nokunjungan'],
+            'kode_tindakan'=>$_POST['kode'],
+            'tarif'=>$_POST['tarif'],
+            'qty'=>$_POST['q'],
+            'total'=>$_POST['q']*$_POST['tarif']
+            )
+            );
+    }
+
+    function get_tindakan_in_igd($nokunjungan)
+    {
+        return $this->db->query("SELECT 
+                t.id, tf.kode_tarif kode, tf.nama_tarif tindakan, t.tarif, t.qty, t.total
+                FROM igd_tindakan t
+                INNER JOIN admin_tarifigd tf ON tf.kode_tarif=t.kode_tindakan
+                WHERE t.nokunjungan IN('".$nokunjungan."')");
     }
 }
