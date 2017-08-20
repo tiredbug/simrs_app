@@ -16,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/plugin/sweetalert/dist/sweetalert.css">
 
 	<title>Login - IGD</title>
+
 </head>
 <body>
     <div class="container">
@@ -105,7 +106,7 @@
                     if(json.success)
                     {
                         window.location.href='<?php echo base_url().'igd/home'?>';
-                        no_loading();
+                       
                     }
                     else
                     {

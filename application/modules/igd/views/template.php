@@ -144,7 +144,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'kasirrajal/Keluar'?>" )>
+                            <a href="<?php echo base_url().'igd/Keluar'?>" )>
                                 <span class="title">Keluar</span>
                             </a>
 			            </li>
