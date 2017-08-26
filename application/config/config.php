@@ -4,9 +4,10 @@ date_default_timezone_set('Asia/Jakarta');
 
 
 // $config['base_url'] = 'http://192.168.1.134/simrs_app/';
-$config['base_url'] = 'http://172.100.28.150/simrs_app/';
+// $config['base_url'] = 'http://172.100.28.150/simrs_app/';
 // $config['base_url'] = 'http://localhost/simrs_app/';
 // $config['base_url'] = 'http://125.165.3.20/simrs_app/';
+$config['base_url'] = 'http://36.76.103.250/simrs_app/';
 //$config['base_url']=
 /*
 |--------------------------------------------------------------------------
