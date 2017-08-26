@@ -232,6 +232,7 @@ class Register_api extends CI_Controller{
                 if($this->m_core->void_registerrajal($data_kunjungan,$data_rajal,$data_auto)==TRUE)
                 {
                     $sukses=true;
+                    $this->logapp->log_user($_SESSION['id'],'register kunjungan rajal norek '.$_POST['nrm'].' ke poli '.$_POST['poli']);
                 }
                 else
                 {

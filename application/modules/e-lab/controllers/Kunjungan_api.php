@@ -20,6 +20,7 @@ class Kunjungan_api extends ci_controller
 		}
 		else
 		{	
+			$this->logapp->log_user($_SESSION['kode_user'],'mencari kunjungan dengan norek '.$_POST['norek']);
 			$sukses=false;
 			$pesan_err='';
 			$valid=array();
@@ -138,6 +139,7 @@ class Kunjungan_api extends ci_controller
 					$this->form_validation->set_rules('dokterp','Dokter piket ','required',array('required'=>'%s harus dipilih.'));
 					if($this->form_validation->run())
 					{
+						$this->logapp->log_user($_SESSION['kode_user'],'berhasil daftar kunjungan dari rajal, norek='.$_POST['norek']);
 						// periksa data yang dipilih 
 						// jika tidak dipilih, tampilkan pesan, data pemeriksaan Kosong
 						$cek_p=$this->m_function->cek_p($_POST['norek']);

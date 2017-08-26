@@ -2,7 +2,7 @@
 
 class Keluar extends ci_controller{
 
-	function __construc()
+	function __construct()
 	{
 		parent::__construct();
 		if(! login_lab())
@@ -13,6 +13,7 @@ class Keluar extends ci_controller{
 
 	function index()
 	{
+		$this->logapp->log_user($_SESSION['kode_user'],'keluar dari aplikasi');
 		$this->session->sess_destroy();
 		redirect(base_url().'e-lab/login');
 	}

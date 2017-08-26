@@ -92,6 +92,7 @@ class Jadwaldokter_api extends ci_controller{
 		{
 			$id=$this->input->post('id');
 			$this->m_core->hapus_dokter($id);
+			$this->logapp->log_user($_SESSION['id'],'hapus data dokter piket id='.$_POST['id']);
 		}
 	}
 
@@ -132,6 +133,7 @@ class Jadwaldokter_api extends ci_controller{
 					$this->m_master->save_dokter_piket($tgl,$poli,$d);
 				}
 				$sukses=true;
+				$this->logapp->log_user($_SESSION['id'],'tambah dokter piket poli '.$poli.' dokter '.$d);
 			}
 
 			$json['success']=$sukses;

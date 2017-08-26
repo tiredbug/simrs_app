@@ -12,4 +12,5 @@ $route['kasirrajal']				=	'kasirrajal/home';
 $route['e-depo']					=	'e-depo/login';
 $route['e-lab']						=	'e-lab/login';
 $route['igd']						=	'igd/login';
+$route['coranap']					=	'coranap/login';
 $route['translate_uri_dashes'] 		= 	FALSE;

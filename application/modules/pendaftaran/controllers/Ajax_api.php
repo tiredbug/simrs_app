@@ -146,6 +146,8 @@ class Ajax_api extends CI_Controller{
                 if($this->m_core->submit_data($data_pasien))
                 {
                     $data['success']=true;
+                    $this->logapp->log_user($_SESSION['id'],'register pasien baru norek = '.$norek.' nama='.$_POST['nama']);
+                    $this->logapp->log_pasien($norek,$_SESSION['id'],'register.');
                 }
                 else
                 {
@@ -288,22 +290,10 @@ class Ajax_api extends CI_Controller{
         }
         else
         {
-            $norek='';
+            
             $data=array('success'=>false,'message'=>array(),'pesan_err'=>'');
-            switch ($this->input->post('norek'))
-            {
-                case "":
-                    $norek=  $this->create_norek();
-                    break;
-
-                case !"":
-                    $norek=  $this->input->post('norek');
-                    break;
-            }
-            // variabel data pasien 
-            $norek=  $this->input->post('id');
+            
             $data_pasien=array(
-                'nomor_rekammedis'      =>$norek,
                 'nomor_nik'             =>$this->input->post('nik'),
                 'nomor_asuransi'        =>$this->input->post('noasuransi'),
                 'nama_lengkap'          =>$this->input->post('nama'),
@@ -354,6 +344,8 @@ class Ajax_api extends CI_Controller{
                 if($this->m_core->submit_update_data($data_pasien,$this->input->post('id')))
                 {
                     $data['success']=true;
+                    $this->logapp->log_user($_SESSION['id'],'perbaharui data pasien norek = '.$_POST['id'].' nama='.$_POST['nama']);
+                    $this->logapp->log_pasien($_POST['id'],$_SESSION['id'],'ubah data pasien.');
                 }
                 else
                 {

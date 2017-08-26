@@ -46,6 +46,12 @@
 	<script src="<?php echo base_url()?>template/neon/js/resizeable.js"></script>
     <script src="<?php echo base_url()?>template/neon/js/neon-api.js"></script>
 
+
+
+
+
+
+
 	<!-- JavaScripts initializations and stuff -->
 	<script src="<?php echo base_url()?>template/neon/js/neon-custom.js"></script>
 	<!-- Demo Settings -->

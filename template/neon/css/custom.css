@@ -474,4 +474,13 @@ fieldset{
 /*end list produk lab*/
 
 
+.panel-primary > .panel-heading > .panel-options > a.bg{
+    background-color: #DDD;
+    margin-left: 5px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 15px;
+    border: 2px solid #7d7d7d;
+    font-weight: bold;
+}
 

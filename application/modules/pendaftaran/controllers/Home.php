@@ -54,6 +54,7 @@ class Home extends ci_controller{
 						'nama'				=>	$this->input->post('nama'),
 						'last_updateakun'	=>	date("Y-m-d H:i:s")
 						));
+					$this->logapp->log_user($_SESSION['id'],'perbaharui profile');
 				}
 				else
 				{

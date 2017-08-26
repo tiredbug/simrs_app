@@ -34,10 +34,12 @@ class Login extends ci_controller{
             $pesan_err='';
             if($this->M_function->cek_login()->num_rows() > 0)
             {
+            	
                 $sukses=true;
                 $data=$this->M_function->cek_login()->row_array();
                 $this->session->set_userdata($data);
                 $this->session->set_userdata('login_lab',true);
+                $this->logapp->log_user($data['kode_user'],'berhasil melakukan login.');
             }
             else
             {
@@ -49,4 +51,6 @@ class Login extends ci_controller{
             echo json_encode($json);
 		}
 	}
+
+
 }

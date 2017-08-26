@@ -52,11 +52,5 @@ class Informasi_api extends CI_Controller
 		    echo json_encode($respon);
 		}
 	}
-
-	function tes()
-	{
-		print_r($this->m_function->get_data_kunjungan()->result());
-		print_r($this->db->error());
-	}
 	
 }

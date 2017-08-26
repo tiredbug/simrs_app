@@ -105,3 +105,18 @@ function login_igd()
 		return false;
 	}
 }
+
+// cek login co ranap
+function login_coranap()
+{
+	$CI=& get_instance();
+	$stt=$CI->session->userdata('login_coranap');
+	if($stt==true)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

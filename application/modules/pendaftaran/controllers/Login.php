@@ -37,6 +37,7 @@ class Login extends CI_Controller{
                 $data=$this->M_function->cek_login()->row_array();
                 $this->session->set_userdata($data);
                 $this->session->set_userdata('login_pendaftaran',true);
+                $this->logapp->log_user($_SESSION['id'],'masuk aplikasi');
             }
             else
             {

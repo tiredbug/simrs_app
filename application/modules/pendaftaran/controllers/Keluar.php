@@ -13,6 +13,7 @@ class Keluar extends ci_controller{
 
 	function index()
 	{
+		$this->logapp->log_user($_SESSION['id'],'keluar dari aplikasi');
 		$this->session->sess_destroy();
 		redirect(base_url().'pendaftaran/login');
 	}

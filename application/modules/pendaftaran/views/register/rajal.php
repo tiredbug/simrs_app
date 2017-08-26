@@ -5,10 +5,8 @@
             <i class="entypo-user-add"></i> FORM REGISTRASI KUNJUNGAN
         </div>
         <div class="panel-options">
-            <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a>
-            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
-            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
-            <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+            
+            <a href="#" data-rel="close" class="bg"><i class="entypo-cancel"></i></a>
         </div>
     </div>
     <div class="panel-body">

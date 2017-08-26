@@ -4,15 +4,12 @@
             <i class="entypo-database"></i> Database Pasien
         </div>
         <div class="panel-options">
-            <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg" title="Klik disini untuk input data master obat lebih banyak lagi."><i class="entypo-plus"></i></a>
-            <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
-            <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
-            <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+            <a href="#" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg btn_filter" title="Filter data yang ditampilkan."><i class="entypo-search"></i></a>
         </div>
     </div>
 
     <div class="panel-body">
-        <div class="row">
+        <div class="row  form_filter" style="display: none">
             <div class="col-sm-12">
                 <form class="form-horizontal">
                 <div class="well well-sm">
@@ -445,5 +442,8 @@
         {
             window.open(base_url+'pendaftaran/pasien/kartu?norek='+$(".norek-h").val(),'_blank');
         }
+    })
+    $(".btn_filter").click(function(){
+        $(".form_filter").toggle();
     })
 </script>

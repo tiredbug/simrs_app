@@ -85,7 +85,7 @@
             var form_data=$(".form-login").serialize();
             $.ajax({
                 type:"POST",
-                url:'<?php echo base_url()?>lab/login/login_auth',
+                url:'<?php echo base_url()?>e-lab/login/login_auth',
                 data:form_data,
                 dataType:"JSON",
                 error:function(xhr, desc, err)

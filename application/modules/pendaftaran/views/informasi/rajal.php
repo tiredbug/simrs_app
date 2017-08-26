@@ -5,7 +5,7 @@
             "></i> DATA KUNJUNGAN RAWAT JALAN
         </div>
         <div class="panel-options">
-            <a href="#" data-toggle="modal" data-target="#modal-filter" class="bold" title="Filter data kunjungan."><i class="entypo-search"></i> Filter</a>
+            <a href="#" data-toggle="modal" data-target="#modal-filter" class="bold bg" title="Filter data kunjungan."><i class="entypo-search"></i></a>
         </div>
     </div>
 
