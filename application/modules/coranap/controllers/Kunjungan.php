@@ -36,6 +36,8 @@ class Kunjungan extends ci_controller
 
 	function rujukinap()
 	{
+		// $no_kunjungan=$this->uri->segment(4);
+		// $data['i_kunjungan']=$this->m_function->get_i_kunjungan($no_kunjungan);
 		$this->template->load('template','kunjungan/rujukinap');
 	}
 }

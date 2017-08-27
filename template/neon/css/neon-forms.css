@@ -2622,7 +2622,7 @@ fieldset[disabled] .btn-danger.focus {
   border-radius: 3px 3px 0 0;
 }
 .page-body .select2-container .select2-choice {
-  border-color: #ebebeb !important;
+  border-color: #d2d6de !important;
   background: #fff;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
@@ -2630,10 +2630,10 @@ fieldset[disabled] .btn-danger.focus {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  height: 28px;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  height: 31px;
   line-height: 27px;
   outline: none;
   padding-left: 15px;
@@ -2730,9 +2730,10 @@ fieldset[disabled] .btn-danger.focus {
 .page-body .select2.visible {
   visibility: visible;
 }
+
 .page-body .select2-drop {
-  border: 1px solid #ebebeb;
-  background-color: #fff;
+  border: 1px solid #afadad;
+  background-color: #dedede;
   -webkit-border-radius: 1px 1px 4px 4px;
   -moz-border-radius: 1px 1px 4px 4px;
   border-radius: 1px 1px 4px 4px;
@@ -2762,8 +2763,8 @@ fieldset[disabled] .btn-danger.focus {
 }
 .page-body .select2-drop .select2-search .select2-result-selectable,
 .page-body .select2-drop .select2-results .select2-result-selectable {
-  background: transparent;
-  color: #888;
+   background: #a09d9d;
+  color: #0a0606;
   -moz-transition: all 300ms ease-in-out;
   -webkit-transition: all 300ms ease-in-out;
   -o-transition: all 300ms ease-in-out;
@@ -2804,8 +2805,8 @@ fieldset[disabled] .btn-danger.focus {
   padding: 12px 15px;
 }
 .page-body .select2-drop .select2-search input {
-  background: #f3f3f3 !important;
-  border: 0;
+  background: #FFFFFF !important;
+  border: 1px solid #DDD;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -2815,7 +2816,7 @@ fieldset[disabled] .btn-danger.focus {
   -moz-box-shadow: inset 0 1px 0 rgba(0,0,0,.03);
   -webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,.03);
   box-shadow: inset 0 1px 0 rgba(0,0,0,.03);
-  padding: 10px 12px;
+  padding: 5px 5px;
   padding-right: 30px;
   font-family: "Helvetica Neue", Helvetica, "Noto Sans", sans-serif;
   -webkit-box-sizing: border-box;
@@ -2826,7 +2827,7 @@ fieldset[disabled] .btn-danger.focus {
   position: absolute;
   font-family: "Entypo";
   right: 15px;
-  top: 12px;
+  top: 9px;
   content: '\e803';
   font-size: 14px;
   color: #c2c2c2;
