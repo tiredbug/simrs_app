@@ -147,7 +147,7 @@
 					</div>
 					<a href="<?php echo base_url()?>kasirrajal" title="Klik disini untuk membuka modul kasir rawat jalan.">
 						<div class="title">
-							<h3>KASIR RAJAL</h3>
+							<h3>KASIR</h3>
 							<p>checkout kunjungan rawat jalan, buat billing dan keterangan rawat jalan...</p>
 						</div>
 					</a>
@@ -193,70 +193,55 @@
 
 
 		</div>
+
+
+
+		<div class="row">
+			<div class="col-sm-3">
+			
+				<div class="tile-title tile-plum">
+					
+					<div class="icon">
+						<i class="glyphicon glyphicon-lamp"></i>
+					</div>
+					<a href="<?php echo base_url()?>e-ranap" title="Klik disini untuk membuka modul pelayanan rawat inap.">
+						<div class="title">
+							<h3>PELAYANAN RAWAT INAP</h3>
+							<p>penataan jasa pelayanan pada rawat inap</p>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<div class="col-sm-3">
+			
+				<div class="tile-title tile-red">
+					
+					<div class="icon">
+						<i class="glyphicon glyphicon-lock"></i>
+					</div>
+					<a href="<?php echo base_url()?>admin" title="Klik disini untuk membuka modul administrator.">
+						<div class="title">
+							<h3>ADMINISTRATOR</h3>
+							<p>kelola setup data dan administrator aplikasi</p>
+						</div>
+					</a>
+				</div>
+				
+			</div>
+
+		</div>
+
 		
 		<footer class="main">
 			
-			&copy; <?php echo date("Y")?> <strong>RSUD DR FAUZIAH BIREUEN</strong> Create By <a href="#" >Munazar</a>
+			&copy; <?php echo date("Y")?> <strong>RSUD DR FAUZIAH BIREUEN</strong> Create By <a href="#" >lebahdesa</a>
 		
 		</footer>
 	</div>
 
-		
-	<div id="chat" class="fixed" data-current-user="Art Ramadani" data-order-by-status="1" data-max-chat-history="25">
+
 	
-		<div class="chat-inner">
-	
-	
-			<h2 class="chat-header">
-				<a href="#" class="chat-close"><i class="entypo-cancel"></i></a>
-	
-				<i class="entypo-users"></i>
-				Chat
-				<span class="badge badge-success is-hidden">0</span>
-			</h2>
-	
-	
-		</div>
-	
-		<!-- conversation template -->
-		<div class="chat-conversation">
-	
-			<div class="conversation-header">
-				<a href="#" class="conversation-close"><i class="entypo-cancel"></i></a>
-	
-				<span class="user-status"></span>
-				<span class="display-name"></span>
-				<small></small>
-			</div>
-	
-			<ul class="conversation-body">
-			</ul>
-	
-			<div class="chat-textarea">
-				<textarea class="form-control autogrow" placeholder="Type your message"></textarea>
-			</div>
-	
-		</div>
-	
-	</div>
-	
-	
-	
-	
-	<!-- Chat Histories -->
-	<ul class="chat-history" id="sample_history_2">
-		<li class="opponent unread">
-			<span class="user">Daniel A. Pena</span>
-			<p>I am going out.</p>
-			<span class="time">08:21</span>
-		</li>
-	
-		<li class="opponent unread">
-			<span class="user">Daniel A. Pena</span>
-			<p>Call me when you see this message.</p>
-			<span class="time">08:27</span>
-		</li>
-	</ul>
 
 	
 </div>

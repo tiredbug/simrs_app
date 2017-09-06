@@ -13,4 +13,6 @@ $route['e-depo']					=	'e-depo/login';
 $route['e-lab']						=	'e-lab/login';
 $route['igd']						=	'igd/login';
 $route['coranap']					=	'coranap/login';
+$route['e-ranap']					=	'e-ranap/login';
+$route['admin']						=	'admin/login';
 $route['translate_uri_dashes'] 		= 	FALSE;

@@ -53,7 +53,7 @@
                             <?php 
                             foreach($kelas->result() as $kls)
                                 {
-                                    echo"<option value='".$kls->id_kelasperawatan."'>Kelas ".$kls->nama_kelasperawatan."</option>";
+                                    echo"<option value='".$kls->id_kelasperawatan."'>".$kls->nama_kelasperawatan."</option>";
                                 }
                             ?>
                         </select>
@@ -97,18 +97,20 @@
 
 
                 <div class="form-group">
+                    <label class="control-label col-sm-3">Nomor Rujukan :</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control  " name="nomor_rujukan" id="nomor_rujukan" placeholder="Nomor rujukan..." />
+                    </div>
+                </div>
+                
+                <div class="form-group">
                     <label class="control-label col-sm-3">Asal Rujukan :</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control  " name="asal_rujuk" id="asal_rujuk" placeholder="Asal rujukan..." />
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Nomor Rujukan :</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control  " name="nomor_rujukan" id="nomor_rujukan" placeholder="Nomor rujukan..." />
-                    </div>
-                </div>
+                
 
                 <div class="form-group">
                     <label class="control-label col-sm-3">Tgl, Jam Rujukan :</label>
@@ -353,7 +355,6 @@
                     loading_hide();
                     if(json.success)
                     {
-                        $("#cb").focus();
                         $(".nama").html(json.data.bio.nama)
                         $(".nik").html(json.data.bio.nik)
                         $(".as").html(json.data.bio.asu)
@@ -401,91 +402,12 @@
             },
             success:function(html)
             {
-                $("#kelompok").html(html).focus();
+                $("#kelompok").html(html);
                 loading_hide();
             }
         })
     })
-    $("#kelompok").change(function(){
-        $("#kelas").focus();
-    })
-    $("#kelas").change(function(){
-        $("#tgl_daftar").focus();
-    })
-    $("tgl_daftar").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#jam_daftar").focus()
-        }
-    })
-    $("#jam_daftar").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#cr").focus()
-        }
-    })
-    $("#cr").change(function(){
-        $("#asal_rujuk").focus();
-    })
-    $("#asal_rujuk").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#nomor_rujukan").focus();
-        }
-    })
-    $("#nomor_rujukan").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#tgl_rujukan").focus();
-        }
-    })
-    $("#tgl_rujukan").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#jam_rujuk").focus();
-        }
-    })
-    $("#jam_rujuk").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#ppk_rujuk").focus();
-        }
-    })
-    $("#ppk_rujuk").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#diagnosa").focus();
-        }
-    })
-    $("#diagnosa").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#nm_k").focus();
-        }
-    })
-    $("#nm_k").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#hub_k").focus();
-        }
-    })
-    $("#hub_k").change(function(e){
-        if(e.which==13){
-            $("#alamat_k").focus();
-        }
-    })
-    $("#alamat_k").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#hp_k").focus();
-        }
-    })
-    $("#hp_k").keypress(function(e){
-        if(e.which==13)
-        {
-            $("#poli").focus();
-        }
-    })
+    
     $("#poli").change(function(){
         loading_show();
         var id=$(this).val();
@@ -512,9 +434,6 @@
         })
     })
     
-    $("#dokter").change(function(){
-        $(".btn-simpan").focus();
-    })
 
     $(".btn-simpan").click(function(e){
         var respon=validasi();

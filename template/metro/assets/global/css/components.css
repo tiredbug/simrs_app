@@ -3059,8 +3059,8 @@ System feeds
 }
 .feeds li .col2 {
   float: left;
-  width: 75px;
-  margin-left: -75px;
+  width: 150px;
+  margin-left: -150px;
 }
 .feeds li .col2 > .date {
   padding: 4px 9px 5px 4px;

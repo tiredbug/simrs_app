@@ -9,14 +9,7 @@
 	</div>
 
 	<div class="panel-body">
-		<div class="row form_filter" style="display: none">
-			<div class="col-sm-12">
-				<div class="well well-sm">
-					form filter
-				</div>
-			</div>
-		</div>
-
+		
 		<div class="row">
 			<div class="col-sm-12">
 				<table class="table table-bordered table-hover" id="tabel_data_kunjungan_igd" style="width:100%">
@@ -26,7 +19,7 @@
 							<th>No. Medrec</th>
 							<th>Nama</th>
 							<th>Alamat</th>
-							<th>Jeni-Kelamin</th>
+							<th>Jenis-Kelamin</th>
 							<th>M.Bayar</th>
 							<th>Rujuk inap</th>
 						</tr>
@@ -68,7 +61,7 @@
                 }
                 else
                 {
-                	$('td:eq(6)', row).html("<a href='"+base_url+"coranap/kunjungan/rujukinap/"+data[0]+"' class='label label-success'>Register ke rawat inap.</a>")
+                	$('td:eq(6)', row).html("<a href='"+base_url+"coranap/kunjungan/rujukinap/"+data[0]+"/igd' class='label label-success'>Register ke rawat inap.</a>")
                 }
 
             }

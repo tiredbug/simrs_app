@@ -108,7 +108,7 @@
     							<?php 
     							foreach($kelas->result() as $k)
     							{
-    								echo"<option value='".$k->id_kelasperawatan."'>Kelas ".$k->nama_kelasperawatan."</option>";
+    								echo"<option value='".$k->id_kelasperawatan."'>".$k->nama_kelasperawatan."</option>";
     							}
     							?>
     						</select>

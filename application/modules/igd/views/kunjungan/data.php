@@ -305,7 +305,7 @@
 		$("#tabel-kunjungan-igd").DataTable({
 			'ordering':false,
 			'language':{
-				'search':"<b>No.Medrec</b>",
+				'search'		: "<b>No.Medrec</b>",
 				"info"       	: "Menampilkan _START_ s/d _END_ baris data dari _TOTAL_ data",
                 "infoEmpty"  	: "Tidak Ada Data",
                 "emptyTable" 	: "Tidak Ada Data",

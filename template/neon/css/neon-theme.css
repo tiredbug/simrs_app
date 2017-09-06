@@ -1078,7 +1078,7 @@ fieldset[disabled] .btn-danger.focus {
 .btn-default {
   color: #303641;
   background-color: #f0f0f1;
-  border-color: #f0f0f1;
+  border-color: #bebec2;
 }
 .btn-default:focus,
 .btn-default.focus {

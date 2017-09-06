@@ -56,7 +56,7 @@
                             <?php 
                             foreach($kelas->result() as $kls)
                                 {
-                                    echo"<option value='".$kls->id_kelasperawatan."'>Kelas ".$kls->nama_kelasperawatan."</option>";
+                                    echo"<option value='".$kls->id_kelasperawatan."'>".$kls->nama_kelasperawatan."</option>";
                                 }
                             ?>
                         </select>
@@ -100,18 +100,20 @@
 
 
                 <div class="form-group">
+                    <label class="control-label col-sm-3">Nomor Rujukan :</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control  " name="nomor_rujukan" id="nomor_rujukan" placeholder="Nomor rujukan..." />
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="control-label col-sm-3">Asal Rujukan :</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control  " name="asal_rujuk" id="asal_rujuk" placeholder="Asal rujukan..." />
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Nomor Rujukan :</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control  " name="nomor_rujukan" id="nomor_rujukan" placeholder="Nomor rujukan..." />
-                    </div>
-                </div>
+                
 
                 <div class="form-group">
                     <label class="control-label col-sm-3">Tgl, Jam Rujukan :</label>
@@ -167,14 +169,14 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">Dokter :</label>
                     <div class="col-sm-9">
-                        <select class="form-control" name="dokter" id="dokter">
+                        <select class="form-control select2" name="dokter" id="dokter">
                             <option value=''>-- Pilih --</option>
 
                             <?php
                             $dokter_umum=$this->db->query("SELECT 
                                                             d.kode_dokter id, CONCAT(d.nama_belakang,' ',d.nama_dokter) nama
                                                             FROM admin_masterdokter d
-                                                            WHERE d.jenis_dokter IN('umum')"); 
+                                                            WHERE d.jenis_dokter IN('umum') OR d.jenis_dokter IN('Spesialis')"); 
                             foreach ($dokter_umum->result() as $d) {
                                 # code...
                                 echo "<option value='".$d->id."'>".$d->nama."</option>";
