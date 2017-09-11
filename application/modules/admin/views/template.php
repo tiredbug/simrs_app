@@ -94,7 +94,7 @@ jQuery(document).ready(function() {
 				
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					<img alt="" class="img-circle" src="<?php echo base_url()?>template/metro/assets/admin/layout/img/avatar3_small.jpg"/>
+					<img alt="" class="img-circle" src="<?php echo base_url()?>template/metro/assets/admin/pages/media/profile/user.png"/>
 					<span class="username username-hide-on-mobile">
 					<?php echo $_SESSION['nama']?> </span>
 					<i class="fa fa-angle-down"></i>

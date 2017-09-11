@@ -49,7 +49,7 @@
 					<ul class="nav ">
 						<li class="active">
 							<a href="#tab_1_1" data-toggle="tab">
-							<i class="icon-home"></i>
+							<i class="icon-user"></i>
 							Biodata </a>
 						</li>
 						<li>
@@ -59,7 +59,7 @@
 						</li>
 						<li>
 							<a href="#tab_1_3" data-toggle="tab">
-							<i class="icon-check"></i>
+							<i class="icon-rocket"></i>
 							Tasks </a>
 						</li>
 						<li>
@@ -161,13 +161,13 @@
 
 								<div class="tab-pane" id="tab_1_2">
 									<div class="scroller" style="height: 420px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-										<form class="form-horizontal">
+										<form class="form-horizontal form_akun_setting">
 				
 											<div class="form-body">
 												<div class="form-group">
 													<label class="col-md-3 control-label">Nama Lengkap : </label>
 													<div class="col-md-7">
-														<input type="text" name="nama" class="form-control input-sm" value="<?php echo $i_u['nama']?>">
+														<input type="text" name="nama" class="form-control" value="<?php echo $i_u['nama']?>">
 													</div>
 												</div>
 
@@ -175,28 +175,28 @@
 												<div class="form-group">
 													<label class="col-md-3 control-label">Username : </label>
 													<div class="col-md-7">
-														<input type="text" name="username" class="form-control input-sm" value='<?php echo $i_u['username']?>' disabled>
+														<input type="text" name="username" class="form-control" value='<?php echo $i_u['username']?>' disabled>
 													</div>
 												</div>
 
 												<div class="form-group">
 													<label class="col-md-3 control-label">Password Lama : </label>
 													<div class="col-md-7">
-														<input type="password" name="password_lm" class="form-control input-sm">
+														<input type="text" name="password_lm" class="form-control" disabled="" value='<?php echo $i_u['password']?>'>
 													</div>
 												</div>
 
 												<div class="form-group">
 													<label class="col-md-3 control-label">Password Baru : </label>
 													<div class="col-md-7">
-														<input type="password" name="password_br" class="form-control input-sm">
+														<input type="password" name="password_br" class="form-control">
 													</div>
 												</div>
 
 												<div class="form-group">
 													<label class="col-md-3 control-label">Ulangi Password : </label>
 													<div class="col-md-7">
-														<input type="password" name="password_br_u" class="form-control input-sm">
+														<input type="password" name="password_br_u" class="form-control">
 													</div>
 												</div>
 
@@ -205,8 +205,8 @@
 													<div class="col-md-7">
 														<select name="stt" class="form-control">
 															<option value=''>-- Pilih --</option>
-															<option value='Aktif'>Aktif</option>
-															<option value='Tidak Aktif'>Tidak Aktif</option>
+															<option value='Aktif' <?php echo $i_u['status_akun']=='Aktif'?'selected':''?>>Aktif</option>
+															<option value='Tidak Aktif' <?php echo $i_u['status_akun']=='Tidak Aktif'?'selected':''?>>Tidak Aktif</option>
 														</select>
 													</div>
 												</div>
@@ -218,7 +218,6 @@
 												<div class="row">
 													<div class="col-md-9 col-md-offset-3">
 														<button type="button" class="btn green btn_simpan_perubahan"><i class='fa fa-save'></i> Simpan perubahan</button>
-														<a href="<?php echo base_url().'admin'?>" class="btn green"><i class='fa fa-arrow-left'></i> Halaman utama </a>
 													</div>
 												</div>
 											</div>
@@ -240,7 +239,7 @@
 													<div class="cont">
 														<div class="cont-col1">
 															<div class="label label-sm label-danger">
-																<i class="fa fa-user"></i>
+																<i class="fa fa-rocket"></i>
 															</div>
 														</div>
 														<div class="cont-col2">
@@ -305,7 +304,24 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".btn_simpan_perubahan").click(function(){
-			$(this).html("<i class='fa fa-spin fa-spinner'></i> Menyimpan perubahan...").prop('disabled',true)
+			var $this=$(this);
+			$this.html("<i class='fa fa-spin fa-spinner'></i> Menyimpan perubahan...").prop('disabled',true)
+			var data=$(".form_akun_setting").serialize();
+			$.ajax({
+				type:'post',
+				url:base_url+'admin/manageuser_api/update_user/corajal',
+				data:data,
+				dataType:'json',
+				error:function()
+				{
+					alert('Koneksi terputus, periksa jaringan dan coba lagi.');
+					$this.html("<i class='fa fa-save'></i> Simpan perubahan").prop("disabled",false);
+				},
+				success:function(json)
+				{
+
+				}
+			})
 		})
 	})
 </script>

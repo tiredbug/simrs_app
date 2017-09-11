@@ -7,14 +7,19 @@ class M_manageuser extends ci_model
 	
 	function __query_get_data_Co_rajal()
 	{
-		return $q="SELECT * FROM pendaftaran_users";
+		$w='';
+		if($this->input->post('search[value]'))
+		{
+			$w="WHERE nama LIKE '%".$this->input->post('search[value]')."%'";
+		}
+		return $q="SELECT * FROM pendaftaran_users ".$w;
 	}
 	function get_data_user_co_rajal()
 	{
 		$q=$this->__query_get_data_Co_rajal();
 		if($this->input->post('length')!=-1)
         {
-            $query=$this->__query_get_data_Co_rajal()." LIMIT ".$this->input->post('start').",".$this->input->post('length');
+            $q=$this->__query_get_data_Co_rajal()." LIMIT ".$this->input->post('start').",".$this->input->post('length');
         }
 		return $this->db->query($q);
 	}
