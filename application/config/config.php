@@ -5,10 +5,13 @@ date_default_timezone_set('Asia/Jakarta');
 
 // $config['base_url'] = 'http://192.168.1.134/simrs_app/';
 // $config['base_url'] = 'http://172.100.28.150/simrs_app/';
-$config['base_url'] = '';
+// $config['base_url'] = '';
 // $config['base_url'] = 'http://125.165.3.20/simrs_app/';
 // $config['base_url'] = 'http://36.76.103.250/simrs_app/';
 //$config['base_url']=
+$config['base_url']=((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https':'http');
+$config['base_url']="://".$_SERVER["HTTP_HOST"];
+$config['base_url']=str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
 /*
 |--------------------------------------------------------------------------
 | Index File
