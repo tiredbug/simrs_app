@@ -1,4 +1,6 @@
 
+	<script src="<?php echo base_url()?>template/neon/js/bootstrap-datepicker.js"></script>
+
 	<div class="col-sm-7">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -16,7 +18,7 @@
 									<label class="control-label col-sm-3">Tgl Kunjungan :</label>
 									<div class="col-sm-9">
 										<div class="input-group">
-											<input type="text" name="tgl" class="form-control">
+											<input type="text" name="tgl" class="form-control tgl datepicker" data-format="dd-mm-yyyy">
 											<span class="input-group-btn">
 												<button class="btn btn-success btn-refresh" type="button">
 													<i class="entypo-search"></i>
@@ -63,7 +65,7 @@
 	$(document).ready(function(){
 
 
-	statistik_kunjungan('2017-09-12')
+	statistik_kunjungan('')
 
 	})
 	$(".btn_toggle_search_dt_kunjungan").click(function(){
@@ -182,22 +184,19 @@
             },
 			series: [{
 				type: 'pie',
-				dataLabels:{
-				
-				},
 				data: []
 			}]
 		
 				}
 
-		$.getJSON(base_url+'pendaftaran/home_api/statistik_kunjungan', function(json) {
+		$.getJSON(base_url+'pendaftaran/home_api/statistik_kunjungan?tgl='+tgl, function(json) {
 			options.series[0].data = json;
 			chart = new Highcharts.Chart(options);
 		});
 	}
 
 	$(".btn-refresh").click(function(){
-		statistik_kunjungan('')
+		statistik_kunjungan($(".tgl").val())
 	})
 </script>
 
