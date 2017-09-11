@@ -113,5 +113,17 @@ class M_function extends CI_Model{
                                 ORDER BY a.tgl_checkout DESC LIMIT 1");
     }
     //end
+
+
+
+    function search_icdx($like)
+    {
+        return $this->db->query("SELECT
+                                i.KODE id, CONCAT(i.KODE,' - ',i.SUB) slug
+                                FROM
+                                admin_mastericdx i
+                                WHERE i.KODE LIKE '%".$like."%' OR i.SUB LIKE '%".$like."%'
+                                LIMIT 0,25");
+    }
 }
 

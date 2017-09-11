@@ -308,26 +308,25 @@ class Register_api extends CI_Controller{
         return $this->m_function->max_id_tindakan_auto()+1;
     }
 
-    function tes()
+    function search_icdx()
     {
-            $id=$this->create_id_tindakan_auto();
-            // deklarasi data-data tindakan yang harus diinput secara otomatis oleh sistem 
+        if(! $this->input->is_ajax_request())
+        {
+            exit("No direct script access allowed.");
+        }
+        else
+        {
 
-            $data=array();
-            foreach ($this->m_function->get_biaya_auto()->result() as $au) {
+            $respon=array('success'=>false,'data'=>array());
+            foreach ($this->m_function->search_icdx($_GET['q'])->result() as $s) {
                 # code...
                 $row=array();
-                $row['id']=$id;
-                $row['nomor_kunjungan']='00';
-                $row['id_auto']=$au->id_auto;
-                $data[]=$row;
-                $id++;
+                $row['slug']=$s->slug;
+                $row['id']=$s->id;
+                $respon['data'][]=$row;
+            }
 
-            }
-            foreach ($data as $d => $value) {
-                # code...
-               echo $value['id'];
-            }
-            
+            echo json_encode($respon);
+        }
     }
 }

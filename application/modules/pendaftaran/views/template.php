@@ -234,7 +234,7 @@
             <?php echo $contents ?>
         </div>
         <footer class="main">
-            &copy; <?php echo date("Y")?> <strong>SIMRS</strong> Desaind by <a href="https://www.facebook.com/munazarsaifannur" target="_blank">BRAIND</a>
+            &copy; <?php echo date("Y")?> <strong>SIMRS</strong> Desaind by <a href="https://www.facebook.com/munazarsaifannur" target="_blank">Munazar</a>
         </footer>
     </div>
 </div>        

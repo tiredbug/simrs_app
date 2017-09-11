@@ -1738,7 +1738,7 @@ a.list-group-item-warning:focus {
 .btn-default {
 	color: #fff;
 	border: 0;
-	background-color: #c0c2c7;
+	background-color: #1caf9a;
 	border-color: #c0c2c7;
 }
 .btn-default:hover,
@@ -1747,7 +1747,7 @@ a.list-group-item-warning:focus {
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
 	color: #fff;
-	background-color: #a7aab1;
+	background-color: #39a293;
 	border-color: #c0c2c7;
 }
 .btn:focus,
