@@ -1,6 +1,10 @@
 
 	<script src="<?php echo base_url()?>template/neon/js/bootstrap-datepicker.js"></script>
-
+	<style type="text/css">
+		.hr_pie{
+			     margin-bottom: 1px; 
+		}
+	</style>
 	<div class="col-sm-7">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -137,7 +141,7 @@
 					renderTo: 'chart_statistik_kunjungan',
                   events: {
                     load: function(event) {
-                        $('.highcharts-legend-item').last().append('<br/><div style="width:200px"><hr/> <span style="float:left"> Total kunjungan : </span><span style="float:right"> ' + total + ' Jiwa</span> </div>')
+                        $('.highcharts-legend-item').last().append("<br/><div style='width:200px'><hr class='hr_pie'/> <span style='float:left'> Total kunjungan : </span><span style='float:right'> "+ total + " Jiwa</span> </div>")
                     }
                   }
                   
