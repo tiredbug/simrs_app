@@ -18,7 +18,7 @@
 										<div class="input-group">
 											<input type="text" name="tgl" class="form-control">
 											<span class="input-group-btn">
-												<button class="btn btn-success">
+												<button class="btn btn-success btn-refresh" type="button">
 													<i class="entypo-search"></i>
 												</button>
 											</span>
@@ -73,41 +73,121 @@
 
 	function statistik_kunjungan(tgl)
 	{
+		var total=0;
 
 		var options = {
-						chart: {
-							renderTo: 'chart_statistik_kunjungan',
-							plotBackgroundColor: null,
-							plotBorderWidth: null,
-							plotShadow: false
-						},
-						title: {
-							text: ''
-						},
-						tooltip: {
-							formatter: function() {
-								return '<b>'+ this.point.name +'</b>: '+ this.point.y;
-							}
-						},
-						plotOptions: {
-							pie: {
-								allowPointSelect: true,
-								cursor: 'pointer',
-								dataLabels: {
-								enabled: true,
-								color: '#000000',
-								connectorColor: '#000000',
-								formatter: function() {
-									return '<b>'+ this.point.name +'</b>: '+ this.point.y;
-								}
-							}
-						}
-					},
-					series: [{
-						type: 'pie',
-						name: '',
-						data: []
-					}]
+					// 	chart: {
+					// 		renderTo: 'chart_statistik_kunjungan',
+					// 		plotBackgroundColor: null,
+					// 		plotBorderWidth: null,
+					// 		plotShadow: false,
+					// 		events: {
+     //                			load: function(event) {
+     //                    			$('.highcharts-legend-item').last().append('<br/><div style="width:200px"><hr/> <span style="float:left"> Total </span><span style="float:right"> ' + total + '</span> </div>')
+     //                			}
+     //              			}
+					// 	},
+					// 	credits:{enabled: false},
+					// 	title: {
+					// 		text: ''
+					// 	},
+					// 	tooltip: {
+					// 		formatter: function() {
+					// 			return '<b>'+ this.point.name +'</b>: '+ this.point.y;
+					// 		}
+					// 	},
+					// 	plotOptions: {
+					// 		pie: {
+					// 			allowPointSelect: true,
+					// 			showInLegend: true,
+					// 			cursor: 'pointer',
+					// 			dataLabels: {
+					// 			enabled: false,
+					// 			color: '#000000',
+					// 			connectorColor: '#000000',
+					// 			formatter: function() {
+					// 				return '<b>'+ this.point.name +'</b>: '+ this.point.y;
+					// 			}
+					// 		},
+					// 		legend: {
+				 //                enabled: true,
+				 //                layout: 'vertical',
+				 //                align: 'right',
+				 //                width: 220,
+				 //                verticalAlign: 'top',
+					// 			borderWidth: 0,
+				 //                useHTML: true,
+					// 			labelFormatter: function() {
+				 //                    total += this.y;
+					// 				return '<div style="width:200px"><span style="float:left">' + this.name + '</span><span style="float:right">' + this.y + '%</span></div>';
+					// 			}
+					// 		}
+					// 	}
+
+					// },
+					// series: [{
+					// 	type: 'pie',
+					// 	name: '',
+					// 	data: []
+					// }]
+	
+			chart:{type:'pie',
+					renderTo: 'chart_statistik_kunjungan',
+                  events: {
+                    load: function(event) {
+                        $('.highcharts-legend-item').last().append('<br/><div style="width:200px"><hr/> <span style="float:left"> Total kunjungan : </span><span style="float:right"> ' + total + ' Jiwa</span> </div>')
+                    }
+                  }
+                  
+                  },
+			credits:{enabled: false},
+            
+            title:{text: null},
+			tooltip:{
+				enabled: true,
+				animation: true
+			},
+			plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+					animation: true,
+                    cursor: 'pointer',
+                    showInLegend: true,
+                    dataLabels: {
+                        enabled: false,                        
+                        formatter: function() {
+                            return this.percentage.toFixed(2) + ' Jiwa';
+                        }
+                    } 									
+                }
+            },
+            legend: {
+                enabled: true,
+                layout: 'vertical',
+                align: 'right',
+                width: 220,
+                verticalAlign: 'top',
+				borderWidth: 0,
+                useHTML: true,
+				labelFormatter: function() {
+                    total += this.y;
+					return '<div style="width:200px"><span style="float:left">' + this.name + '</span><span style="float:right">' + this.y + ' Jiwa</span></div>';
+				},
+				title: {
+					text: 'Data kunjungan',
+					style: {
+						fontWeight: 'bold'
+					}
+				}
+            },
+			series: [{
+				type: 'pie',
+				dataLabels:{
+				
+				},
+				data: []
+			}]
+		
 				}
 
 		$.getJSON(base_url+'pendaftaran/home_api/statistik_kunjungan', function(json) {
@@ -116,5 +196,11 @@
 		});
 	}
 
-	
+	$(".btn-refresh").click(function(){
+		statistik_kunjungan('')
+	})
 </script>
+
+
+
+    
