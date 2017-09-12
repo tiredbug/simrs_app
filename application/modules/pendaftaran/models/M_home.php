@@ -16,4 +16,10 @@ class M_home extends CI_Model{
 								WHERE pk.jenis_kunjungan IN('Rajal') AND pk.tgl_daftar IN('".$tgl."')
 								GROUP BY rk.kode_poliklinik) jn ON jn.k_pli=pli.id_poliklinik");
 	}
+
+	function get_i_statistik_pasien()
+	{
+		return $this->db->query("SELECT ps.jenis_kelamin jk,count(*) jumlah FROM pendaftaran_pasien ps
+								GROUP BY ps.jenis_kelamin");
+	}
 }

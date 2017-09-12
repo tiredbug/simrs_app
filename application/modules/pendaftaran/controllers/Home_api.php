@@ -32,4 +32,16 @@ class Home_api extends CI_Controller
 		}
 		echo json_encode($r,JSON_NUMERIC_CHECK);
 	}
+
+	function statistik_pasien()
+	{
+		$r=array();		
+		foreach ($this->m_home->get_i_statistik_pasien()->result() as $ps) {
+			# code...
+			$rw[0]=$ps->jk;
+			$rw[1]=$ps->jumlah;
+			array_push($r,$rw);
+		}
+		echo json_encode($r,JSON_NUMERIC_CHECK);
+	}
 }

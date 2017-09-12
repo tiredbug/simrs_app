@@ -8,7 +8,7 @@
 	<div class="col-sm-7">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<div class="panel-title"><i class='entypo-chart-bar bold'></i> Statistik Kunjungan Hari Ini</div>
+				<div class="panel-title"><i class='entypo-chart-bar bold'></i> Statistik Kunjungan Rawat Jalan</div>
 				<div class="panel-options">
 					<a href="#" class="bg btn_toggle_search_dt_kunjungan"><i class="entypo-search"></i></a>
 				</div>
@@ -38,7 +38,7 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
-						<div id="chart_statistik_kunjungan" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+						<div id="chart_statistik_kunjungan" style="min-width: 310px; height: auto; max-width: 600px; margin: 0 auto"></div>
 					</div>
 				</div>
 			</div>
@@ -49,12 +49,12 @@
 	<div class="col-sm-5">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<div class="panel-title"><i class='entypo-chart-bar bold'></i> Register Oleh Saya</div>
+				<div class="panel-title"><i class='entypo-chart-bar bold'></i> Grafik Pasien</div>
 			</div>
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-sm-12">
-						
+						<div id="chart_statistik_pasien" style="min-width: 310px; height: auto; max-width: 600px; margin: 0 auto"></div>
 					</div>
 				</div>
 			</div>
@@ -69,14 +69,64 @@
 	$(document).ready(function(){
 
 
-	statistik_kunjungan('')
+	statistik_kunjungan('');
+	statistik_pasien();
 
 	})
 	$(".btn_toggle_search_dt_kunjungan").click(function(){
 		$(".form_search_dt_kunjungan").toggle();
 	})
 
+	function statistik_pasien()
+	{
+		var total_pasien=0;
+		var options_pasien={
+				chart: {
+							renderTo: 'chart_statistik_pasien',
+							plotBackgroundColor: null,
+							plotBorderWidth: null,
+							plotShadow: false,
+							
+						},
+						credits:{enabled: false},
+						title: {
+							text: ''
+						},
+						tooltip: {
+							formatter: function() {
+								return '<b>'+ this.point.name +'</b>: '+ this.point.y+' jiwa';
+							}
+						},
+						plotOptions: {
+							pie: {
+								allowPointSelect: true,
+								showInLegend: false,
+								cursor: 'pointer',
+								dataLabels: {
+								enabled: true,
+								color: '#000000',
+								connectorColor: '#000000',
+								formatter: function() {
+									return '<b>'+ this.point.name +'</b>: '+ this.point.y+' jiwa';
+								}
+							},
+							colors:['#F45B5B','#90ed7d'],
+							
+						}
 
+					},
+					series: [{
+						type: 'pie',
+						name: '',
+						data: []
+					}]
+			
+		}
+		$.getJSON(base_url+'pendaftaran/home_api/statistik_pasien', function(json) {
+			options_pasien.series[0].data = json;
+			chart = new Highcharts.Chart(options_pasien);
+		});
+	}
 	function statistik_kunjungan(tgl)
 	{
 		var total=0;
@@ -191,7 +241,7 @@
 				data: []
 			}]
 		
-				}
+			}
 
 		$.getJSON(base_url+'pendaftaran/home_api/statistik_kunjungan?tgl='+tgl, function(json) {
 			options.series[0].data = json;
