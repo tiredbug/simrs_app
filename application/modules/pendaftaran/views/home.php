@@ -40,6 +40,21 @@
 					<div class="col-sm-12">
 						<div id="chart_statistik_kunjungan" style="min-width: 310px; height: auto; max-width: 600px; margin: 0 auto"></div>
 					</div>
+					<div class="col-sm-12">
+						<div class="bs-callout bs-callout-warning nomargin-top nomargin-bottom bs-callout-statistik">
+							<div class="row">
+								<div class="pull-left">
+									<h1 class="margin-bottom">Total kunjungan : </h1>
+								</div>
+								<div class="pull-right">
+									<div class="profile-stat bold">
+										<h3 id="total_kunjungan">0</h3>
+										<span>kunjungan</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -205,7 +220,7 @@
 					renderTo: 'chart_statistik_kunjungan',
                   events: {
                     load: function(event) {
-                        $('.highcharts-legend-item').last().append("<br/><div style='width:200px'><hr class='hr_pie'/> <span style='float:left'> Total kunjungan : </span><span style='float:right'> "+ total + " Jiwa</span> </div>")
+                    	$("#total_kunjungan").html(total)
                     }
                   }
                   
@@ -237,11 +252,11 @@
                 align: 'right',
                 width: 220,
                 verticalAlign: 'top',
-				borderWidth: 0,
+				borderWidth: 1,
                 useHTML: true,
 				labelFormatter: function() {
                     total += this.y;
-					return '<div style="width:200px"><span style="float:left">' + this.name + '</span><span style="float:right">' + this.y + ' Jiwa</span></div>';
+					return '<div style="width:190px"><span style="float:left">' + this.name + '</span><span style="float:right">' + this.y + ' Jiwa</span></div>';
 				},
 				title: {
 					text: 'Data kunjungan',

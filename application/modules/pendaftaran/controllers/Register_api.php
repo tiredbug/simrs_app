@@ -142,150 +142,184 @@ class Register_api extends CI_Controller{
         }
         else
         {
-            // variabel respon 
-            $sukses=false;
-            $pesan_err='';
+            $data=array('success'=>false,'message'=>array(),'pesan_err'=>'');
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters("<p class='text-danger'>",'</p>');
+            $this->form_validation->set_rules('nrm','Nomor rekam medis','is_natural|callback_cek_norek_pasien',array(
+                'is_natural'=>'%s harus angka.'
+                ));
 
-
-            // variabel lain
-            $nomor_kunjungan='';
-            $sep='';
-            $nomor_antrian='';
-
-
-
-            // hitung umur pasien 
-            $this->load->helper('umur');
-            $tgl_lahir  =   $this->m_function->get_tgllahir($this->input->post('nrm'))->row_array();
-            $umur       =   hitung_umur($tgl_lahir['tgl_lahir']);
-            $umur_thn   =   $umur['tahun']=='0'?'0':$umur['tahun'];
-            $umur_bln   =   $umur['bulan']=='0'?'0':$umur['bulan'];
-            $umur_hr    =   $umur['hari']=='0'?'0':$umur['hari'];
-
-
-            // membuat nomor kunjungan dan nomor antrian di poli 
-            $nomor_kunjungan    =   $this->buat_nomorkunjungan();
-            $nomor_antrian      =   $this->buat_nomorantrian($this->input->post('poli'));
-
-
-
-            // deklarasi field tabel pendaftaran_kunjungan dan isi field 
-            $data_kunjungan=array(
-                'nomor_kunjungan'       =>  $nomor_kunjungan,
-                'norekammedis'          =>  $this->input->post('nrm'),
-                'kode_carabayar'        =>  $this->input->post('cb'),
-                'kode_kelompok'         =>  $this->input->post('kelompok'),
-                'tgl_daftar'            =>  tgl_mysql($this->input->post('tgl_daftar')),
-                'jam_daftar'            =>  $this->input->post('jam_daftar'),
-                'kode_cararujuk'        =>  $this->input->post('cr'),
-                'asal_rujukan'          =>  $this->input->post('asal_rujuk'),
-                'nomor_rujukan'         =>  $this->input->post('nomor_rujukan'),
-                'tgl_rujukan'           =>  tgl_mysql($this->input->post('tgl_rujukan')),
-                'jam_rujukan'           =>  $this->input->post('jam_rujuk'),
-                'ppk_rujukan'           =>  $this->input->post('ppk_rujuk'),
-                'diagnosa'              =>  $this->input->post('diagnosa'),
-                'kode_kelas'            =>  $this->input->post('kelas'),
-                'nomor_sep'             =>  $sep,
-                'penanggung_jawab'      =>  $this->input->post('nm_k'),
-                'hubungan_denganpasien' =>  $this->input->post('hub_k'),
-                'alamat_penanggungjawab'=>  $this->input->post('alamat_k'),
-                'hp_penanggungjawab'    =>  $this->input->post('hp_k'),
-                'jenis_kunjungan'       =>  'Rajal',
-                'status_kunjungan'      =>  'Masih dirawat',
-                'jenis_pasien'          =>  $this->input->post('j_p'),
-                'umur_tahun'            =>  $umur_thn,
-                'umur_bulan'            =>  $umur_bln,
-                'umur_hari'             =>  $umur_hr,
-                'deposito'              =>  $this->input->post('deposito')
-                );
-
-
-
-            // deklarasi field tabel rajal_kunjungan dan isi fieldnya
-            $data_rajal=array(
-                'nomor_antrian'     =>  $nomor_antrian,
-                'nomor_kunjungan'   =>  $nomor_kunjungan,
-                'kode_poliklinik'   =>  $this->input->post('poli'),
-                'kode_dokter'       =>  $this->input->post('dokter')
-                );
-
-
-            // id paling besar terbaru
-            $id=$this->create_id_tindakan_auto();
-            // deklarasi data-data tindakan yang harus diinput secara otomatis oleh sistem 
-
-            $data_auto=array();
-            foreach ($this->m_function->get_biaya_auto()->result() as $au) {
-                # code...
-                $row=array();
-                $row['id']=$id;
-                $row['nomor_kunjungan']=$nomor_kunjungan;
-                $row['id_auto']=$au->id_auto;
-                $data_auto[]=$row;
-                $id++;
-
-            }
-
-            $hasil_cek=$this->validasi_sebelum_register_rajal();
-            if($hasil_cek['sukses']==true)
+            if($this->form_validation->run())
             {
-                if($this->m_core->void_registerrajal($data_kunjungan,$data_rajal,$data_auto)==TRUE)
-                {
-                    $sukses=true;
-                    $this->logapp->log_user($_SESSION['id'],'register kunjungan rajal norek '.$_POST['nrm'].' ke poli '.$_POST['poli']);
-                }
-                else
-                {
-                    $pesan_err='Gagal mendaftar pasien untuk berobat jalan, periksa kembali data inputan anda.';
-                }
+                // if($this->m_core->submit_data($data_pasien))
+                // {
+                //     // $data['success']=true;
+                //     // $this->logapp->log_user($_SESSION['id'],'register pasien baru norek = '.$norek.' nama='.$_POST['nama']);
+                //     // $this->logapp->log_pasien($norek,$_SESSION['id'],'register.');
+                // }
+                // else
+                // {
+                //     $err=  $this->db->error();
+                //     //gagal registrasi pasien
+                //     $data['pesan_err']="Data pasien gagal disimpan, mohon periksa kembali inputan anda. Pastikan semua data wajib sudah diisi.";
+                // }
+                $data['success']=true;
             }
             else
             {
-                $pesan_err=$hasil_cek['pesan_err'];
+                foreach ($_POST as $key => $value) {
+                    # code...
+                    $data['message'][$key]=form_error($key);
+                }
+                $data['success']=false;
             }
 
-            $json['success']=$sukses;
-            $json['pesan_err']=$pesan_err;
-            echo json_encode($json);
+            echo json_encode($data);
+            // // variabel respon 
+            // $sukses=false;
+            // $pesan_err='';
+
+
+            // // variabel lain
+            // $nomor_kunjungan='';
+            // $sep='';
+            // $nomor_antrian='';
+
+
+
+            // // hitung umur pasien 
+            // $this->load->helper('umur');
+            // $tgl_lahir  =   $this->m_function->get_tgllahir($this->input->post('nrm'))->row_array();
+            // $umur       =   hitung_umur($tgl_lahir['tgl_lahir']);
+            // $umur_thn   =   $umur['tahun']=='0'?'0':$umur['tahun'];
+            // $umur_bln   =   $umur['bulan']=='0'?'0':$umur['bulan'];
+            // $umur_hr    =   $umur['hari']=='0'?'0':$umur['hari'];
+
+
+            // // membuat nomor kunjungan dan nomor antrian di poli 
+            // $nomor_kunjungan    =   $this->buat_nomorkunjungan();
+            // $nomor_antrian      =   $this->buat_nomorantrian($this->input->post('poli'));
+
+
+
+            // // deklarasi field tabel pendaftaran_kunjungan dan isi field 
+            // $data_kunjungan=array(
+            //     'nomor_kunjungan'       =>  $nomor_kunjungan,
+            //     'norekammedis'          =>  $this->input->post('nrm'),
+            //     'kode_carabayar'        =>  $this->input->post('cb'),
+            //     'kode_kelompok'         =>  $this->input->post('kelompok'),
+            //     'tgl_daftar'            =>  tgl_mysql($this->input->post('tgl_daftar')),
+            //     'jam_daftar'            =>  $this->input->post('jam_daftar'),
+            //     'kode_cararujuk'        =>  $this->input->post('cr'),
+            //     'asal_rujukan'          =>  $this->input->post('asal_rujuk'),
+            //     'nomor_rujukan'         =>  $this->input->post('nomor_rujukan'),
+            //     'tgl_rujukan'           =>  tgl_mysql($this->input->post('tgl_rujukan')),
+            //     'jam_rujukan'           =>  $this->input->post('jam_rujuk'),
+            //     'ppk_rujukan'           =>  $this->input->post('ppk_rujuk'),
+            //     'diagnosa'              =>  $this->input->post('diagnosa'),
+            //     'kode_kelas'            =>  $this->input->post('kelas'),
+            //     'nomor_sep'             =>  $sep,
+            //     'penanggung_jawab'      =>  $this->input->post('nm_k'),
+            //     'hubungan_denganpasien' =>  $this->input->post('hub_k'),
+            //     'alamat_penanggungjawab'=>  $this->input->post('alamat_k'),
+            //     'hp_penanggungjawab'    =>  $this->input->post('hp_k'),
+            //     'jenis_kunjungan'       =>  'Rajal',
+            //     'status_kunjungan'      =>  'Masih dirawat',
+            //     'jenis_pasien'          =>  $this->input->post('j_p'),
+            //     'umur_tahun'            =>  $umur_thn,
+            //     'umur_bulan'            =>  $umur_bln,
+            //     'umur_hari'             =>  $umur_hr,
+            //     'deposito'              =>  $this->input->post('deposito')
+            //     );
+
+
+
+            // // deklarasi field tabel rajal_kunjungan dan isi fieldnya
+            // $data_rajal=array(
+            //     'nomor_antrian'     =>  $nomor_antrian,
+            //     'nomor_kunjungan'   =>  $nomor_kunjungan,
+            //     'kode_poliklinik'   =>  $this->input->post('poli'),
+            //     'kode_dokter'       =>  $this->input->post('dokter')
+            //     );
+
+
+            // // id paling besar terbaru
+            // $id=$this->create_id_tindakan_auto();
+            // // deklarasi data-data tindakan yang harus diinput secara otomatis oleh sistem 
+
+            // $data_auto=array();
+            // foreach ($this->m_function->get_biaya_auto()->result() as $au) {
+            //     # code...
+            //     $row=array();
+            //     $row['id']=$id;
+            //     $row['nomor_kunjungan']=$nomor_kunjungan;
+            //     $row['id_auto']=$au->id_auto;
+            //     $data_auto[]=$row;
+            //     $id++;
+
+            // }
+
+            // $hasil_cek=$this->validasi_sebelum_register_rajal();
+            // if($hasil_cek['sukses']==true)
+            // {
+            //     if($this->m_core->void_registerrajal($data_kunjungan,$data_rajal,$data_auto)==TRUE)
+            //     {
+            //         $sukses=true;
+            //         $this->logapp->log_user($_SESSION['id'],'register kunjungan rajal norek '.$_POST['nrm'].' ke poli '.$_POST['poli']);
+            //     }
+            //     else
+            //     {
+            //         $pesan_err='Gagal mendaftar pasien untuk berobat jalan, periksa kembali data inputan anda.';
+            //     }
+            // }
+            // else
+            // {
+            //     $pesan_err=$hasil_cek['pesan_err'];
+            // }
+
+            // $json['success']=$sukses;
+            // $json['pesan_err']=$pesan_err;
+            // echo json_encode($json);
         }
     }
 
 
 
     //validasi data sebelum didaftara rawat jalan.
-    function validasi_sebelum_register_rajal()
+    function cek_norek_pasien($norek)
     {
 
         $sukses=false;
         $pesan_err='';
 
         // cek apakah masih dirawata 
-        if($this->m_function->cek_kunjungan($this->input->post('nrm'))->num_rows() > 0)
+        if($norek=='')
         {
-            // masih dirawat 
-            $pesan_err='Pasien tersebut masih dirawat.';
+            $this->form_validation->set_message('cek_norek_pasien','No. Medrec tidak boleh kosong.');
+                return false;
         }
-        else if($this->m_function->cek_norek($this->input->post('nrm'))->num_rows() < 1)
+        else if($this->m_function->cek_kunjungan($norek)->num_rows() > 0){
+            // masih dirawat 
+            
+            $this->form_validation->set_message('cek_norek_pasien','No. Medrec <b>'.$norek.'</b> masih dirawat.');
+                return false;
+        }
+        else if($this->m_function->cek_norek($norek)->num_rows() < 1)
         {
             // tidak dikenal
-            $pesan_err='Nomor rekam medis tidak dikenal, Masukkan nomor rekam medis kemudian tekan tombol enter.';
+            $this->form_validation->set_message('cek_norek_pasien','No. Medrec <b>'.$norek.'</b> tidak dikenal.');
+                return false;
         }
-        else if($this->m_function->cek_hidup($this->input->post('nrm'))->num_rows() > 0)
+        else if($this->m_function->cek_hidup($norek)->num_rows() > 0)
         {
             // sudah meninggal 
-            $pesan_err="Pasien sudah meninggal.";
+            $this->form_validation->set_message('cek_norek_pasien','No. Medrec <b>'.$norek.'</b> sudah meinggal.');
+                return false;
         }
         else
         {
-            $sukses=true;
+            return true;
         }
-
-        $respon=array(
-            'sukses'=>$sukses,
-            'pesan_err'=>$pesan_err
-            );
-
-        return $respon;
     }
 
     function buat_nomorkunjungan()

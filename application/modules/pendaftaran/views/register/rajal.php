@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">Kelas Perawatan :</label>
                     <div class="col-sm-9">
-                        <select name="kelas" class="form-control">
+                        <select name="kelas" class="form-control" id="kelas">
                             <option value=''>-- Pilih --</option>
                             <?php 
                             foreach($kelas->result() as $kls)
@@ -105,29 +105,27 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">Asal Rujukan :</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control  " name="asal_rujuk" id="asal_rujuk" placeholder="Asal rujukan..." />
+                        <input type="text" class="form-control" name="asal_rujuk" id="asal_rujuk" placeholder="Asal rujukan..." />
                     </div>
                 </div>
-
-                
 
                 <div class="form-group">
                     <label class="control-label col-sm-3">Tgl, Jam Rujukan :</label>
                     <div class="col-sm-5">
                         <div class="input-group">
-                                <input type="text" class="form-control datepicker" name="tgl_rujukan" id="tgl_rujukan" data-format="dd-mm-yyyy" value="<?php echo tgl_biasa(date("d-m-Y"))?>">
-                                <div class="input-group-addon">
-                                    <a href="#"><i class="entypo-calendar"></i></a>
-                                </div>
+                            <input type="text" class="form-control datepicker" name="tgl_rujukan" id="tgl_rujukan" data-format="dd-mm-yyyy" value="<?php echo tgl_biasa(date("d-m-Y"))?>">
+                            <div class="input-group-addon">
+                                <a href="#"><i class="entypo-calendar"></i></a>
                             </div>
+                        </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="input-group">
-                                <input type="text" class="form-control timepicker" data-template="dropdown" data-show-seconds="true" data-default-time="<?php echo date("H:i:s")?>" data-show-meridian="false" data-minute-step="5" data-second-step="5"  id="jam_rujuk" name="jam_rujuk" />        
-                                <div class="input-group-addon">
-                                    <a href="#"><i class="entypo-clock"></i></a>
-                                </div>
+                            <input type="text" class="form-control timepicker" data-template="dropdown" data-show-seconds="true" data-default-time="<?php echo date("H:i:s")?>" data-show-meridian="false" data-minute-step="5" data-second-step="5"  id="jam_rujuk" name="jam_rujuk" />        
+                            <div class="input-group-addon">
+                                <a href="#"><i class="entypo-clock"></i></a>
                             </div>
+                        </div>
                     </div>
                 </div>
 
@@ -433,6 +431,8 @@
     
 
     $(".btn-simpan").click(function(e){
+        var $this=$(this);
+        // $this.html("<i class='fa fa-spin fa-spinner'></i> Registrasi kunjungan...").prop('disabled',true);
         swal({
             title:'Sudah lengkap ?',
             text:'periksa data semua sudah lengkap, lanjutkan apabila anda yakin.',
@@ -442,47 +442,50 @@
             confirmButtonColor:"#21a9e1",
             closeOnConfirm:false
         },function(){
-                var form=$(".form-rajal").serialize();
-                loading_show();
-                $.ajax({
-                    type:"POST",
-                    url:base_url+'pendaftaran/register_api/register_rajal',
-                    data:form,
-                    dataType:'json',
-                    error:function(xhr, desc, err)
+            var form=$(".form-rajal").serialize();
+            loading_show();
+            $.ajax({
+                type:"POST",
+                url:base_url+'pendaftaran/register_api/register_rajal',
+                data:form,
+                dataType:'json',
+                error:function(xhr, desc, err)
+                {
+                    alert('Gagal terhunung ke server.');
+                    loading_hide();
+                },
+                success:function(json)
+                {
+                    loading_hide();
+                    if(json.success)
                     {
-                        alert('Gagal terhunung ke server.');
-                        loading_hide();
-                    },
-                    success:function(json)
-                    {
-                        loading_hide();
-                        if(json.success)
-                        {
-                            $(".form-group").removeClass('has-error')
-                                            .removeClass('has-success');
-                            $(".text-danger").remove();
-                            swal({
-                                title:'Berhasil',
-                                text:'Kunjungan berhasil didaftarkan ke poli tujuan.',
-                                type:'success'
-                            })
-                        }
-                        else
-                        {
-                            $.each(json.message,function(i, val){
-                                var el=$("#"+i);
-                                el.closset('div.form-group')
-                                .removeClass('has-error')
-                                .addClass(val.length>0?'has-error':'has-success')
-                                .find('text-danger').remove();
-                                el.after(val)
-                            })
-                        }
+                        $(".form-group").removeClass('has-error')
+                                        .removeClass('has-success');
+                        $(".text-danger").remove();
+                        swal({
+                            title:'Berhasil',
+                            text:'Kunjungan berhasil didaftarkan ke poli tujuan.',
+                            type:'success'
+                        })
+                        $this.html("Register kunjungan")
                     }
-                })
-            
-        })
+                    else
+                    {
+                        $.each(json.message,function(i, val){
+                            var el=$("#"+i);
+                            el.closest('div.form-group')
+                            .removeClass('has-error')
+                            .addClass(val.length > 0 ? 'has-error':'has-success')
+                            .find('.text-danger').remove();
+                            el.after(val)
+                        })
+                        $this.html("Register kunjungan").prop('disabled',false)
+                        swal('Gagal','data inputan belum lengkap, periksa kembali','error');
+                    }
+                }
+            })          
+        }
+        )
             
                
         

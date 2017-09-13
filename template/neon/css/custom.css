@@ -51,6 +51,9 @@ h6
 
 
 /*colout*/
+.bs-callout-statistik{
+    padding: 0px 30px !important;
+}
 .bs-callout {
     padding: 20px;
     margin: 20px 0;
