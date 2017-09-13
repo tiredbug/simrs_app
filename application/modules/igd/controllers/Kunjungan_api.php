@@ -455,4 +455,26 @@ class Kunjungan_api extends ci_controller{
         }
     }
 
+    function search_icdx()
+    {
+        if(! $this->input->is_ajax_request())
+        {
+            exit("No direct script access allowed.");
+        }
+        else
+        {
+
+            $respon=array('success'=>false,'data'=>array());
+            foreach ($this->m_function->search_icdx($_GET['q'])->result() as $s) {
+                # code...
+                $row=array();
+                $row['slug']=$s->slug;
+                $row['id']=$s->id;
+                $respon['data'][]=$row;
+            }
+
+            echo json_encode($respon);
+        }
+    }
+
 }

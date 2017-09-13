@@ -100,10 +100,10 @@
 						plotOptions: {
 							pie: {
 								allowPointSelect: true,
-								showInLegend: false,
+								showInLegend: true,
 								cursor: 'pointer',
 								dataLabels: {
-								enabled: true,
+								enabled: false,
 								color: '#000000',
 								connectorColor: '#000000',
 								formatter: function() {
@@ -112,9 +112,23 @@
 							},
 							colors:['#F45B5B','#90ed7d'],
 							
-						}
-
+						},
 					},
+					legend: {
+			            enabled: true,
+			            layout: 'horizontal',
+			            borderWidth: 1,
+			            useHTML: true,
+						labelFormatter: function() {
+							return '<div style="width:200px"><span style="float:left">' + this.name + '</span><span style="float:right">' + this.y + ' Jiwa</span></div>';
+						},
+						title: {
+							text: 'Jumlah pasien',
+							style: {
+								fontWeight: 'bold'
+							}
+						}
+			        },
 					series: [{
 						type: 'pie',
 						name: '',
@@ -250,7 +264,9 @@
 	}
 
 	$(".btn-refresh").click(function(){
+		$(".form_search_dt_kunjungan").css('display','none');
 		statistik_kunjungan($(".tgl").val())
+
 	})
 </script>
 

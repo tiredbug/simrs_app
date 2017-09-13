@@ -145,7 +145,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">Diagnosa :</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control  " name="diagnosa" id="diagnosa" placeholder="Diagnosa..." />
+                        <input type="hidden" class="diagnosa form-control" id='diagnosa' name="diagnosa"/>
                     </div>
                 </div>
 
@@ -486,5 +486,41 @@
             $this.removeClass("reloading")
         }
     }
+
+    //funsi select icx keypress
+        $(".diagnosa").select2({
+            minimumInputLength: 1,
+            ajax: {
+                    url: base_url+'igd/kunjungan_api/search_icdx',
+                    type:'GET',
+                    dataType: 'json',
+                    delay: 50,
+                    data: function (query) {
+                        return {
+                            q: query
+                        };
+                    },
+                    results: function (data) {
+                      var parsed = [];
+
+                      try {
+                        parsed = _.chain(data.data)
+                          .map(function (item, index) {
+                            return {
+                              id: item.id,
+                              text: item.slug
+                            };
+                          })
+                          .value();
+                      } catch (e) { }
+
+                      return {
+                        results: parsed
+                      };
+                    },
+                    cache: true
+            }
+        });
+        // end
    
 </script>

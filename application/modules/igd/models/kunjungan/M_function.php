@@ -247,4 +247,14 @@ class M_function extends ci_model{
                 INNER JOIN admin_tarifigd tf ON tf.kode_tarif=t.kode_tindakan
                 WHERE t.nokunjungan IN('".$nokunjungan."')");
     }
+
+    function search_icdx($like)
+    {
+        return $this->db->query("SELECT
+                                i.KODE id, CONCAT(i.KODE,' - ',i.SUB) slug
+                                FROM
+                                admin_mastericdx i
+                                WHERE i.KODE LIKE '%".$like."%' OR i.SUB LIKE '%".$like."%'
+                                LIMIT 0,25");
+    }
 }

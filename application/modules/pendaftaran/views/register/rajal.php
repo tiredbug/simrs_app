@@ -301,9 +301,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <p class="pull-right">
-                            <button type="button" class="btn btn-sm btn-info btn-cancel">Kembali</button>
-                            <button type="button" class="btn btn-sm btn-danger btn-reset">Batal</button>
-                            <button type="button" class="btn btn-sm btn-success btn-simpan">Registeri kunjungan</button>
+                            <button type="button" class="btn  btn-success btn-simpan">Registeri kunjungan</button>
                         </p>
                     </div>
                 </div>
@@ -435,10 +433,15 @@
     
 
     $(".btn-simpan").click(function(e){
-        var respon=validasi();
-        if(respon.stt==true){
-            var e=confirm("Semua data sudah benar, lanjut register ?");
-            if(e){
+        swal({
+            title:'Sudah lengkap ?',
+            text:'periksa data semua sudah lengkap, lanjutkan apabila anda yakin.',
+            type:'warning',
+            showCancelButton:true,
+            confirmButtonText:'Ya, lanjutkan simpan.',
+            confirmButtonColor:"#21a9e1",
+            closeOnConfirm:false
+        },function(){
                 var form=$(".form-rajal").serialize();
                 loading_show();
                 $.ajax({
@@ -456,35 +459,34 @@
                         loading_hide();
                         if(json.success)
                         {
-                            alert('Pendaftaran pasien rajal berhasil.')
-                            $(".form-rajal").trigger('reset');
+                            $(".form-group").removeClass('has-error')
+                                            .removeClass('has-success');
+                            $(".text-danger").remove();
+                            swal({
+                                title:'Berhasil',
+                                text:'Kunjungan berhasil didaftarkan ke poli tujuan.',
+                                type:'success'
+                            })
                         }
                         else
                         {
-                            toastr.error(json.pesan_err)
+                            $.each(json.message,function(i, val){
+                                var el=$("#"+i);
+                                el.closset('div.form-group')
+                                .removeClass('has-error')
+                                .addClass(val.length>0?'has-error':'has-success')
+                                .find('text-danger').remove();
+                                el.after(val)
+                            })
                         }
                     }
                 })
-            }
-        }
-        else
-        {
-            alert(respon.pesan)
-        }
+            
+        })
+            
+               
+        
     })
-
-    //fungsi validasi
-    function validasi()
-    {
-        var stt=false;
-        var pesan='';
-
-        stt=true;
-        return{
-            "stt":stt,
-            "pesan":pesan
-        }       
-    }
 
 
     //funsi select icx keypress
