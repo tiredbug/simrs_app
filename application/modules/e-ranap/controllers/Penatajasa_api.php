@@ -60,16 +60,21 @@ class Penatajasa_api extends ci_controller
 
 	function pindah_ruangan()
 	{
-		$r=array('success'=>false);
-		if($this->m_penatajasa->update_ruangan())
-		{
-			$r['success']=true;
-		}
-		else
-		{
-			$r['success']=false;
-		}
+
+		$r=array('success'=>false,'message'=>array());
+
+
 		echo json_encode($r);
+		// $r=array('success'=>false);
+		// if($this->m_penatajasa->update_ruangan())
+		// {
+		// 	$r['success']=true;
+		// }
+		// else
+		// {
+		// 	$r['success']=false;
+		// }
+		// echo json_encode($r);
 	}
 
 

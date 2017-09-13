@@ -366,9 +366,17 @@
 						window.location.href=base_url+'e-ranap/penatajasa'
 					}
 					else
-						alert('Gagal pindah ruangan, coba lagi.');
-						$(".btn-pindah-ruangan").prop('disabled',false);
-						$this.html("Simpan perubahan").prop('disabled',false);
+					{
+						// alert('Gagal pindah ruangan, coba lagi.');
+						// $(".btn-pindah-ruangan").prop('disabled',false);
+						// $this.html("Simpan perubahan").prop('disabled',false);
+						$.each(json,function(i, val){
+							var el=#("."+i);
+							el.closest('div.form-group')
+							.removeClass('has-error')
+							.
+						})
+					}
 				}
 			})
 		}
