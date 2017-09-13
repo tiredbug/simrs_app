@@ -143,7 +143,7 @@
                 <li class="has-sub">
                     <a href="index.html">
                         <i class="entypo-folder"></i>
-                        <span class="title">Informasi Kunjungan</span>
+                        <span class="title">Data Kunjungan</span>
                     </a>
                     <ul>
                         <li>

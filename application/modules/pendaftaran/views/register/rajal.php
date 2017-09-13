@@ -40,6 +40,7 @@
                     <label class="control-label col-sm-3">Kelompok Peserta :</label>
                     <div class="col-sm-9">
                         <select name="kelompok" class="form-control  " id="kelompok">
+                            <option value=''>-- Pilih --</option>
                         </select>
                     </div>
                 </div>
@@ -440,7 +441,8 @@
             showCancelButton:true,
             confirmButtonText:'Ya, lanjutkan simpan.',
             confirmButtonColor:"#21a9e1",
-            closeOnConfirm:false
+            closeOnConfirm:false,
+            showLoaderOnConfirm: true
         },function(){
             var form=$(".form-rajal").serialize();
             loading_show();
@@ -451,7 +453,11 @@
                 dataType:'json',
                 error:function(xhr, desc, err)
                 {
-                    alert('Gagal terhunung ke server.');
+                    swal({
+                        title:'Koneksi terputu',
+                        text:'periksa jaringan anda lalu coba kembali.',
+                        imageUrl:base_url+'template/assets/img/diskonek.png'
+                    })
                     loading_hide();
                 },
                 success:function(json)
@@ -468,6 +474,7 @@
                             type:'success'
                         })
                         $this.html("Register kunjungan")
+                        $('.form-rajal').trigger('reset');
                     }
                     else
                     {
