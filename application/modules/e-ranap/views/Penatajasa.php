@@ -65,7 +65,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Cara Bayar :</label>
 					<div class="col-sm-9">
-						<select name="cb" class="form-control cb">
+						<select name="cb" class="form-control cb" id='cb'>
 							<option value="">-- Pilih--</option>
 						</select>
 					</div>
@@ -367,15 +367,25 @@
 					}
 					else
 					{
+						$(".btn-pindah-ruangan").prop('disabled',false);
+						$this.html("Simpan perubahan").prop('disabled',false);
 						// alert('Gagal pindah ruangan, coba lagi.');
 						// $(".btn-pindah-ruangan").prop('disabled',false);
 						// $this.html("Simpan perubahan").prop('disabled',false);
-						$.each(json,function(i, val){
-							var el=#("."+i);
+						$.each(json.message,function(i, val){
+							var el=$("."+i);
 							el.closest('div.form-group')
 							.removeClass('has-error')
-							.
+							.addClass(val.length > 0 ?'has-error':'has-success')
+							$("."+i).nextAll().remove();
+							$("."+i).after(val)
 						})
+						swal({
+							title:'Gagal',
+							text:'Data ubah kamar belum lengkap, periksa dan coba lagi.',
+							type:'error'
+						})
+
 					}
 				}
 			})

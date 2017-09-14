@@ -63,7 +63,25 @@ class Penatajasa_api extends ci_controller
 
 		$r=array('success'=>false,'message'=>array());
 
-
+		$this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters("<p class='text-danger'>",'</p>');
+        $this->form_validation->set_rules("cb",'Cara bayar','required',array('required'=>'%s wajib*'));
+        $this->form_validation->set_rules("klp",'Kelompok peserta','required',array('required'=>'%s wajib*'));
+        $this->form_validation->set_rules("ruang",'Ruang','required',array('required'=>'%s wajib*'));
+        $this->form_validation->set_rules("kelas",'Kelas','required',array('required'=>'%s wajib*'));
+        $this->form_validation->set_rules("kamar",'Kamar','required',array('required'=>'%s wajib*'));
+        $this->form_validation->set_rules("bed",'No. Bed','required',array('required'=>'%s wajib*'));
+        if($this->form_validation->run())
+        {
+        	$r['success']=true;
+        }
+        else
+        {
+        	foreach ($_POST as $key => $value) {
+            # code...
+                $r['message'][$key]=form_error($key);
+            }
+        }
 		echo json_encode($r);
 		// $r=array('success'=>false);
 		// if($this->m_penatajasa->update_ruangan())
