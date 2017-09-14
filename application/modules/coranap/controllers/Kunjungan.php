@@ -31,7 +31,7 @@ class Kunjungan extends ci_controller
 
 	function rajal()
 	{
-		$this->template->load('template','Kunjungan/rajal');
+		$this->template->load('template','kunjungan/rajal');
 	}
 
 	function rujukinap()
