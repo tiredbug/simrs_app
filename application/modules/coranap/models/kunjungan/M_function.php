@@ -165,7 +165,8 @@ class M_function extends ci_model
                     'kamar'=>$_POST['kamar'],
                     'bed'=>$_POST['bed'],
                     'tgl_masuk'=>date("Y-m-d"),
-                    'jam_masuk'=>date("H:i:s")                    
+                    'jam_masuk'=>date("H:i:s"),
+                    'asal_masuk'=>$_POST['asal']                    
                     ));
 
                 // update data kunjungan

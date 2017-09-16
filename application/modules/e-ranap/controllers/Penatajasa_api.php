@@ -58,7 +58,7 @@ class Penatajasa_api extends ci_controller
 		echo json_encode($this->m_penatajasa->get_i_bed($_POST['kamar'])->result());
 	}
 
-	function pindah_ruangan()
+	function ubah_ruangan()
 	{
 
 		$r=array('success'=>false,'message'=>array());
@@ -73,7 +73,15 @@ class Penatajasa_api extends ci_controller
         $this->form_validation->set_rules("bed",'No. Bed','required',array('required'=>'%s wajib*'));
         if($this->form_validation->run())
         {
-        	$r['success']=true;
+        	
+        	if($this->m_penatajasa->update_ruangan())
+			{
+				$r['success']=true;
+			}
+			else
+			{
+				$r['success']=false;
+			}
         }
         else
         {
@@ -83,16 +91,47 @@ class Penatajasa_api extends ci_controller
             }
         }
 		echo json_encode($r);
-		// $r=array('success'=>false);
-		// if($this->m_penatajasa->update_ruangan())
-		// {
-		// 	$r['success']=true;
-		// }
-		// else
-		// {
-		// 	$r['success']=false;
-		// }
-		// echo json_encode($r);
+	}
+
+	function pindah_ruangan()
+	{
+		if(! $this->input->is_ajax_request())
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$r = array('success' =>false ,'message'=>array() );
+
+			$this->load->library('form_validation');
+			$this->form_validation->set_error_delimiters("<p class='text-danger'>",'</p>');
+        	$this->form_validation->set_rules("tgl_keluar",'Tgl keluar','required',array('required'=>'%s wajib*'));
+        	$this->form_validation->set_rules("jam_keluar",'Jam keluar','required',array('required'=>'%s wajib*'));
+        	$this->form_validation->set_rules("ruangan_p",'Ruangan','required',array('required'=>'%s wajib*'));
+        	$this->form_validation->set_rules("kelas_p",'Kelas','required',array('required'=>'%s wajib*'));
+        	$this->form_validation->set_rules("kamar_p",'Kamar','required',array('required'=>'%s wajib*'));
+        	$this->form_validation->set_rules("bed_p",'Nomor bed','required',array('required'=>'%s wajib*'));
+        	if($this->form_validation->run())
+        	{
+        		
+        		if($this->m_penatajasa->pindah_ruangan())
+        		{
+        			$r['success']=true;
+        		}
+        		else
+        		{
+        			$r['success']=false;
+        		}
+        	}
+        	else
+        	{
+        		foreach ($_POST as $key => $value) {
+        			# code...
+        			$r['message'][$key]=form_error($key);
+        		}
+        	}
+			echo json_encode($r);
+		}
 	}
 
 

@@ -101,6 +101,28 @@
 
                 <li class="has-sub">
                     <a href="#">
+                        <i class="entypo-print"></i>
+                        <span class="title">Laporan</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class="entypo-doc-text-inv"></i>
+                                <span class="title">Laporan harian</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" )>
+                                <i class="entypo-book-open"></i>
+                                <span class="title">Laporan bulanan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="has-sub">
+                    <a href="#">
                         <i class="entypo-user"></i>
                         <span class="title">Akun</span>
                     </a>

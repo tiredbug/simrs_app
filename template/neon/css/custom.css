@@ -486,3 +486,16 @@ fieldset{
     font-weight: bold;
 }
 
+/*sweetyalert*/
+.sweet-alert
+{
+    border-radius: 0px;
+}
+.sweet-alert .sa-icon {
+    margin: 0px auto;
+}
+.sweet-alert h2
+{
+    margin: 5px 0px;
+    font-size: 25px;
+}

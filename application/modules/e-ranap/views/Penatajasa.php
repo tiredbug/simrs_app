@@ -112,8 +112,8 @@
 
 				<div class="form-group">
 					<div class="col-sm-9 col-sm-offset-3">
-						<button type="button" class="btn btn-default btn-simpan-perubahan">Simpan perubahan</button>
-						<button type="button" class="btn btn-default btn-pindah-ruangan">Pindah ruangan</button>
+						<button type="button" class="btn btn-blue btn-simpan-perubahan btn-icon icon-left"><i class='entypo-shareable'></i> Simpan perubahan</button>
+						<button type="button" class="btn btn-blue btn-pindah-ruangan btn-icon icon-left"><i class='entypo-export'></i> Pindah ruangan</button>
 					</div>
 				</div>
 
@@ -349,21 +349,25 @@
 		}
 		else
 		{
-			$this.html("<i class='fa fa-spin fa-spinner'></i> Menyimpan perubahan...").prop('disabled',true);
+			$this.html("<i class='entypo-shareable'></i> Menyimpan perubahan...").prop('disabled',true);
 			$(".btn-pindah-ruangan").prop('disabled',true);
 			$.ajax({
 				type:'post',
-				url:base_url+'e-ranap/penatajasa_api/pindah_ruangan',
+				url:base_url+'e-ranap/penatajasa_api/ubah_ruangan',
 				data:$(".form-data-1").serialize()+'&'+$('.form-data-2').serialize(),
 				dataType:'json',
 				success:function(json)
 				{
 					if(json.success)
 					{
-						alert('berhasil pindah ruangan');
-						$(".btn-pindah-ruangan").prop('disabled',false);
-						$this.html("Simpan perubahan").prop('disabled',false);
-						window.location.href=base_url+'e-ranap/penatajasa'
+						
+						swal({
+							title:'Berhasil',
+							text:'perubahan pada pelayanan kunjungan berhasil direkam dan disimpan.',
+							type:'success'
+						},function(){
+							window.location.href=base_url+'e-ranap/penatajasa'
+						})
 					}
 					else
 					{
@@ -400,8 +404,7 @@
 		}
 		else
 		{
-			$this.html("<i class='fa fa-spin fa-spinner'></i> Memindahkan ruangan...").prop('disabled',true);
-			$(".btn-simpan-perubahan").prop('disabled',true);
+			window.location.href=base_url+'e-ranap/penatajasa/pindahruangan/'+$("#i_id").val()+'/'+$("#i_nokunjungan").val();
 		}
 	})
 
@@ -452,5 +455,9 @@
 				})
 			}
 		})
+	})
+	$(".ruang").change(function(){
+		$(".kamar").find('option').remove().end().append("<option value=''>-- Pilih --</option>");
+		$(".bed").find('option').remove().end().append("<option value=''>-- Pilih --</option>");
 	})
 </script>

@@ -17,7 +17,8 @@ class M_penatajasa extends ci_model
 								LEFT JOIN pendaftaran_pasien ps ON ps.nomor_rekammedis=pk.norekammedis
 
 								WHERE pk.status_kunjungan IN('Masih dirawat')
-								AND rk.ruang IN('1')
+								AND rk.ruang IN('".$_SESSION['ruang']."')
+								AND rk.checkout IN('N')
 								AND pk.norekammedis IN('".$norek."')");
 	}
 
@@ -75,4 +76,40 @@ class M_penatajasa extends ci_model
 		$this->db->trans_complete();
 		return $this->db->trans_status();
 	}
+
+
+	function cek_kunjungan($id)
+	{
+		$this->db->where(array(
+			'id_kunjungan'=>$id,
+			'checkout'=>'N'
+		));
+		return $this->db->get('ranap_kunjungan');
+	}
+
+	function pindah_ruangan()
+	{
+		$this->db->trans_start();
+		$this->db->insert('ranap_kunjungan',array(
+			'no_kunjungan'=>$this->uri->segment(5),
+			'ruang'=>$_POST['ruangan_p'],
+			'kelas'=>$_POST['kelas_p'],
+			'kamar'=>$_POST['kamar_p'],
+			'bed'=>$_POST['bed_p'],
+			'tgl_masuk'=>date("Y-m-d",strtotime($_POST['tgl_keluar'])),
+			'jam_masuk'=>date("H:i:s",strtotime($_POST['jam_keluar'])),
+			'asal_masuk'=>$_POST['ruangan_s']
+		));
+
+		$this->db->where('id_kunjungan',$this->uri->segment(4));
+		$this->db->update('ranap_kunjungan',array(
+			'tgl_keluar'=>date("Y-m-d",strtotime($_POST['tgl_keluar'])),
+			'jam_keluar'=>date("H:i:s",strtotime($_POST['jam_keluar'])),
+			'cara_keluar'=>'1',
+			'checkout'=>'Y'
+		));
+		$this->db->trans_complete();
+		return $this->db->trans_status();
+	}
+	
 }
