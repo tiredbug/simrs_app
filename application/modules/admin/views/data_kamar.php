@@ -102,7 +102,7 @@
 			{
 				
 				$("td:eq(3)",row).html("<a href='"+base_url+"admin/datamaster/bed/"+data[3]+"' class='btn btn-xs green'><i class='icon-login'></i> Input tempat tidur</a>");
-				if(data[2]<5)
+				if(data[2]<6)
 				{
 					$("td:eq(2)",row).html("<span class='badge badge-danger'>"+data[2]+" tempat tidur</span>");
 				}
