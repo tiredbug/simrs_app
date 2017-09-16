@@ -41,7 +41,7 @@
 		$.ajax({
 			type:'post',
 			url:base_url+'admin/datamaster_api/save_kamar',
-			data:$(".form_kamar").serialize()+'&kls='+$("#ruangan").val()+'&ruang='+$("#kelas").val(),
+			data:$(".form_kamar").serialize()+'&kls='+$("#kelas").val()+'&ruang='+$("#ruangan").val(),
 			dataType:'json',
 			success:function(json)
 			{
