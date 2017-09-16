@@ -194,6 +194,23 @@ jQuery(document).ready(function() {
 					</a>
 					
 				</li>
+				<li class="<?php echo $this->uri->segment(2)=='datamaster'?'active open':''?>">
+					<a href="javascript:;">
+					<i class="icon-layers"></i>
+					<span class="title">Data Master</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="<?php echo $this->uri->segment(3)=='ruanganinap'?'active':''?> <?php echo $this->uri->segment(5)=='corajal'?'active':''?>">
+							<a href="<?php echo base_url()?>admin/datamaster/ruanganinap">
+							<i class="icon-list"></i>
+							Ruang Rawat Inap
+							</a>
+						</li>
+						
+					</ul>
+				</li>
+
 				<li class="<?php echo $this->uri->segment(2)=='manageuser'?'active open':''?>">
 					<a href="javascript:;">
 					<i class="icon-puzzle"></i>
