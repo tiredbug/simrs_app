@@ -35,7 +35,7 @@
 				</div>
 
 				<div class="actions">
-					<a href="javascript:;" class="btn btn-circle green-meadow" title="tambah ruangan pelayanan rawat inap.">
+					<a href="https://google.com" class="btn btn-circle green-meadow" title="tambah ruangan pelayanan rawat inap." data-toggle="modal" data-target="#modal_add_ruangan">
 					<i class="fa fa-plus"></i> Add ruangan </a>
 					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title="">
 					</a>
@@ -61,6 +61,21 @@
 		</div>
 	</div>
 </div>
+
+<!-- modal form input ruagnan -->
+<div class="modal fade" id="modal_add_ruangan" role='basic' aria-hidden='true'>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="moddal-body">
+				<img src="<?php echo base_url()?>template/metro/assets/global/img/loading-spinner-grey.gif">
+				<span>
+					&nbsp;&nbsp;Loading....
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end -->
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#data_ruangan_inap").dataTable({
