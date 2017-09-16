@@ -51,7 +51,7 @@
 							<th>Kode Ruangan</th>
 							<th>Nama Ruangan</th>
 							<th>Status</th>
-							<th>Pilihan</th>
+							<th>Kamar</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -96,7 +96,7 @@
 				if(data[2]=='Y')
 				{
 					$("td:eq(2)",row).html("<span class='label label-sm label-success'>Aktif</span>");
-					$("td:eq(3)",row).html("<a href='"+base_url+"admin/datamaster/kamar/"+data[3]+"' class='btn btn-xs green'><i class='icon-login'></i> Input kamar</a>");
+					$("td:eq(3)",row).html(data[3]);
 				}
 				else
 				{

@@ -201,7 +201,7 @@ jQuery(document).ready(function() {
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<li class="<?php echo $this->uri->segment(3)=='ruanganinap'?'active':''?> <?php echo $this->uri->segment(5)=='corajal'?'active':''?>">
+						<li class="<?php echo $this->uri->segment(3)=='ruanganinap'?'active':''?> <?php echo $this->uri->segment(3)=='kamar'?'active':''?>">
 							<a href="<?php echo base_url()?>admin/datamaster/ruanganinap">
 							<i class="icon-list"></i>
 							Ruang Rawat Inap
