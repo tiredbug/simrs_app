@@ -44,4 +44,22 @@ class Datamaster_api extends ci_controller
 			echo json_encode($rs);
 		}
 	}
+
+	function save_ruangan()
+	{
+		if(!$this->input->is_ajax_request())
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$r=array('success'=>true,'id'=>'');
+			if($this->m_datamaster->save_ruangan())
+			{
+				$r['success']=true;
+				$r['id']=$_POST['id']+1;
+			}
+			echo json_encode($r);
+		}
+	}
 }

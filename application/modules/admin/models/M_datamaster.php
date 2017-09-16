@@ -33,6 +33,17 @@ class M_datamaster extends ci_model
 		return $this->db->get('admin_masterruanganinap')->num_rows();
 	}
 
+	function get_max_kode_ruangan()
+	{
+		$this->db->select_max('id_ruangan');
+		return $this->db->get('admin_masterruanganinap');
+	}
+
+	function save_ruangan()
+	{
+		return $this->db->insert('admin_masterruanganinap',array('nama_ruangan'=>$_POST['nama']));
+	}
+
 
 	
 }

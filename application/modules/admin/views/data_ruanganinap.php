@@ -35,7 +35,7 @@
 				</div>
 
 				<div class="actions">
-					<a href="https://google.com" class="btn btn-circle green-meadow" title="tambah ruangan pelayanan rawat inap." data-toggle="modal" data-target="#modal_add_ruangan">
+					<a href="<?php echo base_url()?>admin/datamaster/form_input_ruangan" class="btn btn-circle green-meadow" title="tambah ruangan pelayanan rawat inap." data-toggle="modal" data-target="#modal_add_ruangan">
 					<i class="fa fa-plus"></i> Add ruangan </a>
 					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title="">
 					</a>
@@ -78,6 +78,7 @@
 <!-- end -->
 <script type="text/javascript">
 	$(document).ready(function(){
+
 		$("#data_ruangan_inap").dataTable({
 			'ordering':false,
 			'language':{
@@ -105,5 +106,11 @@
 			}
 		})
 		$("#data_co_rajal").find('.dataTables_length select').select2();
+
+
 	})
+	var load_tabel_data_ruangan=function()
+	{
+		$("#data_ruangan_inap").DataTable().ajax.reload();
+	}
 </script>
