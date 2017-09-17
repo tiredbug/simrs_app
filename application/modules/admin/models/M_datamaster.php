@@ -46,7 +46,7 @@ class M_datamaster extends ci_model
 
 	function aktifkankamar()
 	{
-		$id=$this->encrypt_rs->decode($this->uri->segment(4));
+		$id=$this->uri->segment(4);
 		$this->db->where('id_ruangan',$id);
 		return $this->db->update('admin_masterruanganinap',array('status_ruangan'=>'Y'));
 	}

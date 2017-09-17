@@ -100,8 +100,9 @@
 				}
 				else
 				{
+
 					$("td:eq(2)",row).html("<span class='label label-sm label-danger'>Tidak aktif</span>");
-					$("td:eq(3)",row).html("<a href='"+base_url+"admin/datamaster/aktifkankamar/"+data[3]+"' class='btn btn-xs yellow'><i class='icon-pin'></i> Aktif kembali</a>");
+					$("td:eq(3)",row).html("<a href='"+base_url+"admin/datamaster/aktifkankamar/"+data[0]+"' class='btn btn-xs yellow'><i class='icon-pin'></i> Aktif kembali</a>");
 				}
 			}
 		})
