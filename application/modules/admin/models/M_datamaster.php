@@ -73,7 +73,7 @@ class M_datamaster extends ci_model
 			$w.=" AND kmr.nama_kamar LIKE '%".$this->input->post('search[value]')."%'";
 		}
 		return $q="SELECT 
-					kmr.id_kamar id,kmr.nama_kamar,IFNULL(bed.jml,'0') jml
+					kmr.id_kamar id,kmr.nama_kamar,IFNULL(bed.jml,'0') jml, kmr.id_kelas, kmr.id_ruangan
 					FROM admin_masterruanginapkamar kmr
 					LEFT JOIN (SELECT *,count(k.id_bed)jml FROM admin_masterruanginapkamarbed k
 					GROUP BY k.id_kamar) bed ON bed.id_kamar=kmr.id_kamar".$w;
@@ -119,6 +119,55 @@ class M_datamaster extends ci_model
 	{
 		$this->db->select_max('id_kamar');
 		return $this->db->get('admin_masterruanginapkamar');
+	}
+
+	function get_max_kode_bed()
+	{
+		$this->db->select_max('id_bed');
+		return $this->db->get('admin_masterruanginapkamarbed');
+	}
+
+
+	function save_bed()
+	{
+		return $this->db->insert('admin_masterruanginapkamarbed',array(
+			'id_kamar'=>$this->encrypt_rs->decode($_POST['kamar']),
+			'nomor_bed'=>$_POST['nobed'],
+			'status_bed'=>'Y'
+		));
+
+	}
+
+
+	function __query_get_data_bed()
+	{
+		$w=" WHERE b.id_kamar IN('".$this->encrypt_rs->decode($_POST['kamar'])."')";
+		if($this->input->post('search[value]'))
+		{
+			$w.=" AND b.nomor_bed LIKE '%".$this->input->post('search[value]')."%'";
+		}
+		return $q="SELECT * FROM admin_masterruanginapkamarbed b".$w;
+	}
+	function get_data_kamar_bed()
+	{
+		$q=$this->__query_get_data_bed();
+		if($this->input->post('length')!=-1)
+        {
+            $q=$this->__query_get_data_bed()." LIMIT ".$this->input->post('start').",".$this->input->post('length');
+        }
+		return $this->db->query($q);
+	}
+
+	function count_filtered_data_bed()
+	{
+		return $this->db->query($this->__query_get_data_bed())->num_rows();
+	}
+
+	function count_total_data_bed()
+	{
+		return $this->db->get_where('admin_masterruanginapkamarbed',array(
+			'id_kamar'=>$this->encrypt_rs->decode($this->input->post('kamar'))
+		))->num_rows();
 	}
 	
 }

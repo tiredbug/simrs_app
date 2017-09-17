@@ -60,11 +60,15 @@ class Datamaster_api extends ci_controller
 		}
 		else
 		{
-			$r=array('success'=>true,'id'=>'');
+			$r=array('success'=>false,'id'=>'');
 			if($this->m_datamaster->save_ruangan())
 			{
 				$r['success']=true;
 				$r['id']=$_POST['id']+1;
+			}
+			else
+			{
+				$r['id']=$_POST['id'];
 			}
 			echo json_encode($r);
 		}
@@ -91,7 +95,7 @@ class Datamaster_api extends ci_controller
 				$r[]=$k_i->id;
 				$r[]=$k_i->nama_kamar;
 				$r[]=$k_i->jml;
-				$r[]=$this->encrypt_rs->encode($k_i->id);
+				$r[]=$this->encrypt_rs->encode($k_i->id).'&kls='.$this->encrypt_rs->encode($k_i->id_kelas).'&ruang='.$this->encrypt_rs->encode($k_i->id_ruangan);
 				
 				$rs['data'][]=$r;
 			}
@@ -109,13 +113,72 @@ class Datamaster_api extends ci_controller
 		}
 		else
 		{
-			$r=array('success'=>true,'id'=>'');
+			$r=array('success'=>false,'id'=>'');
 			if($this->m_datamaster->save_kamar())
 			{
 				$r['success']=true;
 				$r['id']=$_POST['id']+1;
 			}
+			else
+			{
+				$r['id']=$_POST['id'];
+			}
 			echo json_encode($r);
 		}
 	}
+
+
+	function save_bed()
+	{
+
+		if(!$this->input->is_ajax_request())
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$r=array('success'=>false,'id'=>'');
+			if($this->m_datamaster->save_bed())
+			{
+				$r['success']=true;
+				$r['id']=$_POST['id']+1;
+			}
+			else
+			{
+				$r['id']=$_POST['id'];
+			}
+			echo json_encode($r);
+		}
+	}
+
+	function get_data_bed()
+	{
+		if(!$this->input->is_ajax_request())
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$rs=array(
+				'draw'=>$_POST['draw'],
+				'data'=>array(),
+				'recordsFiltered'=>$this->m_datamaster->count_filtered_data_bed(),
+				'recordsTotal'=>$this->m_datamaster->count_total_data_bed(),
+				);
+			
+			foreach ($this->m_datamaster->get_data_kamar_bed()->result() as $b) {
+				# code...
+				$r=array();
+				$r[]=$b->id_bed;
+				$r[]=$b->nomor_bed;
+				$r[]=$b->status_bed;
+				
+				
+				$rs['data'][]=$r;
+			}
+			echo json_encode($rs);
+		}
+	}
+
+
 }

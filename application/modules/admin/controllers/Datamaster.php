@@ -66,9 +66,10 @@ class Datamaster extends ci_controller
 
 	function bed()
 	{
-		if($this->m_datamaster->cek_kamar($this->encrypt_rs->decode($this->uri->segment(4)))->num_rows() > 0)
+		if($this->m_datamaster->cek_kamar($this->encrypt_rs->decode($_GET['kamar']))->num_rows() > 0)
 		{
-			$this->template->load('template','data_bed');
+			$data['i_k']=$this->m_datamaster->cek_kamar($this->encrypt_rs->decode($_GET['kamar']))->row_array();
+			$this->template->load('template','data_bed',$data);
 		}
 		else
 		{
@@ -86,6 +87,19 @@ class Datamaster extends ci_controller
 		{
 			$data['max']=$this->m_datamaster->get_max_kode_kamar()->row_array();
 			$this->load->view('form_input_kamar',$data);
+		}
+	}
+
+	function form_input_bed()
+	{
+		if(!$this->input->is_ajax_request())
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$data['max']=$this->m_datamaster->get_max_kode_bed()->row_array();
+			$this->load->view('form_input_bed',$data);
 		}
 	}
 

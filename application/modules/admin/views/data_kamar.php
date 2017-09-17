@@ -103,7 +103,7 @@
 			rowCallback:function(row, data, index)
 			{
 				
-				$("td:eq(3)",row).html("<a href='"+base_url+"admin/datamaster/bed/"+data[3]+"' class='btn btn-xs green'><i class='icon-login'></i> Input tempat tidur</a>");
+				$("td:eq(3)",row).html("<a href='"+base_url+"admin/datamaster/bed?kamar="+data[3]+"' class='btn btn-xs green'><i class='icon-login'></i> Input tempat tidur</a>");
 				if(data[2]<6)
 				{
 					$("td:eq(2)",row).html("<span class='badge badge-danger'>"+data[2]+" tempat tidur</span>");
@@ -112,9 +112,13 @@
 				{
 					$("td:eq(2)",row).html("<span class='badge badge-warning'>"+data[2]+" tempat tidur</span>");
 				}
+				else
+				{
+					$("td:eq(2)",row).html("<span class='badge badge-success'>"+data[2]+" tempat tidur</span>");
+				}
 			}
 		})
-		$("#data_co_rajal").find('.dataTables_length select').select2();
+		$("#data_kamar_inap").find('.dataTables_length select').select2();
 
 
 	})
