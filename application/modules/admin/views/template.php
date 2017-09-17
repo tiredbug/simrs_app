@@ -79,7 +79,7 @@ jQuery(document).ready(function() {
 			<a href="<?php echo base_url()?>">
 			<img src="<?php echo base_url()?>template/metro/assets/admin/layout/img/logo.png" alt="logo" class="logo-default" title='halaman administrator'/>
 			</a>
-			<div class="menu-toggler sidebar-toggler hide">
+			<div class="menu-toggler sidebar-toggler">
 			</div>
 		</div>
 		
@@ -164,7 +164,7 @@ jQuery(document).ready(function() {
 				<!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
 				<li class="sidebar-toggler-wrapper">
 					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-					<div class="sidebar-toggler">
+					<div class="sidebar-toggler hide">
 					</div>
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
@@ -173,23 +173,26 @@ jQuery(document).ready(function() {
 					<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
 					<!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
 					<!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-					<form class="sidebar-search " action="extra_search.html" method="POST">
+					<form class="sidebar-search sidebar-search-bordered" action="extra_search.html" method="POST">
 						<a href="javascript:;" class="remove">
 						<i class="icon-close"></i>
 						</a>
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Search...">
 							<span class="input-group-btn">
-							<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
+							<button class="btn submit"><i class="icon-magnifier"></i></button>
 							</span>
 						</div>
 					</form>
 					<!-- END RESPONSIVE QUICK SEARCH FORM -->
 				</li>
+				<li class="heading">
+					<h3 class="uppercase">PANEL MENU</h3>
+				</li>
 				<li class="start <?php echo $this->uri->segment(2)=='home'?'active open':''?> <?php echo $this->uri->segment(2)==''?'active open':''?>">
 					<a href="<?php echo base_url().'admin'?>">
 					<i class="icon-home"></i>
-					<span class="title">Dashboard</span>
+					<span class="title">Beranda</span>
 					<span class="selected"></span>
 					</a>
 					
@@ -206,6 +209,73 @@ jQuery(document).ready(function() {
 							<i class="icon-list"></i>
 							Ruang Rawat Inap
 							</a>
+						</li>
+
+						<li class="">
+							<a href="#">
+							<i class="icon-direction"></i>
+							Poliklinik
+							</a>
+						</li>
+
+						<li class="">
+							<a href="#">
+							<i class="icon-users"></i>
+							Dokter
+							</a>
+						</li>
+
+						<li class="">
+							<a href="#">
+							<i class="icon-badge"></i>
+							Tarif Pelayanan
+							<span class="arrow "></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="javascript:;">
+									<i class="icon-trophy"></i> 
+										IGD
+									</a>
+								</li>
+
+								<li>
+									<a href="javascript:;">
+									<i class="icon-trophy"></i> 
+										Poliklinik
+									</a>
+								</li>
+
+								<li>
+									<a href="javascript:;">
+									<i class="icon-trophy"></i> 
+										Laboraturium
+									</a>
+								</li>
+
+								<li>
+									<a href="javascript:;">
+									<i class="icon-trophy"></i> 
+										Radiologi
+									</a>
+								</li>
+
+								<li>
+									<a href="javascript:;">
+									<i class="icon-trophy"></i> 
+										Operasi
+									</a>
+								</li>
+
+								<li>
+									<a href="javascript:;">
+									<i class="icon-trophy"></i> 
+										Biaya Automatis
+									</a>
+								</li>
+
+							</ul>
+
 						</li>
 						
 					</ul>

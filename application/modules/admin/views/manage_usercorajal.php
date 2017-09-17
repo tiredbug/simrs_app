@@ -28,14 +28,14 @@
 	<div class="col-sm-12">
 		<div class="portlet light ">
 			<div class="portlet-title">
-				<div class="caption">
-					<i class="icon-info font-grey-gallery"></i>
-					<span class="caption-subject bold font-grey-gallery uppercase">DATABASE</span>
+				<div class="caption font-green-sharp">
+					<i class="icon-info font-green-sharp"></i>
+					<span class="caption-subject bold  uppercase">DATABASE</span>
 					<span class="caption-helper">pengguna aplikasi central opname rawat jalan.</span>
 				</div>
 
 				<div class="actions">
-					<a href="javascript:;" class="btn btn-circle btn-default" title="tambah pengguna modul central opname rawat jalan.">
+					<a href="javascript:;" class="btn btn-circle green-meadow" title="tambah pengguna modul central opname rawat jalan.">
 					<i class="fa fa-plus"></i> Add pengguna </a>
 					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title="">
 					</a>
