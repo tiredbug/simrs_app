@@ -99,6 +99,14 @@
                     </a>
                 </li>
 
+
+                <li class="main-menu">
+                    <a href="<?php echo base_url().'e-ranap/checkout'?>">
+                        <i class="entypo-export"></i>
+                        <span class="title">Checkout</span>
+                    </a>
+                </li>
+
                 <li class="has-sub">
                     <a href="#">
                         <i class="entypo-print"></i>
@@ -106,13 +114,13 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="<?php echo base_url().'e-ranap/laporan/laporanharian'?>">
                                 <i class="entypo-doc-text-inv"></i>
                                 <span class="title">Laporan harian</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#" )>
+                            <a href="<?php echo base_url().'e-ranap/laporan/laporanbulanan'?>" )>
                                 <i class="entypo-book-open"></i>
                                 <span class="title">Laporan bulanan</span>
                             </a>
@@ -162,7 +170,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url().'gudangobat/keluar'?>" onclick="return true confirm('Keluar dari aplikasi ?'')">
+                                <a href="<?php echo base_url().'e-ranap/keluar'?>" onclick="return true confirm('Keluar dari aplikasi ?'')">
                                     <i class="entypo-logout"></i>
                                     Keluar
                                 </a>

@@ -33,7 +33,7 @@ class Penatajasa_api extends ci_controller
 			$r['i_r']=$this->m_penatajasa->get_i_r()->result();
 			$r['i_kls']=$this->m_penatajasa->get_i_kls()->result();
 			$r['i_kmr']=$this->m_penatajasa->get_i_kmr($r['i_p']['ruang'],$r['i_p']['kelas'])->result();
-			$r['i_bed']=$this->m_penatajasa->get_i_bed($r['i_p']['kamar'])->result();
+			$r['i_bed']=$this->m_penatajasa->get_i_all_bed($r['i_p']['kamar'])->result();
 		}
 		else
 		{
@@ -51,6 +51,11 @@ class Penatajasa_api extends ci_controller
 	function get_i_kmr()
 	{
 		echo json_encode($this->m_penatajasa->get_i_kmr($_POST['ruang'],$_POST['kelas'])->result());
+	}
+
+	function get_i_all_bed()
+	{
+		echo json_encode($this->m_penatajasa->get_i_all_bed($_POST['kamar'])->result());
 	}
 
 	function get_i_bed()
@@ -134,5 +139,107 @@ class Penatajasa_api extends ci_controller
 		}
 	}
 
+	function get_tindakan()
+	{
+		if(! $this->input->is_ajax_request()) 
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$r = array(
+				'success' => false,
+				't_group'=>'',
+				'tarif'=>'',
+				'tarif_normal'=>'',
+				'n_tindakan'=>''
+			);
+
+			$cek_ti=$this->m_penatajasa->get_i_t();
+			if($cek_ti->num_rows() >0)
+			{
+				$data=$cek_ti->row_array();
+				$r['success']=true;
+				$r['t_group']=$data['group_tindakan'];
+				$r['n_tindakan']=$data['nama_tarif'];
+				$r['tarif']=number_format($data['tarif'],0,'.','.');
+				$r['tarif_normal']=$data['tarif'];
+			}
+
+			echo json_encode($r);
+		}
+	}
+
+	function search_dokter()
+	{
+		if(! $this->input->is_ajax_request()) 
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$respon=array('success'=>false,'data'=>array());
+            foreach ($this->m_penatajasa->search_dokter($_GET['q'],$_GET['jenis'])->result() as $s) {
+                # code...
+                $row=array();
+                $row['slug']=$s->slug;
+                $row['id']=$s->id;
+                $respon['data'][]=$row;
+            }
+
+            echo json_encode($respon);
+		}
+	}
+
+	function insert_tindakan()
+	{
+		if(! $this->input->is_ajax_request()) 
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$r = array('success' => false,'pesan_err' );
+			$cek_ti=$this->m_penatajasa->get_i_t()->row_array();
+			if($this->m_penatajasa->insert_tindakan($cek_ti['tarif']))
+			{
+				$r['success']=true;
+			}
+			else
+			{
+				$r['pesan_err']='gagal menyimpan tindakan, coba lagi.';
+			}
+			echo json_encode($r);
+		}
+
+	}
+
+	function get_data_tindakan_jasa()
+	{
+		if(! $this->input->is_ajax_request()) 
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$r=array(
+				'data'=>$this->m_penatajasa->load_data_penata_jasa()->result(),
+				'total'=>$this->m_penatajasa->total_penata_jasa()->row_array()
+			);
+			echo json_encode($r);
+		}
+	}
+
+	function hapus_tindakan()
+	{
+		if(! $this->input->is_ajax_request()) 
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$this->m_penatajasa->hapus_tindakan();
+		}
+	}
 
 }

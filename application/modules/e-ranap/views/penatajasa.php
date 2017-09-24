@@ -131,20 +131,34 @@
 		</div>
 		<div class="panel-body">
 			<div class="row">
-				<form class="form-horizontal">
+				<form class="form-horizontal form_penata_jasa">
+				<input type="hidden" name="stt_form_tindakan" value="" id='stt_form_tindakan'>
+				<input type="hidden" name="i_kelas_fpj" id="i_kelas_fpj" value="">
+				<input type="hidden" name="i_tgldaftar_fpj" id="i_tgldaftar_fpj" value="">
+				<input type="hidden" name="i_tarif_normal" id="i_tarif_normal" value="">
+				<input type="hidden" name="i_tarif_group" id="i_tarif_group" value="">
 				<div class="col-sm-7">
-					
+						
+						<div class="form-group">
+							<label class="control-label col-sm-3 bold">Tgl Tindakan : </label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control datepicker tgl_tindakan" name="tgl_tindakan" id="tgl_tindakan" data-format="dd-mm-yyyy" value="<?php echo tgl_biasa(date("d-m-Y"))?>">
+								
+							</div>
+							
+						</div>
+
 						<div class="form-group">
 							<label class="control-label col-sm-3 bold">Kode : </label>
 							<div class="col-sm-9">
-								<input type="text" name="kode" class="form-control" placeholder="Kode tindakan...">
+								<input type="text" name="kode" class="form-control kode" placeholder="Kode tindakan...">
 							</div>
 							
 						</div>
 						<div class="form-group">
 							<label class="control-label col-sm-3 bold">Nama tindakan : </label>
 							<div class="col-sm-9">
-								<input type="text" name="tindakan" class="form-control" placeholder="Nama tindakan...">
+								<input type="text" name="tindakan" class="form-control tindakan" placeholder="Nama tindakan...">
 							</div>
 							
 						</div>
@@ -152,9 +166,18 @@
 				</div>
 				<div class="col-sm-5">
 					<div class="form-group">
+						<label class="control-label col-sm-3 bold">Dokter : </label>
+						<div class="col-sm-9">
+							<input type="hidden" class="dokter_vis form-control" id='dokter_vis' name="dokter_vis"/>
+						</div>
+							
+					</div>
+
+
+					<div class="form-group">
 						<label class="control-label col-sm-3 bold">Tarif : </label>
 						<div class="col-sm-9">
-							<input type="text" name="kode" class="form-control" placeholder="Rp...">
+							<input type="text" name="tarif" class="form-control tarif" placeholder="Rp...">
 						</div>
 							
 					</div>
@@ -162,7 +185,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-3 bold">qty : </label>
 						<div class="col-sm-9">
-							<input type="text" name="qty" class="form-control" placeholder="qty">
+							<input type="text" name="qty" class="form-control qty" placeholder="qty">
 						</div>
 							
 					</div>
@@ -172,10 +195,11 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<table class="table table-bordered">
+					<table class="table table-bordered tabel_tindakan_jasa">
 						<thead>
 							<tr>
-								<th></th>
+								<th width="30"></th>
+								<th>TGL</th>
 								<th>KODE</th>
 								<th>TINDAKAN</th>
 								<th>DOK</th>
@@ -184,6 +208,9 @@
 								<th>TOTAL</th>
 							</tr>
 						</thead>
+						<tbody>
+							
+						</tbody>
 					</table>
 					<div class="well well-sm">
 		                <div class="row">
@@ -203,18 +230,22 @@
 
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function(){
 
-	})
+<script src="<?php echo base_url()?>template/neon/js/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url()?>template/neon/js/bootstrap-timepicker.min.js"></script>
+
+<script type="text/javascript">
+	
 
 	$(".norek").keypress(function(e){
 		if(e.which==13)
 		{
+			loading_show();
 			var norek=$(this).val()
 			if(norek=='')
 			{
 				toastr.warning('Masukkan Nomor rekam medis dulu.');
+				loading_hide();
 			}
 			else
 			{
@@ -230,6 +261,7 @@
 							text:'gagal terhubung ke server mengambil informasi tindakan, periksa jaringan anda dan coba kembali.',
 							imageUrl:base_url+'template/assets/img/diskonek.png',
 						})
+						loading_hide();
 					},
 					success:function(json)
 					{
@@ -294,7 +326,13 @@
 							$(".bed").val(json.i_p.bed)
 							// end
 
-										
+
+							// append informasi ke form_penata_jasa
+
+							$("#i_kelas_fpj").val(json.i_p.kelas);
+							$("#i_tgldaftar_fpj").val(json.i_p.tgldaftar)
+							loading_hide();
+							loading_data_jasa();
 						}
 						else
 						{
@@ -332,6 +370,11 @@
 							// append bed
 							$(".bed").find('option').remove().end().append("<option value=''>-- Pilih --</option>");
 							// end
+
+							$("#i_kelas_fpj").val('');
+							$("#i_tgldaftar_fpj").val('')
+
+							loading_hide();
 						}
 					}
 				})
@@ -342,10 +385,12 @@
 	})
 
 	$(".btn-simpan-perubahan").click(function(){
+		loading_show();
 		var $this=$(this);
 		if($("#i_nokunjungan").val()=='' && $("#i_norek").val()=='')
 		{
-			toastr.warning("Cari kunjungan terlebih dahulu.")
+			toastr.warning("Cari kunjungan terlebih dahulu.");
+			loading_hide();
 		}
 		else
 		{
@@ -360,7 +405,7 @@
 				{
 					if(json.success)
 					{
-						
+						loading_hide();
 						swal({
 							title:'Berhasil',
 							text:'perubahan pada pelayanan kunjungan berhasil direkam dan disimpan.',
@@ -371,6 +416,7 @@
 					}
 					else
 					{
+						loading_hide();
 						$(".btn-pindah-ruangan").prop('disabled',false);
 						$this.html("Simpan perubahan").prop('disabled',false);
 						// alert('Gagal pindah ruangan, coba lagi.');
@@ -409,6 +455,7 @@
 	})
 
 	$(".cb").change(function(){
+		loading_show();
 		var cb=$(this).val();
 		$.ajax({
 			type:'post',
@@ -417,6 +464,7 @@
 			dataType:'json',
 			success:function(json)
 			{
+				loading_hide();
 				$(".klp").find('option').remove().end().append("<option value=''>-- Pilih --</option>");
 				$.each(json,function(i, d){
 					$(".klp").append("<option value='"+d.id_kelompok+"'>"+d.nama_kelompok+"</option>")
@@ -426,6 +474,7 @@
 	})
 
 	$(".kelas").change(function(){
+		loading_show();
 		$.ajax({
 			type:'post',
 			url:base_url+'e-ranap/penatajasa_api/get_i_kmr',
@@ -433,6 +482,7 @@
 			dataType:'json',
 			success:function(json)
 			{
+				loading_hide();
 				$(".kamar").find('option').remove().end().append("<option value=''>-- Pilih --</option>");
 				$.each(json,function(i, d){
 					$(".kamar").append("<option value='"+d.id_kamar+"'>"+d.nama_kamar+"</option>")
@@ -442,6 +492,7 @@
 	})
 
 	$(".kamar").change(function(){
+		loading_show();
 		$.ajax({
 			type:'post',
 			url:base_url+'e-ranap/penatajasa_api/get_i_bed',
@@ -449,6 +500,7 @@
 			dataType:'json',
 			success:function(json)
 			{
+				loading_hide();
 				$(".bed").find('option').remove().end().append("<option value=''>-- Pilih --</option>");
 				$.each(json,function(i, d){
 					$(".bed").append("<option value='"+d.id_bed+"'>"+d.nomor_bed+"</option>")
@@ -460,4 +512,246 @@
 		$(".kamar").find('option').remove().end().append("<option value=''>-- Pilih --</option>");
 		$(".bed").find('option').remove().end().append("<option value=''>-- Pilih --</option>");
 	})
+	function loading_show()
+    {
+        var $this = $(".panel");
+        blockUI($this);
+        $this.addClass('reloading');
+    }
+    
+    function loading_hide()
+    {
+        var $this = $(".panel");
+        unblockUI($this)
+        $this.removeClass('reloading');
+    }
+    $(".kode").keypress(function(e)
+    {
+    	var $this=$(this);
+
+		if(e.which==13)
+		{
+			if($("#i_nokunjungan").val()=='' && $("#i_norek").val()=='')
+			{
+				toastr.warning("Cari kunjungan terlebih dahulu.")
+			}
+			else if($this.val() =='')
+			{
+				toastr.warning('Kode tindakan kosong !')
+			}
+			else
+			{
+				loading_show();
+				$.ajax({
+					type:'post',
+					url:base_url+'e-ranap/penatajasa_api/get_tindakan',
+					data:$(".form_penata_jasa").serialize(),
+					dataType:'json',
+					error:function()
+					{
+						loading_hide();
+						swal({
+							title:'Koneksi terputus !',
+							text:'koneksi ke server terputus, periksa jaringan lalu coba kembali.',
+							imageUrl:base_url+'template/assets/img/diskonek.png'
+						})
+					},
+					success:function(json)
+					{
+						if(json.success)
+						{
+							if(json.t_group=='vis_u')
+							{
+								$(".tindakan").val(json.n_tindakan);
+								$(".tarif").val(json.tarif)
+								$(".qty").val('1');
+								$("#i_tarif_normal").val(json.tarif_normal);
+								$("#stt_form_tindakan").val('complete');
+								$("#i_tarif_group").val(json.t_group)
+								select2_dokter_vis('Umum')
+							}
+							else if(json.t_group=='vis_s')
+							{
+								$(".tindakan").val(json.n_tindakan);
+								$(".tarif").val(json.tarif)
+								$(".qty").val('1');
+								$("#i_tarif_normal").val(json.tarif_normal);
+								$("#stt_form_tindakan").val('complete');
+								$("#i_tarif_group").val(json.t_group)
+								select2_dokter_vis('Spesialis');
+							}
+							else
+							{
+								$(".tindakan").val(json.n_tindakan);
+								$(".tarif").val(json.tarif)
+								$(".qty").val('1').focus();
+								$("#i_tarif_normal").val(json.tarif_normal);
+								$("#stt_form_tindakan").val('complete');
+								$("#i_tarif_group").val(json.t_group)
+								$(".dokter_vis").show();
+							}
+						}
+						else
+						{
+							toastr.warning('Kode tindakan tidak dikenal')
+							$this.val("").focus();
+							$(".tindakan").val('');
+							$(".tarif").val('');
+							$(".qty").val('');
+							$("#i_tarif_normal").val('');
+							$("#stt_form_tindakan").val('');
+
+						}
+						loading_hide();
+						
+					}
+				})
+			}
+		}
+    })
+    $(".qty").keypress(function(e)
+    {
+    	var $this=$(this);
+    	if(e.which==13)
+    	{
+    		if($this.val()=='')
+    		{
+    			toastr.error('Isi quantity tindakan.');
+    		}
+    		else
+    		{
+    			if($("#stt_form_tindakan").val()=='complete')
+	    		{
+	    			if($("#i_tarif_group").val()=='vis_s' || $("#i_tarif_group").val()=='vis_u')
+    				{
+    					if($("#dokter_vis").val()=='')
+    					{
+    						toastr.warning('Pilih dokter yang melakukan visit')
+    					}
+    					else
+    					{
+    						insert_tindakan();
+    					}
+    				}
+    				else
+    				{
+    					insert_tindakan();
+    				}
+	    		}
+	    		else
+	    		{
+	    			toastr.warning('Cari tarif dulu.')
+	    		}
+    		}
+    		
+    	}
+    })
+
+
+    function insert_tindakan()
+    {
+    	$.ajax({
+    		type:'post',
+    		url:base_url+'e-ranap/penatajasa_api/insert_tindakan',
+    		data:$(".form_penata_jasa").serialize()+'&id='+$("#i_id").val(),
+    		dataType:'json',
+    		success:function(json)
+    		{
+    			if(json.success)
+    			{
+    				loading_data_jasa();
+    				$('.form_penata_jasa').trigger('reset');
+    				$(".kode").val('').focus();
+    				$("#dokter_vis").val('')
+    			}
+    			else
+    			{
+    				toastr.error(jsone.pesan_err)
+    			}
+    		}
+    	})
+    }
+
+    function loading_data_jasa()
+    {
+    	loading_show();
+    	var ID=$("#i_id").val();
+    	$.ajax({
+    		type:'post',
+    		url:base_url+'e-ranap/penatajasa_api/get_data_tindakan_jasa',
+    		data:'id='+ID,
+    		dataType:'json',
+    		success:function(json)
+    		{
+    			$(".tabel_tindakan_jasa tbody").empty();
+    			$.each(json.data,function(i,v){
+    				$(".tabel_tindakan_jasa tbody").append("<tr id="+v['id']+">"+
+                		"<td><a href='javascript:hapus(\""+v['id']+"\")' class='btn btn-xs btn-red btn-flat'>hapus</a></td>"+
+                		"<td>"+v['tgl']+"</td>"+
+                		"<td>"+v['kode']+"</td>"+
+                		"<td>"+v['tindakan']+"</td>"+
+                		"<td>"+v['dokter']+"</td>"+
+                		"<td>"+v['qty']+"</td>"+
+                		"<td>"+v['tarif']+"</td>"+
+                		"<td>"+v['total']+"</td>"+
+                	"</tr>")
+    			})
+    			$(".total").html(json.total.total);
+    			loading_hide();
+
+    		}
+    	})
+    }
+
+    function select2_dokter_vis(J_dok)
+    {
+    	$(".dokter_vis").select2({
+    		minimumInputLength: 1,
+            ajax: {
+                url: base_url+'e-ranap/penatajasa_api/search_dokter',
+                type:'GET',
+                dataType: 'json',
+                delay: 50,
+                data: function (query) {
+                    return {
+                        q: query,
+                        jenis:J_dok
+                    };
+                },
+                results: function (data) {
+                    var parsed = [];
+                    try {
+                        parsed = _.chain(data.data)
+                        .map(function (item, index) {
+                            return {
+                              id: item.id,
+                              text: item.slug
+                            };
+                        })
+                        .value();
+                    } catch (e) { }
+                    return {
+	                    results: parsed
+                    };
+                },
+                cache: true
+            }
+    	})
+    }
+
+
+    function hapus(ID)
+    {
+    	loading_show()
+    	$.ajax({
+    		type:'post',
+    		url:base_url+'e-ranap/penatajasa_api/hapus_tindakan',
+    		data:'id='+ID,
+    		success:function()
+    		{
+    			loading_hide();
+    			loading_data_jasa();
+    		}
+    	})
+    }
 </script>

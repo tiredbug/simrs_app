@@ -10,6 +10,8 @@
 			</div>
 		</div>
 		<form class="form-horizontal form_pindah_ruangan">
+		<input type="hidden" name="nokunjungan" value="<?php echo $this->uri->segment(5);?>">
+		<input type="hidden" name="id_kunjungan" value="<?php echo $this->uri->segment(4);?>">
 		<input type="hidden" name="ruangan_s" value='<?php 
 		foreach($i_r->result() as $r_s){echo $r_s->id_ruangan==$_SESSION['ruang']?$r_s->nama_ruangan:'';}?>'>
 		<div class="panel-body">

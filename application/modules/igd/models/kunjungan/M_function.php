@@ -222,7 +222,11 @@ class M_function extends ci_model{
         return $this->db->query("SELECT 
                                 ti.kode_tarif kode, ti.nama_tarif tindakan, IFNULL(dt.total_tarif,0) tarif
                                 FROM admin_tarifigd ti
-                                LEFT JOIN (SELECT * FROM admin_tarifigddetail tid WHERE tid.tgl_berlaku<='".$_POST['tgl_daftar']."' ORDER BY tid.tgl_berlaku DESC LIMIT 1) dt ON dt.kode_tarif=ti.kode_tarif
+                                LEFT JOIN (
+                                    SELECT * FROM admin_tarifigddetail tid WHERE tid.tgl_berlaku<='".$_POST['tgl_daftar']."'
+                                    AND tid.kode_tarif IN('".$_POST['kode']."')
+                                    ORDER BY tid.tgl_berlaku DESC LIMIT 1
+                                    ) dt ON dt.kode_tarif=ti.kode_tarif
                                 WHERE ti.kode_tarif IN('".$_POST['kode']."')");
     }
 
