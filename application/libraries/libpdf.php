@@ -3,7 +3,7 @@ class Libpdf
 {
     function __construct()
     {
-        require_once APPPATH.'/ibraries/html2pdf/vendor/autoload.php';
+        require_once APPPATH.'/libraries/html2pdf/vendor/autoload.php';
     }
     
    
