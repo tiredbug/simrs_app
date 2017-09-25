@@ -37,12 +37,14 @@ class M_login extends ci_model
 
 	function cek_login()
 	{
-		$this->db->where(array(
-			'username'				=>	$this->input->post('username'),
-			'password_text'			=>	$this->input->post('password'),
-			'password_md5'			=>	md5($this->input->post('password')),
-			'aktif'					=>	'Y'
-			));
-		return $this->db->get('ranap_users');
+		
+		return $this->db->query("SELECT * FROM
+								ranap_users ru
+								INNER JOIN admin_masterruanganinap r ON r.id_ruangan=ru.ruang
+								WHERE
+								ru.username IN('".$this->input->post('username')."')
+								AND ru.password_text IN('".$this->input->post('password')."')
+								AND ru.password_md5 IN('".md5($this->input->post('password'))."')
+								AND ru.aktif IN('Y')");
 	}
 }
