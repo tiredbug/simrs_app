@@ -58,17 +58,6 @@
 <hr class="garis">
 
 <table class="hasil">
-	<col style="width: 6%;">
-	<col style="width: 15%;">
-	<col style="width: 8%;">
-	<col style="width: 10%;">
-	<col style="width: 6%;"">
-	<col style="width: 10%;">
-	<col style="width: 4%;">
-	<col style="width: 8%;">
-	<col style="width: 8%;">
-	<col style="width: 20%;">
-	<col style="width: 5%;">
 	<thead>
 		<tr>
 			<th>No. MR</th>

@@ -54,7 +54,7 @@
 <h3 class="namars"><?php echo $nama_rs['value_profile']?></h3>
 <h3 class="alamatrs"><?php echo $alamat_rs['value_profile']?></h3>
 <h6 class="kontakrs">Tlf : <?php echo $tlf_rs['value_profile']?>, Fax : <?php echo $fax_rs['value_profile']?></h6>
-<h4 class="titlelap">Laporan Kunjungan Bulan <?php echo $bulan?> Ruang <?php echo $_SESSION['nama_ruangan']?></h4>
+<h4 class="titlelap">Laporan Kunjungan Tgl <?php echo $_GET['tgl']?></h4>
 <hr class="garis">
 
 <table class="hasil">

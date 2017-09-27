@@ -58,7 +58,7 @@ end_last_page div
         </tr>
     </thead>
 <?php
-    for ($k=0; $k<50; $k++) {
+    for ($k=0; $k<50; $k++) {}
 ?>
     <tr>
         <td><?php echo $k; ?></td>

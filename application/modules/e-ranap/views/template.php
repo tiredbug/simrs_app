@@ -107,7 +107,7 @@
                     </a>
                 </li>
 
-                <li class="has-sub">
+                <li class="has-sub <?php echo $this->uri->segment(2)=='laporan'?'opened':''?>">
                     <a href="#">
                         <i class="entypo-print"></i>
                         <span class="title">Laporan</span>

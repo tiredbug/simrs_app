@@ -40,15 +40,32 @@
 										</div>
 										
 									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2">Tahun:</label>
+										<div class="col-sm-10">
+											<select name="tahun"  class="tahun form-control">
+												<option value="">-- Pilih --</option>
+												<?php 
+												for ($t=date("Y"); $t >date("Y")-5 ; $t--) { 
+													# code...
+													echo "<option value='".$t."'";
+													echo $t==date("Y")?'selected':'';
+													echo ">".$t."</option>";
+												}
+												?>
+											</select>
+										</div>
+										
+									</div>
 								</form>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-10 col-sm-offset-2">
-								<button class="btn btn-blue btn_tampilkan"><i class='fa fa-search'></i> Tampilkan </button>
-								<button class="btn btn-danger btn_lap_pdf"><i class='fa fa-file-pdf-o'></i> PDF </button>
-								<button class="btn btn-success"><i class='fa fa-file-excel-o'></i> Excel &nbsp</button>
-								<button class="btn btn-default"><i class='fa fa-print'></i> Cetak </button>
+								<button class="btn btn-blue btn_tampilkan"><i class='fa fa-search'></i>Pencarian</button>
+								<button class="btn btn-danger btn_lap_pdf"><i class='fa fa-file-pdf-o'></i> PDF</button>
+								<button class="btn btn-success btn_lap_excel"><i class='fa fa-file-excel-o'></i> Excel</button>
+								<button class="btn btn-default"><i class='fa fa-print'></i> Cetak</button>
 							</div>
 						</div>
 					</div>
@@ -98,6 +115,7 @@
 				data:function(filter)
 				{
 					filter.bulan=$(".bulan").val();
+					filter.tahun=$(".tahun").val();
 				}
 			},
 			'language':{
@@ -112,6 +130,9 @@
 		$(".laporan_bulanan").DataTable().ajax.reload();
 	})
 	$(".btn_lap_pdf").click(function(){
-		window.open(base_url+'e-ranap/laporan/laporanbulanan?format=pdf&bulan='+$(".bulan").val());
+		window.open(base_url+'e-ranap/laporan/laporanbulanan?format=pdf&bulan='+$(".bulan").val()+'&tahun='+$(".tahun").val());
+	})
+	$(".btn_lap_excel").click(function(){
+		window.open(base_url+'e-ranap/laporan/laporanbulanan?format=excel&bulan='+$(".bulan").val()+'&tahun='+$(".tahun").val());
 	})
 </script>
