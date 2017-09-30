@@ -47,5 +47,16 @@ class Register extends CI_Controller{
 		$data['kelas']			=	$this->m_master->get_kelas();
 		$this->template->load('template','register/laboraturium',$data);
 	}
+
+
+	function radiologi()
+	{
+		$data['poli']			=	$this->m_master->get_poli();
+		$data['hub']			=	$this->m_master->get_hub();
+		$data['cb']				=	$this->m_master->get_carabayar();
+		$data['kelas']			=	$this->m_master->get_kelas();
+		$data['cara_rujuk']		=	$this->m_master->get_cararujuk();
+		$this->template->load('template','register/radiologi',$data);
+	}
       
 }

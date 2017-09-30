@@ -26,14 +26,24 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">Nomor NIK :</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control " name="nik" id="nik" placeholder="Nomor NIK sesuai KTP atau KK...">
+                        <div class="input-group">
+                            <input type="text" class="form-control " name="nik" id="nik" placeholder="Nomor NIK sesuai KTP atau KK...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success btn_get_nik_bpjs" type="button"><i class='entypo-shareable'></i>BPJS</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-sm-3">No Asuransi :</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control " name="noasuransi" id="noasuransi" placeholder="Nomor kartu asuransi...">
+                        <div class="input-group">
+                            <input type="text" class="form-control " name="noasuransi" id="noasuransi" placeholder="Nomor kartu asuransi...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success btn_get_bpjs_bpjs" type="button"><i class='entypo-shareable'></i>BPJS</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -395,4 +405,94 @@
         }
         )
     })
+
+    $(".btn_get_nik_bpjs").click(function(){
+        var $this=$(this);
+        $this.html("<i class='fa fa-spin fa-spinner'></i> BPJS").prop('disabled',true);
+        $.ajax({
+            type:'POST',
+            url:base_url+'pendaftaran/pasien_api/get_data_peserta_from_server_bpjs',
+            data:'by=nik&id='+$("#nik").val(),
+            dataType:'json',
+            success:function(respon)
+            {
+                $this.html("<i class='entypo-shareable'></i>BPJS").prop('disabled',false);
+                if(respon.metadata.code=='200')
+                {
+                    swal({
+                        title:'Ditemukan',
+                        text:'data peserta ditemukan di server bpjs, lanjutkan ?',
+                        type:'success'
+                    },function(){
+                        $("#norek").val(respon.response.peserta.noMr)
+                        $("#nik").val(respon.response.peserta.nik)
+                        $("#noasuransi").val(respon.response.peserta.noKartu)
+                        $("#nama").val(respon.response.peserta.nama)
+                        $("#jk").val(respon.response.peserta.sex=='L'?'Laki-Laki':'Perempuan')
+                        $("#tgl_lahir").val(parsing_tgl(respon.response.peserta.tglLahir))
+                        
+                    });
+                }
+                else
+                {
+                    swal('Gagal',respon.metadata.message,'error');
+                    $("#norek").val('')
+                    $("#nik").val('')
+                    $("#noasuransi").val('')
+                    $("#nama").val('')
+                    $("#jk").val('')
+                    $("#tgl_lahir").val('')
+                }
+            }
+        })
+    })
+
+    $(".btn_get_bpjs_bpjs").click(function(){
+        var $this=$(this);
+        $this.html("<i class='fa fa-spin fa-spinner'></i> BPJS").prop('disabled',true);
+        $.ajax({
+            type:'POST',
+            url:base_url+'pendaftaran/pasien_api/get_data_peserta_from_server_bpjs',
+            data:'by=bpjs&id='+$("#noasuransi").val(),
+            dataType:'json',
+            success:function(respon)
+            {
+                $this.html("<i class='entypo-shareable'></i>BPJS").prop('disabled',false);
+                if(respon.metadata.code=='200')
+                {
+                    swal({
+                        title:'Ditemukan',
+                        text:'data peserta ditemukan di server bpjs, lanjutkan ?',
+                        type:'success'
+                    },function(){
+                        $("#norek").val(respon.response.peserta.noMr)
+                        $("#nik").val(respon.response.peserta.nik)
+                        $("#noasuransi").val(respon.response.peserta.noKartu)
+                        $("#nama").val(respon.response.peserta.nama)
+                        $("#jk").val(respon.response.peserta.sex=='L'?'Laki-Laki':'Perempuan')
+                        $("#tgl_lahir").val(parsing_tgl(respon.response.peserta.tglLahir))
+                    });
+                }
+                else
+                {
+                    swal('Gagal',respon.metadata.message,'error')
+                    $("#norek").val('')
+                    $("#nik").val('')
+                    $("#noasuransi").val('')
+                    $("#nama").val('')
+                    $("#jk").val('')
+                    $("#tgl_lahir").val('')
+                }
+            }
+        })
+    })
+
+    function parsing_tgl(tgl)
+    {
+        var pat=/(.*?)\/(.*?)\/(.*?)$/;
+        var result=tgl.replace(pat,function(match,p1,p2,p3){
+            return (p3)+'-'+(p2)+'-'+(p1);
+        })
+        return result;
+    }
 </script>

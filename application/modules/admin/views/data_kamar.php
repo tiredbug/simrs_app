@@ -44,7 +44,7 @@
 					<a href="<?php echo base_url()?>admin/datamaster/ruanganinap" class="btn btn-circle green-meadow" >
 					<i class="fa fa-angle-double-left"></i> Kembali </a>
 					<a href="<?php echo base_url()?>admin/datamaster/form_input_kamar" class="btn btn-circle green-meadow" title="tambah kamar pelayanan rawat inap." data-toggle="modal" data-target="#modal_add_ruangan">
-					<i class="fa fa-plus"></i> Add kamar </a>
+					<i class="fa fa-plus-circle"></i> Kamar </a>
 					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title="">
 					</a>
 				</div>

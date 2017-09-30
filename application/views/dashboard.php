@@ -230,6 +230,27 @@
 				
 			</div>
 
+
+
+			<div class="col-sm-3">
+			
+				<div class="tile-title tile-blue">
+					
+					<div class="icon">
+						<i class="glyphicon glyphicon-camera"></i>
+					</div>
+					<a href="<?php echo base_url()?>radiologi" title="Klik disini untuk membuka modul radiologi.">
+						<div class="title">
+							<h3>RADIOLOGI</h3>
+							<p>kelola kunjungan pemeriksaan radiologi</p>
+						</div>
+					</a>
+				</div>
+				
+			</div>
+
+
+
 		</div>
 
 		

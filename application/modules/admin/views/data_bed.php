@@ -47,7 +47,7 @@
 					<a href="<?php echo base_url()?>admin/datamaster/kamar?ruang=<?php echo $_GET['ruang']?>&kls=<?php echo $_GET['kls']?>" class="btn btn-circle green-meadow" >
 					<i class="fa fa-angle-double-left"></i> Kembali </a>
 					<a href="<?php echo base_url()?>admin/datamaster/form_input_bed" class="btn btn-circle green-meadow" title="tambah tempat tidur." data-toggle="modal" data-target="#modal_add_bed">
-					<i class="fa fa-plus"></i> Add bed </a>
+					<i class="fa fa-plus-circle"></i> Bed </a>
 					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title="">
 					</a>
 				</div>

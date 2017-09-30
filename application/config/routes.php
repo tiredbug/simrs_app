@@ -15,4 +15,5 @@ $route['igd']						=	'igd/login';
 $route['coranap']					=	'coranap/login';
 $route['e-ranap']					=	'e-ranap/login';
 $route['admin']						=	'admin/login';
+$route['radiologi']					=	'radiologi/login';
 $route['translate_uri_dashes'] 		= 	FALSE;

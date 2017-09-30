@@ -376,4 +376,88 @@ class Register_api extends CI_Controller{
             echo json_encode($respon);
         }
     }
+
+
+    function register_radiologi()
+    {
+        if(!$this->input->is_ajax_request())
+        {
+            exit ("No direct script access allowed");
+        }
+        else
+        {
+            $data=array('success'=>false,'message'=>array(),'pesan_err'=>'');
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters("<p class='text-danger'>",'</p>');
+            $this->form_validation->set_rules('nrm','Nomor rekam medis','is_natural|callback_cek_norek_pasien',array(
+                'is_natural'=>'%s harus angka.'
+                ));
+            $this->form_validation->set_rules("cb",'Metode bayar','required',array('required'=>'%s wajib*'));
+            $this->form_validation->set_rules("kelas",'Kelas perawatan','required',array('required'=>'%s wajib*'));
+            $this->form_validation->set_rules("tgl_daftar",'Tgl daftar','required',array('required'=>'%s wajib*'));
+            $this->form_validation->set_rules("jam_daftar",'Jam daftar','required',array('required'=>'%s wajib*'));
+            $this->form_validation->set_rules("cr",'Cara rujuk','required',array('required'=>'%s wajib*'));        
+            $this->form_validation->set_rules("j_p",'Jenis pasien','required',array('required'=>'%s wajib*'));
+            $this->form_validation->set_rules("kelompok",'Kelompok peserta','required',array('required'=>'%s wajib*'));
+
+
+
+            if($this->form_validation->run())
+            {
+
+                // variabel lain
+                $nomor_kunjungan='';
+
+                // hitung umur pasien 
+                $this->load->helper('umur');
+                $tgl_lahir  =   $this->m_function->get_tgllahir($this->input->post('nrm'))->row_array();
+                $umur       =   hitung_umur($tgl_lahir['tgl_lahir']);
+                $umur_thn   =   $umur['tahun']=='0'?'0':$umur['tahun'];
+                $umur_bln   =   $umur['bulan']=='0'?'0':$umur['bulan'];
+                $umur_hr    =   $umur['hari']=='0'?'0':$umur['hari'];
+
+
+                // membuat nomor kunjungan dan nomor antrian di poli 
+                $nomor_kunjungan    =   $this->buat_nomorkunjungan();
+
+                // // deklarasi field tabel pendaftaran_kunjungan dan isi field 
+                $data_kunjungan=array(
+                    'nomor_kunjungan'       =>  $nomor_kunjungan,
+                    'norekammedis'          =>  $this->input->post('nrm'),
+                    'kode_carabayar'        =>  $this->input->post('cb'),
+                    'kode_kelompok'         =>  $this->input->post('kelompok'),
+                    'tgl_daftar'            =>  tgl_mysql($this->input->post('tgl_daftar')),
+                    'jam_daftar'            =>  $this->input->post('jam_daftar'),
+                    'kode_cararujuk'        =>  $this->input->post('cr'),
+                    'asal_rujukan'          =>  '-',
+                    'nomor_rujukan'         =>  '-',
+                    'kode_kelas'            =>  $this->input->post('kelas'),
+                    'jenis_kunjungan'       =>  'rad',
+                    'status_kunjungan'      =>  'Masih dirawat',
+                    'jenis_pasien'          =>  $this->input->post('j_p'),
+                    'umur_tahun'            =>  $umur_thn,
+                    'umur_bulan'            =>  $umur_bln,
+                    'umur_hari'             =>  $umur_hr,
+                    'deposito'              =>  $this->input->post('deposito')
+                    );
+
+
+                if($this->m_core->void_registerradiologi($data_kunjungan)==TRUE)
+                {
+                    $data['success']=true;
+                    $this->logapp->log_user($_SESSION['id'],'register kunjungan radiologi norek '.$_POST['nrm']);
+                }               
+            }
+            else
+            {
+                foreach ($_POST as $key => $value) {
+                    # code...
+                    $data['message'][$key]=form_error($key);
+                }
+                $data['success']=false;
+            }
+
+            echo json_encode($data);
+        }
+    }
 }

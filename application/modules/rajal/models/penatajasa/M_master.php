@@ -47,4 +47,14 @@ class M_master extends ci_model{
 		$this->db->where('id_poliklinik',$this->session->userdata('kode_poli'));
 		return $this->db->get('admin_masterpoliklinik');
 	}
+
+	function get_dokter()
+	{
+		return $this->db->query("SELECT
+								dok.kode_dokter kode, CONCAT(dok.nama_belakang,'. ',dok.nama_dokter,IF(dok.gelar='','',CONCAT(', ',dok.gelar))) dokter
+								FROM
+								admin_masterdokter dok
+								WHERE dok.status IN('Aktif') AND dok.jenis_dokter IN('Spesialis');
+								");
+	}
 }

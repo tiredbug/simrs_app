@@ -20,6 +20,7 @@ class Penatajasa extends ci_controller{
 		$data['bayar']		=	$this->m_master->get_carabayar();
 		$data['kelas']		=	$this->m_master->get_kelas();
 		$data['poli']		=	$this->m_master->get_poli();
+		$data['dokter']		=	$this->m_master->get_dokter();
 		$this->template->load('template','penatajasa',$data);
 
 	}

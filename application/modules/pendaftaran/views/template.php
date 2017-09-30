@@ -126,11 +126,12 @@
                                 <span class="title">Rawat Jalan</span>
                             </a>
                         </li>
-                      <!--   <li>
-                            <a href="<?php echo base_url().'pendaftaran/register/igd'?>">
-                                <span class="title">IGD</span>
+                        <li>
+                            <a href="<?php echo base_url().'pendaftaran/register/radiologi'?>">
+                                <i class="entypo-camera"></i>
+                                <span class="title">Radiologi Langsung</span>
                             </a>
-			            </li> -->
+			            </li>
                         <!-- <li>
                             <a href="<?php echo base_url().'pendaftaran/register/laboraturium'?>">
                                 <span class="title">Laboraturium</span>

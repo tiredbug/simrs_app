@@ -17,6 +17,9 @@ class M_core extends CI_Model{
 		$this->db->trans_complete();
 		return $this->db->trans_status();
     }
-    
+    function void_registerradiologi($data)
+    {
+    	return $this->db->insert('pendaftaran_kunjungan',$data);
+    }
 }
 

@@ -253,7 +253,7 @@
                             <th style="padding:0px;padding-left: 5px;padding-top: 2px; width: 90%;padding-right: 5px" >
                                 <div class="col-sm-2 nopadding">
                                     <select name="polirujuk" id="polirujuk" class="form-control input-sm">
-                                    <option></option>
+                                    <option value=''>-- Pilih --</option>
                                         <?php 
                                             foreach ($poli->result() as $p) {
                                                 # code...
@@ -271,6 +271,13 @@
                             <th style="padding:0px;padding-left: 5px;padding-top: 2px; width: 90%;padding-right: 5px" >
                                 <div class="col-sm-3 nopadding">
                                     <select name="dokterrujuk" id="dokterrujuk" class="form-control input-sm">
+                                        <option value=''>-- Pilih --</option>
+                                        <?php 
+                                            foreach ($dokter->result() as $d) {
+                                                # code...
+                                                echo "<option value='".$d->kode."'>Poliklinik ".$d->dokter."</option>";
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                             </th>
@@ -617,31 +624,31 @@
         }
     }
 
-    $("#polirujuk").change(function(){
-        var id_polirujuk=$(this).val();
-        var tgl_daftar=$("#tgl_daftar").val();
-        loading_show();
+    // $("#polirujuk").change(function(){
+    //     var id_polirujuk=$(this).val();
+    //     var tgl_daftar=$("#tgl_daftar").val();
+    //     loading_show();
         
-        $.ajax({
-            type:"POST",
-            url:base_url+'rajal/penatajasa_api/get_dokter_piket',
-            data:'polirujuk='+id_polirujuk+'&tgl_daftar='+tgl_daftar,
-            dataType:'json',
-            error:function()
-            {
-                alert('Gagal terhubung ke server.');
-                loading_hide();
-            },
-            success:function(json)
-            {
-                $("#dokterrujuk").empty();
-                $.each(json, function(i, isi){
-                    $("#dokterrujuk").append('<option value='+ isi.id +'>'+isi.value+'</option>')
-                })
-                loading_hide()
-            }
-        })
-    })
+    //     $.ajax({
+    //         type:"POST",
+    //         url:base_url+'rajal/penatajasa_api/get_dokter_piket',
+    //         data:'polirujuk='+id_polirujuk+'&tgl_daftar='+tgl_daftar,
+    //         dataType:'json',
+    //         error:function()
+    //         {
+    //             alert('Gagal terhubung ke server.');
+    //             loading_hide();
+    //         },
+    //         success:function(json)
+    //         {
+    //             $("#dokterrujuk").empty();
+    //             $.each(json, function(i, isi){
+    //                 $("#dokterrujuk").append('<option value='+ isi.id +'>'+isi.value+'</option>')
+    //             })
+    //             loading_hide()
+    //         }
+    //     })
+    // })
 
     $("#btn_kirim_rujukan_interen").click(function(){
         var tanya=confirm("Semua data akan dikirim ke poliklinik tujuan, proses pada poliklinik sekarang akan ditutup. Kirim sekarang ?")

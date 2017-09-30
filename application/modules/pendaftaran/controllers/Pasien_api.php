@@ -26,4 +26,17 @@ class Pasien_api extends CI_Controller{
             echo json_encode($data->row_array());
         }
     }
+
+    function get_data_peserta_from_server_bpjs()
+    {
+        if(! $this->input->is_ajax_request())
+        {
+            exit("No direct script access allowed.");
+        }
+        else
+        {
+            $this->load->library('bpjs');
+            echo $this->bpjs->peserta($_POST['by'],$_POST['id']);
+        }
+    }
 }

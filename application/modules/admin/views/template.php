@@ -197,7 +197,7 @@ jQuery(document).ready(function() {
 					</a>
 					
 				</li>
-				<li class="<?php echo $this->uri->segment(2)=='datamaster'?'active open':''?>">
+				<li class="<?php echo $this->uri->segment(2)=='datamaster'?'active open':''?> <?php echo $this->uri->segment(2)=='tarif'?'active':''?>">
 					<a href="javascript:;">
 					<i class="icon-layers"></i>
 					<span class="title">Data Master</span>
@@ -225,7 +225,7 @@ jQuery(document).ready(function() {
 							</a>
 						</li>
 
-						<li class="">
+						<li class="<?php echo $this->uri->segment(2)=='tarif'?'active':''?>">
 							<a href="#">
 							<i class="icon-badge"></i>
 							Tarif Pelayanan
@@ -253,8 +253,8 @@ jQuery(document).ready(function() {
 									</a>
 								</li>
 
-								<li>
-									<a href="javascript:;">
+								<li class="<?php echo $this->uri->segment(3)=='radiologi'?'active':''?>">
+									<a href="<?php echo base_url().'admin/tarif/radiologi'?>">
 									<i class="icon-trophy"></i> 
 										Radiologi
 									</a>

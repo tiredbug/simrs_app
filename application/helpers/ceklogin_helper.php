@@ -154,3 +154,19 @@ function login_ranap()
 		return false;
 	}
 }
+
+
+// cek login radiologi
+function login_radiologi()
+{
+	$CI=& get_instance();
+	$stt=$CI->session->userdata('login_radiologi');
+	if($stt==true)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
