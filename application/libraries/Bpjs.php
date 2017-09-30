@@ -13,8 +13,9 @@ class Bpjs
 
 	function buat_auth_validasi()
 	{
-		date_default_timezone_set('UTC');
-        $tStamp = strval(time()-strtotime('1970-01-01 00:00:00'));
+		date_default_timezone_set('Asia/Jakarta');
+		$d=date("H")-7;
+        $tStamp = strval(strtotime(date("Y-m-d ".$d.":i:s"))-strtotime('1970-01-01 00:00:00'));
         // Computes the signature by hashing the salt with the secret key as the key
         $signature = hash_hmac('sha256', $this->x_cons_id."&".$tStamp, $this->secretKey, true);
  
