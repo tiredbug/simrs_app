@@ -460,4 +460,18 @@ class Register_api extends CI_Controller{
             echo json_encode($data);
         }
     }
+
+
+    function get_data_rujukan_from_server_bpjs()
+    {
+        if(!$this->input->is_ajax_request())
+        {
+            exit ("No direct script access allowed");
+        }
+        else
+        {
+            $this->load->library('bpjs');
+            echo $this->bpjs->rujukan($_POST['by'],$_POST['from']=='2'?'pcare':'RS',$_POST['val']);
+        }
+    }
 }

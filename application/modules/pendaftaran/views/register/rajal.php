@@ -99,8 +99,20 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">Nomor Rujukan :</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control  " name="nomor_rujukan" id="nomor_rujukan" placeholder="Nomor rujukan..." />
+                        <div class="input-group">
+                            <input type="text" class="form-control  " name="nomor_rujukan" id="nomor_rujukan" placeholder="Nomor rujukan..." />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-success dropdown-toggle btn_cari_rujukan" data-toggle="dropdown" aria-expanded="false">
+                                    Cari <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-primary">
+                                    <li><a href="javascript:cari_rujukan('rujukan')">By Nomor Rujukan</a></li>
+                                    <li><a href="javascript:cari_rujukan('kartu')">By Nomor Kartu</a></li>
+                                </ul>
+                            </span>
+                        </div>
                     </div>
+
                 </div>
                 
                 <div class="form-group">
@@ -534,5 +546,35 @@
             }
         });
         // end
-   
+    function cari_rujukan(by){
+        var $this=$(".btn_cari_rujukan");
+        $this.html("<i class='fa fa-spin fa-spinner'></i> Cari  <span class='caret'></span>").prop('disabled',true);
+        $.ajax({
+            type:'POST',
+            url:base_url+'pendaftaran/register_api/get_data_rujukan_from_server_bpjs',
+            data:'by='+by+'&from='+$('#cr').val()+'&val='+$("#nomor_rujukan").val(),
+            dataType:'json',
+            error:function(){
+                $this.html("Cari  <span class='caret'></span>").prop('disabled',false);
+            },
+            success:function(respon)
+            {
+                $this.html("Cari  <span class='caret'></span>").prop('disabled',false);
+                if(respon.metadata.code=='200')
+                {
+                    swal({
+                        title:'Ditemukan',
+                        text:'data rujukan pasien ditemukan, lanjutkan ?',
+                        type:'success'
+                    });
+                    $("#nomor_rujukan").val(respon.response.item.noKunjungan)
+                    $("#asal_rujuk").val(respon.response.item.provKunjungan.nmProvider)
+                }
+                else
+                {
+                    swal('Gagal',respon.metadata.message,'error');
+                }
+            }
+        })
+    }
 </script>

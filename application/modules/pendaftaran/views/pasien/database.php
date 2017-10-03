@@ -16,28 +16,28 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">No. Medrec</label>
+                                <label class="col-sm-3 control-label">No. Medrec :</label>
                                 <div class="col-sm-9">
                                    <input type="text" name="norec" class="form-control norec">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">No. Nik</label>
+                                <label class="col-sm-3 control-label">No. Nik :</label>
                                 <div class="col-sm-9">
                                    <input type="text" name="nik" class="form-control nik">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">No. Asuransi</label>
+                                <label class="col-sm-3 control-label">No. Asuransi :</label>
                                 <div class="col-sm-9">
                                    <input type="text" name="asuransi" class="form-control asuransi">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Nama Lengkap</label>
+                                <label class="col-sm-3 control-label">Nama Lengkap :</label>
                                 <div class="col-sm-9">
                                    <input type="text" name="nama" class="form-control nama">
                                 </div>
@@ -48,7 +48,7 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Provinsi</label>
+                                <label class="col-sm-3 control-label">Provinsi :</label>
                                 <div class="col-sm-9">
                                    <select name="prov" class="form-control prov">
                                    <option value="">-- Pilih  --</option>
@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Kabupaten</label>
+                                <label class="col-sm-3 control-label">Kabupaten :</label>
                                 <div class="col-sm-9">
                                    <select name="kab" class="form-control kab">
                                    </select>
@@ -71,7 +71,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Kecamatan</label>
+                                <label class="col-sm-3 control-label">Kecamatan :</label>
                                 <div class="col-sm-9">
                                    <select name="kec" class="form-control kec">
                                    </select>
@@ -79,7 +79,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Desa</label>
+                                <label class="col-sm-3 control-label">Desa :</label>
                                 <div class="col-sm-9">
                                    <select name="desa" class="form-control desa">
                                    </select>
@@ -430,12 +430,15 @@
     $(".btn-info").click(function(){
         load_profile($(".norek-h").val())
     })
+
     $(".btn-success").click(function(){
         $("#modal_profile").modal('hide');
     })
+
     $(".btn-primary").click(function(){
         window.location.href=base_url+'pendaftaran/pasien/edit_pasien?norec='+$(".norek-h").val()
     })
+
     $(".btn-orange").click(function(){
         var e=confirm("Apakah ingin mencetak kembali kartu berobat pasien ?");
         if(e)
@@ -443,6 +446,7 @@
             window.open(base_url+'pendaftaran/pasien/kartu?norek='+$(".norek-h").val(),'_blank');
         }
     })
+
     $(".btn_filter").click(function(){
         $(".form_filter").toggle();
     })

@@ -140,7 +140,8 @@ class M_kunjungan extends ci_model
 			'dokter_pengirim'=>$_POST['dokter'],
 			'dokter_piket'=>$_POST['dokterp'],
 			'petugas_register'=>$_SESSION['kode_user'],
-			'unit'=>$_POST['unit'],
+			'unit_rajal'=>$_POST['asal']=='rajal'?$_POST['unit']:'',
+			'unit_ranap'=>$_POST['asal']=='inap'?$_POST['unit']:'',
 			'asal'=>$_POST['asal']
 		));
 		
@@ -158,4 +159,83 @@ class M_kunjungan extends ci_model
 		$this->db->select_max('no_billing');
         return $this->db->get('radiologi_billing')->row_array();
 	}
+
+	function __query_get_data_radiologi_kunjungan()
+	{
+		$w=$this->input->post('search[value]')!=''?" AND ps.nomor_rekammedis IN('".$this->input->post('search[value]')."')":'';
+		return $q="SELECT
+			ps.nomor_rekammedis nomr, pk.nomor_kunjungan no_k, rk.nomor_rad norad,
+			ps.nama_lengkap nama, ps.jenis_kelamin jk, CONCAT(rk.tgl_register,' ',rk.jam_register) tgl_order,
+			IFNULL(CONCAT(dok.nama_belakang,'. ',dok.nama_dokter,IF(dok.gelar='','',CONCAT(', ',dok.gelar))),rk.asal) dokter_pengirim,
+			CONCAT(dok_p.nama_belakang,'. ',dok_p.nama_dokter,IF(dok_p.gelar='','',CONCAT(', ',dok_p.gelar))) dokter_p,
+			us.nama_lengkap n_user,
+			(CASE
+				WHEN rk.asal='rajal' THEN CONCAT('Poli ',poli.nama_poliklinik)
+				WHEN rk.asal='inap' THEN CONCAT('R. ',rg.nama_ruangan)
+				ELSE rk.asal
+			END) unit
+			FROM
+			radiologi_kunjungan rk
+			LEFT JOIN pendaftaran_kunjungan pk ON pk.nomor_kunjungan=rk.no_kunjungan
+			LEFT JOIN pendaftaran_pasien ps ON ps.nomor_rekammedis=pk.norekammedis
+			LEFT JOIN admin_masterdokter dok ON dok.kode_dokter=rk.dokter_pengirim
+			LEFT JOIN admin_masterdokter dok_p ON dok_p.kode_dokter=rk.dokter_piket
+			LEFT JOIN radiologi_users us ON us.kode_user=rk.petugas_register
+			LEFT JOIN admin_masterpoliklinik poli ON poli.id_poliklinik=rk.unit_rajal
+			LEFT JOIN admin_masterruanganinap rg ON rg.id_ruangan=rk.unit_ranap
+			WHERE rk.checkout IN('N')".$w;
+	}
+
+
+	function get_data_radiologi_kunjungan()
+	{
+		$query=$this->__query_get_data_radiologi_kunjungan();
+        if($this->input->post('length')!=-1)
+        {
+            $query=$this->__query_get_data_radiologi_kunjungan()." LIMIT ".$this->input->post('start').",".$this->input->post('length');
+        }
+        return $this->db->query($query);
+	}
+
+
+	function count_filtered_row()
+	{
+		return $this->db->query($this->__query_get_data_radiologi_kunjungan())->num_rows();
+	}
+
+	function count_all_row()
+	{
+		return $this->db->query("SELECT * FROM radiologi_kunjungan rk WHERE rk.checkout IN('N')")->num_rows();
+	}
+
+	function get_detail_i_kunjungan($q)
+	{
+		return $this->db->query("SELECT
+							pk.nomor_kunjungan no_k, CONCAT(pk.tgl_daftar,' ',pk.jam_daftar) tgl_daftar, 
+							CONCAT(cb.nama_carabayar,' - ',klp.nama_kelompok) cb, cr.nama_cararujuk c_r, pk.asal_rujukan asal_rujuk,
+							pk.nomor_rujukan no_r, kls.nama_kelasperawatan kls, CONCAT(pk.diagnosa,'-',icd.SUB) icd,
+							pk.nomor_sep sep, pk.jenis_pasien j_p, CONCAT(pk.umur_tahun,'thn ',pk.umur_bulan,'bln ',pk.umur_hari,'hri') umur,
+							ps.nomor_rekammedis norek, ps.nomor_nik nik, ps.nomor_asuransi no_as, ps.nama_lengkap nama,
+							ps.jenis_kelamin jk, ag.agama, ps.agama ag, CONCAT(ps.tp_lahir,'/',DATE_FORMAT(ps.tgl_lahir,'%d-%m-%Y')) tp_tgllahir,
+							ps.status_pasien stt, ps.hp_pasien, ps.alamat_ktp
+							FROM 
+							radiologi_kunjungan rk
+							LEFT JOIN pendaftaran_kunjungan pk ON pk.nomor_kunjungan=rk.no_kunjungan
+							LEFT JOIN admin_mastercarabayar cb ON cb.id_carabayar=pk.kode_carabayar
+							LEFT JOIN admin_mastercarabayarklp klp ON klp.id_carabayar=pk.kode_kelompok
+							LEFT JOIN admin_masterkelasperawatan kls ON kls.id_kelasperawatan=pk.kode_kelas
+							LEFT JOIN admin_mastericdx icd ON icd.KODE=pk.diagnosa
+							LEFT JOIN admin_mastercararujuk cr ON cr.id_cararujuk=pk.kode_cararujuk
+							LEFT JOIN pendaftaran_pasien ps ON ps.nomor_rekammedis=pk.norekammedis
+							LEFT JOIN admin_masteragama ag ON ag.id=ps.agama
+							WHERE rk.nomor_rad IN('".$q."')");
+	}
+
+	function checkout_kunjungan()
+	{
+		$this->db->where('nomor_rad',$this->input->post('id'));
+		return $this->db->update('radiologi_kunjungan',array('checkout'=>'Y'));
+	}
+
+
 }

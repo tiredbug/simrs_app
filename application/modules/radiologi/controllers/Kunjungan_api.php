@@ -210,4 +210,63 @@ class Kunjungan_api extends ci_controller
 		}
 	}
 
+
+	function get_data_kunjungan()
+	{
+		if(! $this->input->is_ajax_request())
+		{
+			exit("No direct scripts access allowed");
+		}
+		else
+		{
+			$respon=array(
+ 				'draw'				=> $this->input->post('draw'),
+ 				'recordsTotal'		=> $this->m_kunjungan->count_all_row(),
+ 				'recordsFiltered'	=> $this->m_kunjungan->count_filtered_row(),
+ 				'data'				=> array()
+ 			);
+
+			foreach ($this->m_kunjungan->get_data_radiologi_kunjungan()->result() as $d) {
+				# code...
+				$arr=array();
+				$arr[]=$d->nomr;
+				$arr[]=$d->no_k;
+				$arr[]=$d->norad;
+				$arr[]=$d->nama;
+				$arr[]=$d->jk;
+				$arr[]=$d->tgl_order;
+				$arr[]=$d->dokter_pengirim.'-'.$d->unit;
+				$arr[]=$d->dokter_p;
+				$arr[]=$d->n_user;
+				$arr[]='';
+	 			array_push($respon['data'],$arr);
+			}
+		 			
+ 			echo json_encode($respon);
+		}
+	}
+
+
+	function checkout()
+	{
+		if(! $this->input->is_ajax_request())
+		{
+			exit("No direct scripts access allowed.");
+		}
+		else
+		{
+			$r=array('success'=>true);
+			if($this->m_kunjungan->checkout_kunjungan())
+			{
+				$r['success']=true;
+			}
+			else
+			{
+				$r['success']=false;
+			}
+
+			echo json_encode($r);
+		}
+	}
+
 }

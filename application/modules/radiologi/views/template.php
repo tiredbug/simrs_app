@@ -53,7 +53,7 @@
 	<script src="<?php echo base_url()?>template/neon/js/neon-demo.js"></script>
     <script src="<?php echo base_url()?>template/neon/js/toastr.js"></script>
     <!-- print area plugin -->
-		<script src="<?php echo base_url()?>template/neon/js/select2/select2.min.js"></script>
+	<script src="<?php echo base_url()?>template/neon/js/select2/select2.min.js"></script>
     <script src="<?php echo base_url()?>template/plugin/printarea/jquery.PrintArea.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>template/plugin/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -137,7 +137,7 @@
 
 
                         <li>
-                            <a href="<?php echo base_url().'coranap/laporan/laporanbulanan'?>">
+                            <a href="<?php echo base_url().'radiologi/laporan/laporanbulanan'?>">
                                 <i class="entypo-doc-text"></i>
                                 <span class="title">Lap. bulanan</span>
                             </a>
@@ -152,18 +152,21 @@
                         <span class="title">Akun</span>
                     </a>
                     <ul>
+
                         <li>
                             <a href="#">
                                 <i class="entypo-tools"></i>
                                 <span class="title">Edit Profile</span>
                             </a>
                         </li>
+
                         <li>
-                            <a href="<?php echo base_url().'coranap/keluar'?>" )>
+                            <a href="<?php echo base_url().'radiologi/keluar'?>" )>
                                 <i class="entypo-logout"></i>
                                 <span class="title">Keluar</span>
                             </a>
 			            </li>
+
                     </ul>
                 </li>
             </ul>
@@ -187,7 +190,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url().'gudangobat/keluar'?>" onclick="return true confirm('Keluar dari aplikasi ?'')">
+                                <a href="<?php echo base_url().'radiologi/keluar'?>" onclick="return true confirm('Keluar dari aplikasi ?'')">
                                     <i class="entypo-logout"></i>
                                     Keluar
                                 </a>

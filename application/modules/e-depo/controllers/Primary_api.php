@@ -26,7 +26,7 @@
  		else
  		{
  			$data=array();
-
+ 			
  			foreach ($this->m_function->get_data_obat()->result() as $do) {
  				# code...
  				$arr=array();

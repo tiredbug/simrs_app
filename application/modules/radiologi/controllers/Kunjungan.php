@@ -28,4 +28,10 @@ class Kunjungan extends ci_controller
 	{
 		$this->template->load('template','data_kunjungan');
 	}
+
+	function detail()
+	{
+		$data['d']=$this->m_kunjungan->get_detail_i_kunjungan($this->uri->segment('4'))->row_array();
+		$this->template->load('template','detail_kunjungan',$data);
+	}
 }

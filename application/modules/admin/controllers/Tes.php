@@ -16,23 +16,8 @@ class Tes extends ci_controller
 
 	function index()
 	{
-		$param=array(
-					'noKartu'=>'',
-					'tglSep'=>'',
-					'tglRujukan'=>'',
-					'noRujukan'=>'',
-					'ppkRujukan'=>'',
-					'ppkPelayanan'=>'',
-					'jnsPelayanan'=>'',
-					'catatan'=>'',
-					'diagAwal'=>'',
-					'poliTujuan'=>'',
-					'klsRawat'=>'',
-					'lakaLantas'=>'',
-					'lokasiLaka'=>'',
-					'noMr'=>''
-		);
-		print $this->bpjs->sep($param);
+		
+		print $this->bpjs->rujukan('rujukan','RS','0012R0061016A000032');
 	}
 
 }
