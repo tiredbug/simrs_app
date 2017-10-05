@@ -70,7 +70,7 @@
 				<div class="form-group">
 					<label class="control-label col-sm-3">Unit Pelayanan :</label>
 					<div class="col-sm-9">
-						<select name="unit" class="unit form-control select2" id="unit">
+						<select name="unit" class="unit form-control" id="unit">
 							<option value=''>-- Pilih --</option>
 						</select>
 					</div>
@@ -79,7 +79,7 @@
 				<div class="form-group">
 					<label class="control-label col-sm-3">Dokter Pengirim :</label>
 					<div class="col-sm-9">
-						<select name="dokter" class="dokter form-control select2" id="dokter">
+						<select name="dokter" class="dokter form-control" id="dokter">
 							<option value=''>-- Pilih --</option>
 						</select>
 					</div>
