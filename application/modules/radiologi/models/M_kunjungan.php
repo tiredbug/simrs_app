@@ -238,4 +238,17 @@ class M_kunjungan extends ci_model
 	}
 
 
+	function get_periksa($id)
+	{
+		return $this->db->query("SELECT
+								p.tindakan
+								FROM
+								radiologi_billing bil
+								LEFT JOIN radiologi_produks p ON p.kode_tindakan=bil.kode_produk
+								WHERE bil.no_rad IN('".$id."')");
+	}
+
+
+	
+
 }

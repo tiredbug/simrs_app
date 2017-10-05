@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/font-icons/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/font-icons/entypo/css/entypo.css">
 
-    <title>Login - Co Ranap</title>
+    <title>Login - Radiologi</title>
 </head>
 <body>
     <div class="container">

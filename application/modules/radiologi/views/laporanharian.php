@@ -34,7 +34,7 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-10 col-sm-offset-2">
-								<button class="btn btn-blue btn_tampilkan"><i class='fa fa-search'></i> Pencarian</button>
+								<button class="btn btn-blue btn_tampilkan"><i class='fa fa-search'></i> Preview</button>
 								<button class="btn btn-danger btn_lap_pdf"><i class='fa fa-file-pdf-o'></i> PDF</button>
 								<button class="btn btn-success btn_lap_excel"><i class='fa fa-file-excel-o'></i> Excel</button>
 								<button class="btn btn-default"><i class='fa fa-print'></i> Cetak</button>
@@ -93,7 +93,7 @@
 				}
 			},
 			'language':{
-				'search':"<b>No Medrec : </b>"
+				'search':"<b>No Medrec : </b>",
 			}
 		})
 		$(".laporan_harian").closest('.dataTables_wrapper').find('select').select2({
@@ -104,9 +104,12 @@
 		$(".laporan_harian").DataTable().ajax.reload();
 	})
 	$(".btn_lap_pdf").click(function(){
-		window.open(base_url+'e-ranap/laporan/laporanharian?format=pdf&tgl='+$(".tgl").val());
+		window.open(base_url+'radiologi/laporan/laporanharian?format=pdf&tgl='+$(".tgl").val());
 	})
-	// $(".btn_lap_excel").click(function(){
-	// 	window.open(base_url+'e-ranap/laporan/laporanharian?format=excel&tgl='+$(".tgl").val();
-	// })
+
+	$(".btn_lap_excel").click(function(){
+		window.open(base_url+'radiologi/laporan/laporanharian?format=excel&tgl='+$(".tgl").val());
+	})
+
+	
 </script>
