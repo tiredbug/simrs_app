@@ -267,7 +267,7 @@
 			loading('show');
 			$.ajax({
 				type:"POST",
-				url:base_url+'Radiologi/kunjungan_api/get_informasi_kunjungan',
+				url:base_url+'radiologi/kunjungan_api/get_informasi_kunjungan',
 				data:data,
 				dataType:'json',
 				error:function()
