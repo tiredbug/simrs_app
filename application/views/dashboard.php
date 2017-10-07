@@ -145,10 +145,10 @@
 					<div class="icon">
 						<i class="glyphicon glyphicon-object-align-vertical"></i>
 					</div>
-					<a href="<?php echo base_url()?>kasirrajal" title="Klik disini untuk membuka modul kasir rawat jalan.">
+					<a href="<?php echo base_url()?>kasir" title="Klik disini untuk membuka modul kasir.">
 						<div class="title">
 							<h3>KASIR</h3>
-							<p>checkout kunjungan rawat jalan, buat billing dan keterangan rawat jalan...</p>
+							<p>checkout kunjungan rawat jalan, buat billing ...</p>
 						</div>
 					</a>
 				</div>

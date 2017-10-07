@@ -63,10 +63,10 @@ function login_lab()
 	}
 }
 
-function login_kasirrajal()
+function login_kasir()
 {
 	$CI=& get_instance();
-	$stt=$CI->session->userdata('login_kasirrajal');
+	$stt=$CI->session->userdata('login_kasir');
 	if($stt==true)
 	{
 		return true;

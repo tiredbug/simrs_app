@@ -7,13 +7,13 @@ class Keluar extends ci_controller{
 		parent::__construct();
 		if(! login_kasirrajal())
 		{
-			redirect(base_url().'kasirrajal');
+			redirect(base_url().'kasir');
 		}
 	}
 
 	function index()
 	{
 		$this->session->sess_destroy();
-		redirect(base_url().'kasirrajal/login');
+		redirect(base_url().'kasir/login');
 	}
 }

@@ -5,7 +5,7 @@ class Login extends ci_controller{
 	function __construct()
 	{
 		parent::__construct();
-		if(login_kasirrajal())
+		if(login_kasir())
 		{
 			redirect(base_url().'kasirrajal/home');
 		}
@@ -37,7 +37,7 @@ class Login extends ci_controller{
                 $sukses=true;
                 $data=$this->M_function->cek_login()->row_array();
                 $this->session->set_userdata($data);
-                $this->session->set_userdata('login_kasirrajal',true);
+                $this->session->set_userdata('login_kasir',true);
             }
             else
             {

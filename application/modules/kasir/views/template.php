@@ -10,7 +10,7 @@
 
 	<link rel="icon" href="assets/images/favicon.ico">
 
-	<title>SIMRS - Kasir Rawat Jalan</title>
+	<title>SIMRS - Kasir</title>
         
         <!--File css--> 
 	<link rel="stylesheet" href="<?php echo base_url()?>template/neon/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
@@ -43,6 +43,7 @@
 	<script src="<?php echo base_url()?>template/neon/js/resizeable.js"></script>
     <script src="<?php echo base_url()?>template/neon/js/neon-api.js"></script>
 	<!-- JavaScripts initializations and stuff -->
+    <script src="<?php echo base_url()?>template/neon/js/jquery.bootstrap.wizard.min.js"></script>
 	<script src="<?php echo base_url()?>template/neon/js/neon-custom.js"></script>
 	<!-- Demo Settings -->
 	<script src="<?php echo base_url()?>template/neon/js/neon-demo.js"></script>
@@ -78,43 +79,39 @@
             </header>
             <ul id="main-menu" class="main-menu">
 		        <li class="">
-                    <a href="<?php echo base_url().'kasirrajal'?>">
+                    <a href="<?php echo base_url().'kasir'?>">
                         <i class="entypo-home"></i>
                         <span class="title">Home</span>
                     </a>
                 </li>
 
-                <li class="">
-                    <a href="<?php echo base_url().'kasirrajal/checkout'?>">
-                        <i class="entypo-retweet"></i>
-                        <span class="title">Checkout</span>
-                    </a>
-                </li>
                 
-                <li class="has-sub">
+                <li class="has-sub <?php echo $this->uri->segment(2)=='kunjungan'?'opened':''?>">
                     <a href="#">
                         <i class="entypo-monitor"></i>
-                        <span class="title">Informasi</span>
-                    </a>
-                    <ul>
-                                               
-                    </ul>
-                </li>
-
-                <li class="has-sub">
-                    <a href="index.html">
-                        <i class="entypo-newspaper"></i>
-                        <span class="title">Laporan</span>
+                        <span class="title">Kunjungan</span>
                     </a>
                     <ul>
                         <li>
-                            <a href="#">
-                                <span class="title">Lap. Kunjungan</span>
+                            <a href="<?php echo base_url().'kasir/kunjungan/igd'?>">
+                                <i class="entypo-cc-nd"></i>
+                                <span class="title">IGD</span>
                             </a>
                         </li>
-                       
+                        <li>
+                            <a href="<?php echo base_url().'kasir/kunjungan/rajal'?>" )>
+                                <i class="glyphicon glyphicon-cd"></i>
+                                <span class="title">Rajal Jalan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url().'kasir/kunjungan/ranap'?>" )>
+                                <i class="fa fa-bed"></i>
+                                <span class="title">Ranap Inap</span>
+                            </a>
+                        </li>                 
                     </ul>
-                </li>              
+                </li>           
                 
                 <li class="has-sub">
                     <a href="index.html">
@@ -128,7 +125,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'kasirrajal/Keluar'?>" )>
+                            <a href="<?php echo base_url().'kasir/keluar'?>" )>
                                 <span class="title">Keluar</span>
                             </a>
 			            </li>
@@ -155,7 +152,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url().'lab/Keluar'?>" onclick="return true confirm('Keluar dari aplikasi ?'')">
+                                <a href="<?php echo base_url().'lab/keluar'?>" onclick="return true confirm('Keluar dari aplikasi ?'')">
                                     <i class="entypo-logout"></i>
                                     Keluar
                                 </a>

@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/font-icons/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/font-icons/entypo/css/entypo.css">
 
-	<title>Login - Kasir Rajal</title>
+	<title>Login - Kasir</title>
 </head>
 <body>
     <div class="container">
@@ -28,7 +28,7 @@
                     </a>
                     <div class="col-sm-8 keterangan">
                         <span class="app">
-                            SIMRS - Kasir Rawat Jalan
+                            SIMRS - Kasir
                         </span>
                         <br>
                         <span class="namars">
@@ -85,7 +85,7 @@
             var form_data=$(".form-login").serialize();
             $.ajax({
                 type:"POST",
-                url:'<?php echo base_url()?>kasirrajal/login/login_auth',
+                url:'<?php echo base_url()?>kasir/login/login_auth',
                 data:form_data,
                 dataType:"JSON",
                 error:function(xhr, desc, err)
@@ -97,7 +97,7 @@
                 {
                     if(json.success)
                     {
-                        window.location.href='<?php echo base_url().'kasirrajal'?>';
+                        window.location.href='<?php echo base_url().'kasir'?>';
                     }
                     else
                     {

@@ -5,9 +5,9 @@ class Home extends ci_controller
 	function __construct()
 	{
 		parent::__construct();
-		if(! login_kasirrajal())
+		if(! login_kasir())
 		{
-			redirect(base_url().'kasirrajal/login');
+			redirect(base_url().'kasir/login');
 		}
 	}
 
