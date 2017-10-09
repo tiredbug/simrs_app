@@ -64,7 +64,8 @@ class Kunjungan_api extends ci_controller
 		{
 			$r=array(
 				'success'=>false,
-				'message'=>''
+				'message'=>'',
+				'no_billing'=>''
 			);
 
 			if(empty($_POST['tgl_keluar']))
@@ -81,9 +82,11 @@ class Kunjungan_api extends ci_controller
 			}
 			else
 			{
-				if($this->m_kunjungan->proses_checkout())
+				$no_billing=$this->buat_no_billing($_POST['tgl_keluar']);
+				if($this->m_kunjungan->proses_checkout($no_billing))
 				{
 					$r['success']=true;
+					$r['no_billing']=$no_billing;
 				}
 				else
 				{
@@ -94,6 +97,13 @@ class Kunjungan_api extends ci_controller
 			echo json_encode($r);
 		}
 
+	}
+
+	function buat_no_billing($tgl_billing)
+	{
+		$count=$this->m_kunjungan->get_max_billing($tgl_billing);
+        $max=sprintf("%05d",$count['jml']+1);
+        return date("dmy".$max);
 	}
 
 

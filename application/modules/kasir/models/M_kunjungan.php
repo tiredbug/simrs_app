@@ -28,7 +28,7 @@ class M_kunjungan extends ci_model
 				LEFT JOIN admin_mastercarabayarklp ckl ON ckl.id_kelompok=pk.kode_kelompok
 				LEFT JOIN admin_masterdokter dok ON dok.kode_dokter=ik.kode_dokter
 				WHERE pk.status_kunjungan IN('Masih dirawat')
-				AND ik.selesai_pelayanan IN('Y')".$w_norek;
+				AND ik.selesai_pelayanan IN('Y') AND ik.inap IN('N')".$w_norek;
 	}
 
 
@@ -78,11 +78,39 @@ class M_kunjungan extends ci_model
     	return $this->db->get('igd_sttkeluar');
     }
 
-    function proses_checkout()
+    function proses_checkout($no_billing)
     {
     	$this->db->trans_start();
-
+    	$this->db->where('nomor_kunjungan',$_POST['no_k']);
+    	$this->db->update('igd_kunjungan',array(
+    		'tgl_keluar'=>date("Y-d-m"),
+    		'jam_keluar'=>date("H:i:s"),
+    		'status_keluar'=>$_POST['keterangan']
+    	));
+    	$this->db->where('nomor_kunjungan',$_POST['no_k']);
+    	$this->db->update('pendaftaran_kunjungan',array(
+    		'tgl_checkout'=>date("Y-d-m",strtotime($_POST['tgl_keluar'])),
+    		'jam_checkout'=>$_POST['jam_keluar'],
+    		'status_kunjungan'=>'Selesai dirawat'
+    	));
+    	$this->db->insert('kasir_billing',array(
+    		'no_billing'=>$no_billing,
+    		'no_kunjungan'=>$_POST['no_k'],
+    		'tagihan'=>$_POST['tagihan'],
+    		'deposit'=>$_POST['deposit'],
+    		'saldo'=>$_POST['saldo'],
+    		'piutang'=>$_POST['piutang'],
+    		'tgl_billing'=>date("Y-d-m H:i:s")
+    	));
     	$this->db->trans_complete();
     	return $this->db->trans_status();
+    }
+
+    function get_max_billing($tgl_billing)
+    {
+    	return $this->db->query("SELECT
+								count('no_billing') jml
+								FROM kasir_billing kb
+								WHERE DATE(kb.tgl_billing) IN('".$tgl_billing."')")->row_array();
     }
 }

@@ -108,7 +108,7 @@
 				</form>
 			</div>
 		</div>
-		<br/>
+		<hr>
 		<div class="row">
 			<div class="col-sm-7">
 				<table class="table  tabel_billing table-fixed table-bill">
@@ -154,6 +154,7 @@
 
 			<div class="col-sm-5">
 				<form class="form-horizontal well well-sm form_checkout">
+					<input type="hidden" name="nobilling" class="nobilling" value="">
 					<div class="form-group">
 						<label class="control-label col-sm-4">Tgl Keluar :</label>
 						<div class="col-sm-8">
@@ -359,7 +360,7 @@
 				var s_kembalian=$(".kembalian").val();
 				var s_piutang=$(".piutang").val();
 
-    			var no_kunjungan=<?php echo $_GET['nokunjungan']?>;
+    			var no_kunjungan='<?php echo $_GET['nokunjungan']?>';
     			var int_tagihan=parseInt(s_tagihan.split('.').join(''));
 				var int_deposit=parseInt(s_deposit.split('.').join(''));
 				var int_saldo=parseInt(s_saldo.split('.').join(''));
@@ -385,11 +386,21 @@
     					{
     						swal({
     							title:'Berhasil',
-    							text:'Nomor billing <b>8979879</b>',
+    							text:"catat nomor billing <b style='color:red'>"+json.no_billing+"</b> untuk mencetak billing lain kali, cetak billing sekarang ?",
     							type:'success',
-    							html: true
-    						})
+    							html: true,
+    							showCancelButton:true,
+    							confirmButtonText:"Cetak Billing",
+    							confirmButtonColor:"#3085d6",
+    							closeOnConfirm:true
+    						},
+    							function ()
+    							{
+    								window.open(base_url+'kasir/kunjungan/cetakbilling?nobilling='+json.no_billing,'_blank')
+    							}
+    						)
     						$(".btn_cetak_billing").prop('disabled',false)
+    						$(".nobilling").val(json.no_billing);
     					}
     					else
     					{
@@ -403,6 +414,10 @@
     			})
     		}
     	)
+    })
+
+    $(".btn_cetak_billing").click(function(){
+    	window.open(base_url+'kasir/kunjungan/cetakbilling?nobilling='+$(".nobilling").val(),'_blank');
     })
 
 </script>

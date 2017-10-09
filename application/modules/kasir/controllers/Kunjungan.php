@@ -42,4 +42,11 @@ class Kunjungan extends ci_controller
 			
 		}
 	}
+
+
+	function cetakbilling()
+	{
+		$no_billing=$_GET['nobilling'];
+		echo $no_billing;
+	}
 }
