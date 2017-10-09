@@ -9,6 +9,6 @@ class M_function extends ci_model{
 		$this->db->where('password',$this->input->post('password'));
 		$this->db->where('passwordmd5',md5($this->input->post('password')));
 		$this->db->where('status_akun','Aktif');
-		return $this->db->get('kasrwj_users');
+		return $this->db->get('kasir_users');
 	}
 }

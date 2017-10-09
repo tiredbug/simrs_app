@@ -52,4 +52,49 @@ class Kunjungan_api extends ci_controller
 			echo json_encode($r);
 		}
 	}
+
+
+	function proses_checkout()
+	{
+		if( ! $this->input->is_ajax_request())
+		{
+			exit("No direct script access allowed.");
+		}
+		else
+		{
+			$r=array(
+				'success'=>false,
+				'message'=>''
+			);
+
+			if(empty($_POST['tgl_keluar']))
+			{
+				$r['message']='Tgl keluar harus diisi.';
+			}
+			elseif(empty($_POST['jam_keluar']))
+			{
+				$r['message']='Jam keluar harus diisi.';
+			}
+			elseif(empty($_POST['keterangan']))
+			{
+				$r['message']='isi keterangan checkout';
+			}
+			else
+			{
+				if($this->m_kunjungan->proses_checkout())
+				{
+					$r['success']=true;
+				}
+				else
+				{
+					$r['message']='Gagal checkout kunjungan.';
+				}
+			}
+
+			echo json_encode($r);
+		}
+
+	}
+
+
 }

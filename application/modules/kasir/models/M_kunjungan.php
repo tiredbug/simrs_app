@@ -48,7 +48,7 @@ class M_kunjungan extends ci_model
     	return $this->db->query("SELECT
 								ps.nomor_rekammedis nomr, ps.nomor_asuransi no_as, ps.nomor_nik nik, ps.nama_lengkap nama, ps.jenis_kelamin jk,
 								pk.nomor_kunjungan no_k, CONCAT(ik.tgl_masuk,' ',ik.jam_masuk) jam_masuk, CONCAT(dok.nama_belakang,'. ',dok.nama_dokter,IF(dok.gelar='','',CONCAT(', ',dok.gelar)))dokter,
-								CONCAT(icd.KODE,' - ',icd.SUB) icd, CONCAT(cb.nama_carabayar,'-',klp.nama_kelompok) cb
+								CONCAT(icd.KODE,' - ',icd.SUB) icd, CONCAT(cb.nama_carabayar,'-',klp.nama_kelompok) cb, pk.deposito
 								FROM 
 								pendaftaran_kunjungan pk
 								INNER JOIN igd_kunjungan ik ON ik.nomor_kunjungan=pk.nomor_kunjungan
@@ -71,5 +71,18 @@ class M_kunjungan extends ci_model
 								INNER JOIN igd_kunjungan ik ON ik.nomor_kunjungan=it.nokunjungan
 								LEFT JOIN admin_tarifigd trf ON trf.kode_tarif=it.kode_tindakan
 								WHERE it.nokunjungan IN('".$_GET['nokunjungan']."')");
+    }
+
+    function get_keterangan_checkout_igd()
+    {
+    	return $this->db->get('igd_sttkeluar');
+    }
+
+    function proses_checkout()
+    {
+    	$this->db->trans_start();
+
+    	$this->db->trans_complete();
+    	return $this->db->trans_status();
     }
 }

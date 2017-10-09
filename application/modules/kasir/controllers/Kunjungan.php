@@ -31,7 +31,8 @@ class Kunjungan extends ci_controller
 				{
 					$data['i']=$this->m_kunjungan->get_i_kunjungan_asal_igd()->row_array();
 					$data['i_t_igd']=$this->m_kunjungan->get_i_t_igd();
-					$this->template->load('template','billing',$data);
+					$data['i_k']=$this->m_kunjungan->get_keterangan_checkout_igd();
+					$this->template->load('template','billing_igd',$data);
 				}
 				else
 				{

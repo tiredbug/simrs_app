@@ -15,40 +15,42 @@
         <!--File css--> 
 	<link rel="stylesheet" href="<?php echo base_url()?>template/neon/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
     <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/font-icons/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/font-icons/entypo/css/entypo.css">
-	
-	<link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/bootstrap.css">
-	<link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/neon-core.css">
-	<link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/neon-theme.css">
-	<link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/neon-forms.css">
-	<link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/custom.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/font-icons/entypo/css/entypo.css">
+    
+    <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/neon-core.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/neon-theme.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/neon-forms.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>template/neon/css/custom.css">
     <link rel="stylesheet" href="<?php echo base_url()?>template/neon/js/datatables/datatables.css">
     <link rel="stylesheet" href="<?php echo base_url()?>template/neon/js/select2/select2-bootstrap.css">
     <link rel="stylesheet" href="<?php echo base_url()?>template/neon/js/select2/select2.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>template/plugin/sweetalert/dist/sweetalert.css">
         
         <!--file javascript-->
-	<script src="<?php echo base_url()?>template/neon/js/jQuery-2.1.4.js"></script>
+    <script src="<?php echo base_url()?>template/neon/js/jQuery-2.1.4.js"></script>
         
-	<!-- Bottom scripts (common) -->
-	<script src="<?php echo base_url()?>template/neon/js/gsap/TweenMax.min.js"></script>
-	<script src="<?php echo base_url()?>template/neon/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-	
+    <!-- Bottom scripts (common) -->
+    <script src="<?php echo base_url()?>template/neon/js/gsap/TweenMax.min.js"></script>
+    <script src="<?php echo base_url()?>template/neon/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
+    
         
         
     <script src="<?php echo base_url()?>template/neon/js/datatables/datatables.js"></script>
     <script src="<?php echo base_url()?>template/neon/js/datatables/fnReloadAjax.js"></script>
     <script src="<?php echo base_url()?>template/neon/js/select2/select2.min.js"></script>
     <script src="<?php echo base_url()?>template/neon/js/bootstrap.js"></script>
-	<script src="<?php echo base_url()?>template/neon/js/joinable.js"></script>
-	<script src="<?php echo base_url()?>template/neon/js/resizeable.js"></script>
+    <script src="<?php echo base_url()?>template/neon/js/joinable.js"></script>
+    <script src="<?php echo base_url()?>template/neon/js/resizeable.js"></script>
     <script src="<?php echo base_url()?>template/neon/js/neon-api.js"></script>
-	<!-- JavaScripts initializations and stuff -->
-    <script src="<?php echo base_url()?>template/neon/js/jquery.bootstrap.wizard.min.js"></script>
-	<script src="<?php echo base_url()?>template/neon/js/neon-custom.js"></script>
-	<!-- Demo Settings -->
-	<script src="<?php echo base_url()?>template/neon/js/neon-demo.js"></script>
+    <!-- JavaScripts initializations and stuff -->
+    <script src="<?php echo base_url()?>template/neon/js/neon-custom.js"></script>
+    <!-- Demo Settings -->
+    <script src="<?php echo base_url()?>template/neon/js/neon-demo.js"></script>
     <!-- print area plugin -->
     <script src="<?php echo base_url()?>template/plugin/printarea/jquery.PrintArea.js"></script>
+    <script src="<?php echo base_url()?>template/neon/js/toastr.js"></script>
+    <script type="text/javascript" src="<?php echo base_url()?>template/plugin/sweetalert/dist/sweetalert.min.js"></script>
 
         <script>
             var base_url='<?php echo base_url()?>'

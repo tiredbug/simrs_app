@@ -9,7 +9,7 @@ class Checkout_api extends ci_controller
 	{
 		# code...
 		parent::__construct();
-		if(! login_kasirrajal())
+		if(! login_kasir())
 		{
 			redirect(base_url().'kasirrajal/login');
 		}
@@ -183,6 +183,9 @@ class Checkout_api extends ci_controller
 			$this->load->view('checkout/billing',$data);
 		}
 	}
+
+
+	
 
 
 
