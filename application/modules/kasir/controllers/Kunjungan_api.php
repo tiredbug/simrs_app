@@ -82,7 +82,7 @@ class Kunjungan_api extends ci_controller
 			}
 			else
 			{
-				$no_billing=$this->buat_no_billing($_POST['tgl_keluar']);
+				$no_billing=$this->buat_no_billing(date("Y-m-d"));
 				if($this->m_kunjungan->proses_checkout($no_billing))
 				{
 					$r['success']=true;
