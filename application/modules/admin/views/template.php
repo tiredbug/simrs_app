@@ -986,7 +986,7 @@ jQuery(document).ready(function() {
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
 	<div class="page-footer-inner">
-		 2017 &copy; SIMRS.Dot by lebahdesa. <a href="https://www.facebook.com/munazarsaifannur" title="kenali pembuat aplikasi." target="_blank">About me!</a>
+		 2017 &copy; SIMRS.Dot
 	</div>
 	<div class="scroll-to-top">
 		<i class="icon-arrow-up"></i>

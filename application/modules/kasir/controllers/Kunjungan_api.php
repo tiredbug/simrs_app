@@ -107,10 +107,4 @@ class Kunjungan_api extends ci_controller
 	}
 
 
-	function tes()
-	{
-		print_r($this->buat_no_billing('2017-10-10'));
-	}
-
-
 }
