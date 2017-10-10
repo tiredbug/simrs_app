@@ -29,6 +29,7 @@ class M_function extends ci_model
 				LEFT JOIN admin_masterdokter dok ON dok.kode_dokter=ik.kode_dokter
 				WHERE ik.inap IN('N') AND (ik.tgl_masuk IN('".date('Y-m-d')."')
 				OR  ik.tgl_masuk IN('".date("Y-m-d", mktime(0, 0, 0, date("m"), date("d")-1, date("Y")))."'))
+                AND pk.status_kunjungan IN('Masih dirawat')
 				";
     }
     function get_data_kunjungan_igd()
