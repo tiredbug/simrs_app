@@ -980,10 +980,8 @@ jQuery(document).ready(function() {
 			</div>
 		</div>
 	</div>
-	<!-- END QUICK SIDEBAR -->
 </div>
-<!-- END CONTAINER -->
-<!-- BEGIN FOOTER -->
+
 <div class="page-footer">
 	<div class="page-footer-inner">
 		 2017 &copy; SIMRS.Dot
@@ -994,5 +992,4 @@ jQuery(document).ready(function() {
 </div>
 
 </body>
-<!-- END BODY -->
 </html>

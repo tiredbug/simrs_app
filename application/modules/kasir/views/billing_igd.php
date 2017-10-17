@@ -155,6 +155,7 @@
 			<div class="col-sm-5">
 				<form class="form-horizontal well well-sm form_checkout">
 					<input type="hidden" name="nobilling" class="nobilling" value="">
+					<input type="hidden" name="pasien" class="" value="<?php echo $_GET['asal']?>">
 					<div class="form-group">
 						<label class="control-label col-sm-4">Tgl Keluar :</label>
 						<div class="col-sm-8">

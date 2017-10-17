@@ -100,7 +100,8 @@ class M_kunjungan extends ci_model
     		'deposit'=>$_POST['deposit'],
     		'saldo'=>$_POST['saldo'],
     		'piutang'=>$_POST['piutang'],
-    		'tgl_billing'=>date("Y-d-m H:i:s")
+    		'tgl_billing'=>date("Y-d-m H:i:s"),
+            'pasien'=>$_POST['pasien']
     	));
     	$this->db->trans_complete();
     	return $this->db->trans_status();
@@ -108,9 +109,10 @@ class M_kunjungan extends ci_model
 
     function get_max_billing($tgl_billing)
     {
+        $tgl=date("Y-d-m",strtotime($tgl_billing));
     	return $this->db->query("SELECT
 								count('no_billing') jml
 								FROM kasir_billing kb
-								WHERE DATE(kb.tgl_billing) IN('".$tgl_billing."')")->row_array();
+								WHERE DATE(kb.tgl_billing) IN('".$tgl."')")->row_array();
     }
 }

@@ -14,6 +14,9 @@ class Kunjungan extends ci_controller
 			redirect(base_url().'kasir/home');
 		}
 		$this->load->model('m_kunjungan');
+		$this->load->model('login/M_master');
+        $this->load->model('login/M_function');
+        $this->load->model('m_billing');
 	}
 
 
@@ -46,7 +49,46 @@ class Kunjungan extends ci_controller
 
 	function cetakbilling()
 	{
-		$no_billing=$_GET['nobilling'];
-		echo $no_billing;
+		if(! isset($_GET['nobilling']))
+		{
+			echo "<script>alert('URL tidak valid.');window.location.href='".base_url()."kasir/home'</script>";
+		}
+		elseif($_GET['nobilling']=='')
+		{
+			echo "<script>alert('URL tidak valid.');window.location.href='".base_url()."kasir/home'</script>";
+		}
+		else
+		{
+			$this->load->library('libpdf');
+			try {
+				ob_start();
+				$data['nama_rs']	=	$this->M_master->get_namars()->row_array();
+		    	$data['alamat_rs']	=	$this->M_master->get_alamatrs()->row_array();
+		    	$data['tlf_rs']		=	$this->M_master->get_tlfrs()->row_array();
+		    	$data['fax_rs']		=	$this->M_master->get_faxrs()->row_array();
+		    	$data['i_head']		=	$this->m_billing->get_head($_GET['nobilling'])->row_array();
+		    	switch ($data['i_head']['pl']) {
+		    		case 'igd':
+		    			# code...
+		    			$data['t']=$this->m_billing->get_tindakan_igd($data['i_head']['no_k']);
+			    		$this->load->view('billing_igd_pdf',$data);
+						$konten=ob_get_contents();
+						ob_end_clean();
+		    			break;
+		    		default:
+		    		echo "<script>alert('Billing rusak');window.location.href='".base_url()."kasir/home'</script>";
+		    		break;
+		    	}
+				$html2pdf=new HTML2PDF("P",'A4','en');
+				$html2pdf->setDefaultFont('courier');
+				$html2pdf->writeHTML($konten);
+				$html2pdf->output("Billing_".$_GET['nobilling'].".pdf");
+						
+			} catch (Exception $e) {
+				$f=new ExceptionFormatter($e);
+				echo $f->getHtmlMessage();
+			}
+		}
 	}
+
 }

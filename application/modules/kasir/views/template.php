@@ -101,19 +101,34 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'kasir/kunjungan/rajal'?>" )>
+                            <a href="<?php echo base_url().'kasir/kunjungan/rajal'?>">
                                 <i class="glyphicon glyphicon-cd"></i>
                                 <span class="title">Rajal Jalan</span>
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'kasir/kunjungan/ranap'?>" )>
+                            <a href="<?php echo base_url().'kasir/kunjungan/ranap'?>">
                                 <i class="fa fa-bed"></i>
                                 <span class="title">Ranap Inap</span>
                             </a>
                         </li>                 
                     </ul>
-                </li>           
+                </li>    
+
+                <li class="has-sub">
+                    <a href="index.html">
+                        <i class="entypo-docs"></i>
+                        <span class="title">Billing</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="<?php echo base_url().'kasir/billing/data'?>">
+                                <i class="fa fa-folder"></i>
+                                <span class="title">Data Billing</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>       
                 
                 <li class="has-sub">
                     <a href="index.html">
